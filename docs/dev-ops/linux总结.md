@@ -261,3 +261,38 @@ taskkill /T /F /PID 9784 : 杀死这个进程
 **u** 恢复更改
 
 **ggVG** 全选
+
+## [Ping 命令](https://zhuanlan.zhihu.com/p/45110873)
+
+简单来说，「ping」是用来探测本机与网络中另一主机之间是否可达的命令，如果两台主机之间ping不通，则表明这两台主机不能建立起连接。ping是定位网络通不通的一个重要手段
+
+- 基于 ICMP 协议， Internet 控制报文协议
+- ping 命令会发送一份ICMP回显请求报文给目标主机，并等待目标主机返回ICMP回显应答。因为ICMP协议会要求目标主机在收到消息之后，必须返回ICMP应答消息给源主机，如果源主机在一定时间内收到了目标主机的应答，则表明两台主机之间网络是可达的。
+- 直接基于网络层的IP协议，即ICMP报文是封装在IP包中
+- IP协议是一种无连接的，不可靠的数据包协议，它并不能保证数据一定被送达，那么我们要保证数据送到就需要通过其它模块来协助实现，这里就引入的是ICMP协议。
+- 大致可分为两类：
+  - 查询报文类型；主要应用于：ping查询、子网掩码查询、时间戳查询等等。
+  - 差错报文类型。
+
+[yum安装](https://wangchujiang.com/linux-command/c/yum.html)
+
+[linux下更新到最新版本](https://www.jianshu.com/p/d934d3ba67ec)
+
+## linux删除.git文件夹
+
+1.在本地仓库的目录下调用命令行删除根目录下的.git文件夹，输入
+
+```
+find . -name ".git" | xargs rm -Rf
+```
+
+这样本地仓库就清除了，像下面这样，master不见了。
+
+1. 手动删除掉残留的.git文件
+2. 在命令行中输入rm -rf + github仓库地址，例
+
+```
+rm -rf https://github.com/NeroSolomon/VLearning.git
+```
+
+1. 在github的对应的库中到setting删除库。

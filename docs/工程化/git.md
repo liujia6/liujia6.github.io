@@ -1,8 +1,8 @@
-## git
+# git
 
 基本命令：[常用git命令清单](http://www.ruanyifeng.com/blog/2015/12/git-cheat-sheet.html)
 
-## **远程分支**
+## **分支**
 
 ```shell
 git branch -a               查看所有分支
@@ -16,42 +16,24 @@ git push <远程主机名> <本地分支名>:<远程分支名>
 git push origin test          推送本地test分支到远程，远程没有就新建
 git push --all origin        将所有本地分支都推送到origin主机。
 Git branch -m oldbranchname newbranchname  本地分支重命名
-
-
-# git连接本地和远程仓库
-# “因为git的分支必须指向一个commit，没有任何commit就没有任何分支
-# 提交第一个commit后git自动创建master分支” -------廖雪峰
-
 ```
 
-**Git修改本地或远程分支名称**
+### Git修改本地或远程分支名称
 
-注：修改远程分支先拉下来再进行以下步骤
+```shell
+git branch -m oldBranch newBranch  #将本地分支重命名
+git push --delete origin oldBranch  #删除远程分支（远端无此分支则跳过该步骤）
+git push origin newBranch  #将重命名后的分支推到远端
+git branch --set-upstream-to origin/newBranch #把修改后的本地分支与远程分支关联
+```
 
-1. 旧分支：oldBranch
-2. 新分支：newBranch
+### master分支自动创建
 
-步骤：
+因为git的分支必须指向一个commit，没有任何commit就没有任何分支
 
-1. 先将本地分支重命名
-
-git branch -m oldBranch newBranch 复制代码
-
-1. 删除远程分支（远端无此分支则跳过该步骤）
-
-git push --delete origin oldBranch 复制代码
-
-1. 将重命名后的分支推到远端
-
-git push origin newBranch 复制代码
-
-1. 把修改后的本地分支与远程分支关联
-
-git branch --set-upstream-to origin/newBranch
+提交第一个commit后，例如在空仓库里添加一个README文件，git则回自动创建master分支
 
 ## [git merge](https://backlog.com/git-tutorial/cn/stepup/stepup1_4.html)
-
-- https://www.jianshu.com/p/58a166f24c81
 
 - fast-forward（快进）合并
 
@@ -82,6 +64,8 @@ Merge和rebase都是合并历史记录，但是各自的特征不同。
 
 - 在topic分支中更新merge分支的最新代码，请使用rebase。
 - 向merge分支导入topic分支的话，先使用rebase，再使用merge。
+
+[git-merge完全解析](https://www.jianshu.com/p/58a166f24c81)
 
 ## **撤销更改**
 
@@ -132,7 +116,19 @@ git cherry-pick -x \<commit_id>    增加 -x 参数，表示保留原提交的�
 
 git cherry_pick \<start-commit-id\>…\<end-commit-id\>   它的范围就是 start-commit-id 到 end-commit-id 之间所有的 commit，但是它这是一个 (左开，右闭] 的区间，也就是说，它将不会包含 start-commit-id 的 commit。
 
-git cherry-pick \<start-commit-id>^...\<end-commit-id>  包含 start-commit-id 的话，就需要使用 ^ 标记一下，就会变成一个 [左闭，右闭] 的区间，具体命令如下。
+git cherry-pick \<start-commit-id>^...\<end-commit-id>  包含 start-commit-id 的话，就需要使用 ^ 标记一下，就会变成一个 [左闭，右闭] 的区间，具体命令如下
+
+### 从其他代码库 cherry-pick commit
+
+```
+git remote add endel git://github.com/endel/rest-client.git
+
+git fetch endel want-cherry-pick-branch
+
+git log endel/want-cherry-pick-branch
+
+git cherry-pick 97fedac
+```
 
 ## **git rebase变基**
 
@@ -268,8 +264,6 @@ git commit -m 'feat: 合并shared'
 
 ## **tag**
 
-
-
   ```
 git tag -a v1.0.0 -m "内容：v1.0.0"   创建标签
 git tag <tagname>               轻量标签               
@@ -294,7 +288,7 @@ git checkout  <tagname>
 
   ```
 
-## **十二、default.config**
+## default.config
 
   当我们用git branch -m oldBranch newBranch 修改当前分支的名字，我们再push时会出现以下提示
 
@@ -334,8 +328,6 @@ git checkout  <tagname>
 
 ## **修改远程仓库地址并推代码**
 
-  **注意：新建仓库的时候不要加readme，如果加了，master分支不能push -f，需要pull上次的readme提交，会有很多冲突，比较麻烦**
-
   查看远程仓库的url
 
   ```shell
@@ -345,25 +337,11 @@ git checkout  <tagname>
   $ git remote set-url origin https://github.com/USERNAME/REPOSITORY.git
   ```
 
-## 配置别名
+## [配置别名](https://juejin.cn/post/6844903976245133326#heading-1)
 
- ~/.gitconfig 文件
-
-https://juejin.cn/post/6844903976245133326#heading-1
+别名配置保存在 ~/.gitconfig 文件
 
 git config --global alias.rc 'rebase --continue'
-
-## 从其他代码库 cherry-pick commithttps://3014zhangshuo.github.io/tags#git)
-
-```
-git remote add endel git://github.com/endel/rest-client.git
-
-git fetch endel want-cherry-pick-branch
-
-git log endel/want-cherry-pick-branch
-
-git cherry-pick 97fedac
-```
 
 ## 参考
 

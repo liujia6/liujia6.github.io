@@ -1,7 +1,3 @@
----
-autoGroup-2: CI
----
-
 # Gitlab-ci踩坑
 
 ## 问题一：**yarn的时候报错**
@@ -14,11 +10,13 @@ autoGroup-2: CI
 
 解决：在ansible的task上加上sudo: yes解决权限问题
 
+![image-20210106215244122.png](https://i.loli.net/2021/01/06/xvVL45wmRJ9CQTS.png)
+
 ![image-20210106215244122](https://i.loli.net/2021/01/06/xvVL45wmRJ9CQTS.png)
 
-## 问题三：配置用户权限
+## 问题三：配置ssh用户权限
 
-需要克隆子模块，而子模块的url是ssh地址，需要配置用户ssh才能clone仓库，采用以下配置ssh
+北京：需要克隆子模块，而子模块的url是ssh地址，需要配置用户ssh才能clone仓库，采用以下配置ssh用户权限
 
 node镜像低也会导致某些错误
 

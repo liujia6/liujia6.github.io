@@ -25,7 +25,7 @@ module.exports = [
   },
   {
     title: '工程化',
-    children: [ '工程化/git', '工程化/package.json', '工程化/模块化', '工程化/测试' ]
+    children: [  '工程化/git', '工程化/package.json', '工程化/模块化', '工程化/测试' ]
   },
   {
     title: '算法',
