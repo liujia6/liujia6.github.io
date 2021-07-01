@@ -4,18 +4,18 @@ name: blog deploy
 on:
   push:
     branches:
-    - master
-
+      - master
 jobs:
-  build-deploy:
-    runs-on: ubuntu-18.04
+  build-and-deploy:
+    runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - run: npm ci
-    - run: npm run build
-    - name: Deploy
-      uses: peaceiris/actions-gh-pages@v2.5.0
+    - name: Checkout
+      uses: actions/checkout@master
+
+    - name: Build and Deploy
+      uses: JamesIves/github-pages-deploy-action@master
       env:
-        ACTIONS_DEPLOY_KEY: ${{ secrets.blog }}
-        PUBLISH_BRANCH: gh-pages
-        PUBLISH_DIR: docs/.vuepress/dist
+        ACCESS_TOKEN: ${{ secrets.blog }}
+        BRANCH: gh-pages
+        FOLDER: build
+        BUILD_SCRIPT: npm ci && npm run build
