@@ -17,5 +17,5 @@ jobs:
       env:
         ACCESS_TOKEN: ${{ secrets.blog }}
         BRANCH: gh-pages
-        FOLDER: build
+        FOLDER: docs/.vuepress/dist
         BUILD_SCRIPT: npm ci && npm run build
