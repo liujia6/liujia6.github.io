@@ -39,9 +39,6 @@ ls -l #除了文件名之外，还将文件的权限、所有者、文件大小�
 **字符设备**：【键盘、串口】提供连续的数据流，应用程序可以顺序读取，通常不支持随机存取。相反，此类设备支持按字节/字符来读写数据。举例来说，键盘、串口、调制解调器都是典型的字符设备
 
 **块设备** ：【U盘】应用程序可以随机访问设备数据，程序可自行确定读取数据的位置。应用程序可以随机访问设备数据，程序可自行确定读取数据的位置。硬盘、软盘、CD-ROM驱动器和闪存都是典型的块设备，应用程序可以寻址磁盘上的任何位置，并由此读取数据。此外，数据的读写只能以块(通常是512B)的倍数进行。与字符设备不同，块设备并不支持基于字符的寻址。
-![img](https://i.loli.net/2020/12/12/YkRyrLChmiKg3IV.png)
-![img](https://i.loli.net/2020/12/12/1vZkAa84L6VrlWS.png)
-![img](https://i.loli.net/2020/12/12/1sE3zMVetC2NJU8.png)
 
 ## 归档| 压缩
 
@@ -296,3 +293,15 @@ rm -rf https://github.com/NeroSolomon/VLearning.git
 ```
 
 1. 在github的对应的库中到setting删除库。
+
+## [XShell上传下载文件](https://blog.csdn.net/hhy_123963/article/details/81080553?utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-3.base&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-3.base)
+
+sudo apt-get install lrzsz
+
+安装完毕即可使用
+
+rz，sz是便是Linux/Unix同Windows进行ZModem文件传输的命令行工具
+
+rz------即是接收文件，xshell就会弹出文件选择对话框，选好文件之后关闭对话框，文件就会上传到linux里的当前目录
+
+sz file ----------就是发文件到windows上（保存的目录是可以配置） 比ftp命令方便多了，而且服务器不用再开FTP服务了

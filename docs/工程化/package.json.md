@@ -368,22 +368,9 @@ scripts: {
 }
 ```
 
-所有node_modules/.bin/目录下的命令，都可以用npm run [命令]的格式运行。在命令行下，键入npm run，然后按tab键，就会显示所有可以使用的命令。
-
-### [符号链接（软链接）](https://zhuanlan.zhihu.com/p/141512700)
-
-符号链接是一种特殊的文件，包含指定文件的路径引用，类似于桌面的快捷打开方式。
-
-在项目中局部安装jest包后，npm会在项目中的node_modules/.bin目录下创建一条符号链接，点击这个文件，就会链接到bin字段中定义的jest.js文件：
-
-如果是全局安装呢？
-
-npm会在环境变量路径/usr/local/bin目录下（MAC）创建一个symbolic，指向bin字段中声明的文件，这样在当前用户任意目录下，都可以使用bin属性中定义的命令了。
-
-### 安装带有bin字段的模块作用
-
 在安装第三方带有bin字段的npm，那可执行文件会被链接到当前项目的./node_modules/.bin中，在本项目中，就可以很方便地利用npm执行脚本（package.json文件中scripts可以直接执行：'node node_modules/.bin/myapp'）；
 
-1. 如果是全局安装，npm将会使用符号链接把这些文件链接到/usr/local/bin/，那么各个地方都可以使用指定命令了
+1. 如果是全局安装，npm将会使用符号链接把这些文件链接到/usr/local/bin/（MAC），那么各个地方都可以使用指定命令了
 2. 如果是本地安装，会链接到./node_modules/.bin/。
-
+   - 所有node_modules/.bin/目录下的命令，都可以用npm run [命令]的格式运行。在
+   - 命令行下，键入npm run，然后按tab键，就会显示所有可以使用的命令。

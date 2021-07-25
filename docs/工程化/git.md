@@ -33,7 +33,7 @@ git branch --set-upstream-to origin/newBranch #把修改后的本地分支与远
 
 提交第一个commit后，例如在空仓库里添加一个README文件，git则回自动创建master分支
 
-## [git merge](https://backlog.com/git-tutorial/cn/stepup/stepup1_4.html)
+## [merge](https://backlog.com/git-tutorial/cn/stepup/stepup1_4.html)
 
 - fast-forward（快进）合并
 
@@ -82,7 +82,7 @@ git reset --hard \<commitid>   回到commitId所属次数的提交状态
 如果我们使用了git reset --hard  \<commitID> 不小心撤掉了一次重要的修改，也是可以补救回来的
 我们通过 git flog命令找到对应commit记录的commit，然后再执行git reset --hard  \<commitID>就可以恢复到我们指定那一次提交的状态中
 
-## **git revert \<commitID>**
+## revert
 
 git revert \<commitID>    撤消指定commit，作为一个新的commit。
 
@@ -104,7 +104,7 @@ vscdoe自带的git工具也有相关简单操作，知道对应操作后不难�
 
 ![image-20210109103557081](https://i.loli.net/2021/01/09/QJpr5LRkgv6sUmw.png)
 
-## **git cherryPick \<commit-id>**
+## cherryPick 
 
 我们可能会有这样一个使用场景，在分支 branch-a 需要分支 branch-b 的某次提交，这个时候我们就可以先找到 branch-b 的那次提交记录的 id，然后在 branch-a 分支进行 git cherry-pick b-commit-id 将 branch-b 分支的提交记录拿过来了
 
@@ -130,7 +130,7 @@ git log endel/want-cherry-pick-branch
 git cherry-pick 97fedac
 ```
 
-## **git rebase变基**
+## **rebase变基**
 
  你可以使用 rebase变基命令将提交到某一分支上的所有修改都移至另一分支上，就好像“重新播放”一样。
 
@@ -205,16 +205,16 @@ patch 补丁即为根据 git diff 生成的文本内容文件，最简单的生�
 
 `git patch formate-patch -s  <start-commit> <end-commit> `可以批量生成patch文件,-s参数代表生成自己的GPG签名信息
 
-## **git submodule**
+## **submodule**
 
   含有子仓库的父仓库在clone时，子仓库目录为空，在clone时下载包括子仓库的内容
 
-`  git clone --recurse-submodules` https://github.com/chaconinc/MainProject
+`  git clone --recursive submodules url`
   **如果clone时忘记用上面的--recurse-submodules命令了可以再使用 一下命令将仓库中的子仓库clone下来**
 
   `git submodule update --init --recursive `
 
-注意：此处拉的是父仓库记录的每个子仓库的某个commit，而不是最新的子仓库commit，如下图所示记录的子仓库的的commitID, 如果需要拉到最新的远程仓库的一次commit，需要用到–-remote参数
+注意：此处拉的是父仓库记录的每个子仓库的某个commit，而不是最新的子仓库commit，如下图所示记录的子仓库的的commitID, 如果需要拉到最新的远程仓库的一次commit，需要用到**–-remote参数**
 
   - `git submodule update --init --recursive --remote` 按照远程最新commit初始化子仓库
   - `git submodule update --recursive --remote` 更新本地仓库，与远程仓库同步
@@ -260,32 +260,20 @@ git add .
 git commit -m 'feat: 合并shared'
   ```
 
-  
-
 ## **tag**
 
-  ```
-git tag -a v1.0.0 -m "内容：v1.0.0"   创建标签
-git tag <tagname>               轻量标签               
-git tag                         列出所有tag 
-git push origin v1.0.0             推送标签
-git tag -d v1.0.0                 删除本地
-git push origin :refs/tags/v1.0.0     删除远程的
-git tag                        显示所有的tag
-git tag -l 'v1.0.*'                 查看某个版本系列的tag
-git show v0.0.6                 查看标签的详情，可以看到你commit的内容
-git push origin --tags  把所有不在远程仓库服务器上的标签全部传送到那里。
-git checkout branchName tagName  从tag且切分支
-
-指定commit做tag   git tag -a <tagname> <commitID>
-展示tag信息           git show <tagname>
-推送指定tag           git push origin  <tagname>
-推送本地所有tag    git push origin --tags
-删除标签                git tag -d  <tagname>
-更新远程删除tag     git push origin :refs/tags/<tagname>
-检出标签，新建标签所在状态的分支,但是不能在这个分支做更改
-git checkout  <tagname>
-
+  ```shell
+git tag -a v1.0.0 -m "内容：v1.0.0"   #创建标签
+git tag <tagname>               #轻量标签               
+git tag                         #列出所有tag 
+git push origin v1.0.0           #推送标签
+git tag -d v1.0.0                 #删除本地
+git push origin :refs/tags/v1.0.0     #删除远程的
+git tag                        #显示所有的tag
+git tag -l 'v1.0.*'                 #查看某个版本系列的tag
+git show v0.0.6                 #查看标签的详情，可以看到你commit的内容
+git push origin --tags  #把所有不在远程仓库服务器上的标签全部传送到那里。
+git checkout branchName tagName  #从tag且切分支
   ```
 
 ## default.config

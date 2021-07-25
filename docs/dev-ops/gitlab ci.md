@@ -2,10 +2,10 @@
 
 ## 介绍	
 
-Gitlab CI/CD 是一款用于持续集成（CI），持续交付（CD）的工具，相似的工具有Jenkins、Travis CI、GoCD等。
+Gitlab CI/CD 是一款用于[持续集成（CI），持续交付（CD）](https://github.com/ascoders/weekly/blob/v2/101.%E7%B2%BE%E8%AF%BB%E3%80%8A%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%20vs%20%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%20vs%20%E6%8C%81%E7%BB%AD%E9%83%A8%E7%BD%B2%E3%80%8B.md)的工具，相似的工具有Jenkins、Travis CI、GoCD等。
 
-- CI即持续集成，Continuous Integration，目标：快速确保开发人员新提交的代码是好的，集成测试
-- CD即持续交付，即Continuous Delivery，目标:  持续集成，持续测试（保证代码质量），持续部署（自动发布版本，供用户使用)。
+- CI即持续集成，Continuous Integration，目标：持续集成，持续测试（保证代码质量）
+- CD即持续交付，即Continuous Delivery，目标:  持续部署（自动发布版本，供用户使用)。
 - 从 GitLab 8.0 开始，GitLab CI 就已经集成在 GitLab 中，我们只要在项目中添加一个 .gitlab-ci.yml 文件，然后添加一个 Runner，即可进行持续集成。
 - .gitlab-ci.yml文件使用yaml语法，[语法介绍请戳](http://www.ruanyifeng.com/blog/2016/07/yaml.html)
 
@@ -28,7 +28,11 @@ gitlab上有关gitlab-ci的配置有两处
 
 <img src="https://i.loli.net/2020/12/12/IVjWRdYUlOKbCsn.png" alt="image-20201212122028807"  />
 
-一次提交触发一次CI&CD即执行一次脚本对应一个pipeline；一个pipeline对应stages下的所有job；一个stage对应一个job；
+- 一次提交触发一次CI&CD即执行一次脚本对应一个pipeline
+
+- 一个pipeline对应stages下的所有job
+
+- 一个stage可以有多个job；
 
 ### Skip Pipeline
 
@@ -36,6 +40,7 @@ gitlab上有关gitlab-ci的配置有两处
 - 在一次 git push 调用中进行多次更改时，GitLab 最多创建四个分支和标签管道。此限制不影响任何更新的合并请求管道。所有更新的合并请求在使用管道处理合并请求时都会创建一个管道。
 
 ##  stages
+
 - gitlab-ci的pipeline由一个个stage顺序执行，每个stage可以有多个job
 
 - job是并行执行的
@@ -56,6 +61,7 @@ gitlab上有关gitlab-ci的配置有两处
   ```
 
 ### Jobs
+
 - .gitlab-ci.yml允许指定无限量jobs。
 - 每个jobs必须有一个唯一的名字，而且不能是上面提到的关键字。
 - job由一列参数来定义jobs的行为。
@@ -105,15 +111,11 @@ script:
 
 ###  变量：variables
 
-变量可以被重写，并且是按照下面的顺序进行执行：
-
-- gitlab自带的变量- >   [点击链接查看全部变量](https://docs.gitlab.com/ee/ci/variables/predefined_variables.html) 
-- 在setting→ci上设置的变量触发变量或预定的流水线变量。
-  项目级别变量或受保护变量。
+变量可以被覆盖，并且是按照以下优先级依次降低
 
 1. [Trigger variables](https://docs.gitlab.com/ce/ci/triggers/README.html#making-use-of-trigger-variables), [scheduled pipeline variables](https://docs.gitlab.com/ce/ci/pipelines/schedules.html#using-variables), and [manual pipeline run variables](https://docs.gitlab.com/ce/ci/variables/README.html#override-a-variable-by-manually-running-a-pipeline).
-2. Project-level [variables](https://docs.gitlab.com/ce/ci/variables/README.html#custom-environment-variables) or [protected variables](https://docs.gitlab.com/ce/ci/variables/README.html#protect-a-custom-variable).
-3. Group-level [variables](https://docs.gitlab.com/ce/ci/variables/README.html#group-level-environment-variables) or [protected variables](https://docs.gitlab.com/ce/ci/variables/README.html#protect-a-custom-variable).
+2. Project-level [variables](https://docs.gitlab.com/ce/ci/variables/README.html#custom-environment-variables) or [protected variables](https://docs.gitlab.com/ce/ci/variables/README.html#protect-a-custom-variable). 项目CI设置的变量
+3. Group-level [variables](https://docs.gitlab.com/ce/ci/variables/README.html#group-level-environment-variables) or [protected variables](https://docs.gitlab.com/ce/ci/variables/README.html#protect-a-custom-variable). gitlab分组下CI设置的变量
 4. Instance-level [variables](https://docs.gitlab.com/ce/ci/variables/README.html#instance-level-cicd-environment-variables) or [protected variables](https://docs.gitlab.com/ce/ci/variables/README.html#protect-a-custom-variable).
 5. [Inherited environment variables](https://docs.gitlab.com/ce/ci/variables/README.html#inherit-environment-variables).
 6. [YAML定义的job级别变量](https://docs.gitlab.com/ce/ci/yaml/README.html#job-variables)
@@ -125,22 +127,14 @@ script:
 ```javascript
 variables:
   BUSINESS_LINE: ${BUSINESS_LINE}
-  PRODUCT: ${PRODUCT}
-  MICROAPP_NAME: ${CI_PROJECT_NAME}
-  VERSION: ${CI_COMMIT_TAG}
-  FILE_NAME: dist.tar.gz
 ```
 
-job的执行条件：only/excepts、rules
+### job的执行条件
 
+only（定义job执行条件）和except（定义了job不被执行的条件）两个参数定义了job被创建的条件:
 
+- except和only如果没有指定name，默认是tags和branches
 
-only和except两个参数说明了job什么时候将会被创建:
-
-1. only定义了job需要执行的所在分支或者标签
-2. except定义了job不会执行的所在分支或者标签
-
-- only如果没有指定，name默认是tags和branches
 - only和except如果都存在在一个job声明中，则所需引用将会被only和except所定义的分支过滤.
 - only和except允许使用正则
 - only和except允许使用指定仓库地址，但是不forks仓库
@@ -207,8 +201,6 @@ artifacts:
         - binaries/   #传递所有binaries和.config：
         - .config
 ```
-
-
 
 ## 参考
 
