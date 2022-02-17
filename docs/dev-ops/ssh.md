@@ -6,6 +6,8 @@ autoGroup-1: linux
 
 - 参考https://zhuanlan.zhihu.com/p/21999778
 - 参考https://zhuanlan.zhihu.com/p/126117538
+- [SSH原理与运用（一）：远程登录](https://www.ruanyifeng.com/blog/2011/12/ssh_remote_login.html)
+- [SSH原理与运用（二）：远程操作与端口转发](https://www.ruanyifeng.com/blog/2011/12/ssh_port_forwarding.html)
 
 ## 简单免密登录服务器
 
@@ -124,7 +126,7 @@ $ git config user.name "xxxx"
 
 - 编辑配置文件：
 
-````bash
+```bash
 [root@server1 ~]# vim /etc/ssh/sshd_config         #做下面更改
 AllowAgentForwarding yes   # 表示允许代理转发
 ```
@@ -147,7 +149,7 @@ root     24388  0.0  0.0  51416  1032 ?        Ss   02:44   0:00 ssh-agent bash
 
 - 测试登陆：
 
-````bash
+```bash
 [root@server1 ~]# ssh -A server2          #这里 -A 不可省略，表示开启认证代理连接转发功能
 Last login: Mon Nov 26 09:36:58 2018 from server1
 
@@ -201,6 +203,3 @@ Host db
     # IdentityFile ~/.ssh/id_ecdsa                    # 认证文件
     ProxyCommand ssh gateway netcat -q 600 %h %p      # 代理命令
 ```
-
-
-

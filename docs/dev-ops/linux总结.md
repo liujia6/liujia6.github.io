@@ -305,3 +305,32 @@ rz，sz是便是Linux/Unix同Windows进行ZModem文件传输的命令行工具
 rz------即是接收文件，xshell就会弹出文件选择对话框，选好文件之后关闭对话框，文件就会上传到linux里的当前目录
 
 sz file ----------就是发文件到windows上（保存的目录是可以配置） 比ftp命令方便多了，而且服务器不用再开FTP服务了
+## 查询启动的端口号
+
+`lsof -nP -iTCP -sTCP:LISTEN `
+
+![image-20210815231810951](/Users/liujia/Library/Application Support/typora-user-images/image-20210815231810951.png)
+
+通过ps命令serve的命令起的进程
+
+`ps aux | grep serve | grep risk`
+
+![image-20210815231855863](/Users/liujia/Library/Application Support/typora-user-images/image-20210815231855863.png)
+
+[ kill](https://wangchujiang.com/linux-command/c/kill.html)
+
+```shell
+kill [-s sigspec | -n signum | -sigspec] pid | jobspec ...
+kill -l [sigspec]
+
+-s sig    信号名称。
+-n sig    信号名称对应的数字。
+-l        列出信号名称。如果在该选项后提供了数字那么假设它是信号名称对应的数字。
+-L        等价于-l选项。
+
+
+# 终止作业标识符为1的作业。
+[user2@pc] kill -9 %1
+```
+
+>>>>>>> 116705b (feat: 完善内容)

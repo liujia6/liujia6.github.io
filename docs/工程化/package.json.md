@@ -67,6 +67,39 @@ common options: [-P|--save-prod|-D|--save-dev|-O|--save-optional|--save-peer] [-
 
 执行 `npm update` 会升级所有的红色依赖。
 
+## yarn add 远程git协议
+
+```js
+yarn add <git remote url> installs a package from a remote git repository.
+yarn add <git remote url>#<branch/commit/tag> installs a package from a remote git repository at specific git branch, git commit or git tag.
+yarn add https://my-project.org/package.tgz installs a package from a remote gzipped tarball.
+```
+
+Here are some examples:
+
+```js
+yarn add https://github.com/fancyapps/fancybox [remote url]
+yarn add ssh://github.com/fancyapps/fancybox#3.0  [branch]
+yarn add https://github.com/fancyapps/fancybox#5cda5b529ce3fb6c167a55d42ee5a316e921d95f [commit]
+```
+
+*(Note: Fancybox v2.6.1 isn't available in the Git version.)*
+
+To support both npm and yarn, you can use the git+url syntax:
+
+```sh
+git+https://github.com/owner/package.git#commithashortagorbranch
+git+ssh://github.com/owner/package.git#commithashortagorbranch
+```
+
+1. `yarn add package-name`
+2. `yarn add file:/path/to/local/folder` 
+3. `yarn add file:/path/to/local/tarball.tgz` installs a package from a gzipped tarball which could be used to share a package before publishing it.
+4. `yarn add link:/path/to/local/folder` 
+5. `yarn add <git remote url>` installs a package from a remote git repository.
+6. `yarn add <git remote url>#<branch/commit/tag>` installs a package from a remote git repository at specific git branch, git commit or git tag.
+7. `yarn add https://my-project.org/package.tgz` installs a package from a remote gzipped tarball.
+
 ## [npm restart](http://www.ruanyifeng.com/blog/2016/10/npm_scripts.html)
 
 script 脚本传参 -- arguments
@@ -374,3 +407,11 @@ scripts: {
 2. 如果是本地安装，会链接到./node_modules/.bin/。
    - 所有node_modules/.bin/目录下的命令，都可以用npm run [命令]的格式运行。在
    - 命令行下，键入npm run，然后按tab键，就会显示所有可以使用的命令。
+
+## [export字段](https://www.baobangdong.cn/node.js-package.json-field-definitions/)
+
+他最大的一个特性就是 **条件导出（Conditional Exports）**，当该 package 被导入时，能够判断被导入时的模块环境，从而执行不同的文件，简而言之就是，我们如果使用 `import` 命令，入口会加载 ECMAScript Modules 文件，如果使用 `require` 命令，入口则加载 CommonJS Modules 文件。
+
+## [pkg中module 字段](https://zhuanlan.zhihu.com/p/34164963)
+
+module字段用来标注库中esm版本的入口，若库中包含此字段，则表示支持treeShaking
