@@ -25,7 +25,7 @@ module.exports = [
   },
   {
     title: '工程化',
-    children: [  '工程化/git', '工程化/package.json', '工程化/模块化', '工程化/测试' ]
+    children: ['工程化/git', '工程化/package.json', '工程化/模块化', '工程化/测试']
   },
   {
     title: '算法',
@@ -50,6 +50,16 @@ module.exports = [
       '算法/链表'
     ]
   },
-  { title: '网络', children: [ '网络/HTTP', '网络/HTTP权威指南', '网络/网络基础' ] },
-  { title: '计算机基础', children: [ '计算机基础/web安全' ] },
+  { title: '网络', children: ['网络/HTTP', '网络/HTTP权威指南', '网络/网络基础'] },
+  { title: '计算机基础', children: ['计算机基础/web安全'] },
+  {
+    title: '编程', 
+    children: [
+      '编程/函数式编程', 
+      '编程/重构', 
+      '编程/架构整洁之道', 
+      '编程/状态机', 
+      '编程/设计模式'
+    ]
+  },
 ]
