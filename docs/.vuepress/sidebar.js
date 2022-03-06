@@ -50,7 +50,7 @@ module.exports = [
       '算法/链表'
     ]
   },
-  { title: '网络', children: ['网络/HTTP', '网络/HTTP权威指南', '网络/网络基础'] },
+  { title: '网络', children: ['网络/HTTP', '网络/HTTP权威指南', '网络/网络基础','网络/grpc'] },
   { title: '计算机基础', children: ['计算机基础/web安全'] },
   {
     title: '编程', 
