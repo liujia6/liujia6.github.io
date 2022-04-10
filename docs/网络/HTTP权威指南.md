@@ -96,7 +96,7 @@ console.log(c);     // https://lin-xin.github.io复制代码btoa
 
 - 参数中带中文，已经超出了8位ASCII编码的字符范围，浏览器就会报错。所以需要先对中文进行encodeURIComponent 编码处理。
 
-```
+```js
 var a = "哈喽 世界";
 var b = btoa(encodeURIComponent(a));
 var c = decodeURIComponent(atob(b));
@@ -261,17 +261,14 @@ Socket的网络连接步骤
    - Transfer-Encoding：用于指定传输报文主体时使用的编码方式，属于逐跳首部，即只在两个**节点间**有效。
    - TE：用于告知服务器客户端能够处理的编码方式和相对优先级，属于逐跳首部，即只在两个节点间有效。
 
-**Vary首部：**定义了服务器由什么的不同而发送不同的实体内容
-
+## Vary首部：
+-  定义了服务器由什么的不同而发送不同的实体内容
 - 若所提供的文档取决于User-Agent首部，vary首部就必须包含User-Agent
-
 - 所服务器Vary：User-Agent，cookie，大量不同的User-Agent，cookie会产生非常多的变体，缓存必须为每个变体保存相应文档版本
-
 - Vary: User-Agent
-
   ​	例如你提供给移动端的内容是不同的，可用防止你客户端误使用了用于桌面端的缓存。 并可帮助Google和其他搜索引擎来发现你的移动端版本的页面，同时告知他们不需要Cloaking。
 
 
+## [Trailer](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Trailer)
 
-
-[从输入 URL 到页面加载完成的过程中都发生了什么事情？](http://static.kancloud.cn/xiaoyulive/system/598702)
+Trailer 是一个响应首部，允许发送方在分块发送的消息后面添加额外的元信息，这些元信息可能是随着消息主体的发送动态生成的，比如消息的完整性校验，消息的数字签名，或者消息经过处理之后的最终状态等。
