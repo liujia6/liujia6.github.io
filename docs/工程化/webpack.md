@@ -133,3 +133,8 @@ function onScriptComplete(event) {
 }
 head.appendChild(script);
 ```
+
+## [treeShaking 原理](https://segmentfault.com/a/1190000022194321)
+
+- 传统的编译语言，编译器就可以醉哦到删除 Dead Code，但是 JS 是动态语言，编译器无法做到，我们需要借助打包工具实现消除 dead Code
+- 借助 ESM 的静态结构分析，找到没有引入的模块打上标记，在压缩阶段利用 uglify-js 这样的压缩工具删除无用代码

@@ -145,7 +145,7 @@ Google 提供的解決方案是利用一個 proxy 架設在后端，将前端所
 
 gRPC-Web 提供了一个 JS 客户端库，支持与 gRPC-Node 相同的 API 来访问 gRPC 服务。
 
-grpc-web基于使得浏览器基于HTTP1.1请求grpc请求，这与gRPC over HTTP2的协议[有差异](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-WEB.md)，也支持文本流（例如 base64）以提供跨浏览器支持（例如 IE-10）
+grpc-web 基于使得浏览器基于 HTTP1.1 请求 grpc 请求，这与 gRPC over HTTP2 的协议[有差异](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-WEB.md)，也支持文本流（例如 base64）以提供跨浏览器支持（例如 IE-10）
 
 [使用 grpc 调用 grpc 服务存在限制](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-WEB.md)
 
@@ -183,6 +183,12 @@ GrpcWebMode
 
 - 该文件实现往 protobuf 的 pbroot 上挂载不同命名空间的 rpc 方法和 enum 枚举值，给每个 message 反射实例化，使得每个 message 具有 create，decode，encode 方法，使其具有编码解码的能力，并使用修改后的 protobuf 的 rpc.Service 方法发起请求
 - 该 rpc.service 使用 grpc-web 内部实现，并添加拦截器和请求 hostname 的注册和对应 message 实例化传参序列化和非序列化等实现，使用的时候我们通过给每个 module new 实例注册不同 host，通过该实例可以直接调用 rpc 方法实现请求
+
+## 使用感受
+
+- 从 RESTFUL 换到 grpc 接口调用感受区别如下
+  - 不需要 API 文档。proto 文件的强类型使得其本身就是最好的接口文档，接口变动可以直接查看 pb 的 commit 变化
+  - 前端能够复用服务端的枚举值定义，且保证真实
 
 ## 参考
 
