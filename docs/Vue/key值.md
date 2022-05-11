@@ -2,8 +2,8 @@
 
 首先看下官方文档中对 key 值的介绍
 
-- [key](https://cn.vuejs.org/v2/api/#key 'key')
-- [维护状态](https://cn.vuejs.org/v2/guide/list.html#%E7%BB%B4%E6%8A%A4%E7%8A%B6%E6%80%81 '维护状态')
+- [key](https://cn.vuejs.org/v2/api/#key "key")
+- [维护状态](https://cn.vuejs.org/v2/guide/list.html#%E7%BB%B4%E6%8A%A4%E7%8A%B6%E6%80%81 "维护状态")
 
 ## 理解
 

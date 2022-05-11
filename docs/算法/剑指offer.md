@@ -10,17 +10,17 @@
 // 递归
 function fibonacci() {
   // write code here
-  if (n <= 2) return 1
-  return Fibonacci(n - 1) + Fibonacci(n - 2)
+  if (n <= 2) return 1;
+  return Fibonacci(n - 1) + Fibonacci(n - 2);
 }
 
 // 动态规划
 function fibonacci(n) {
-  const result = [0, 1, 1]
+  const result = [0, 1, 1];
   for (var i = 3; i <= n; i++) {
-    result.push(result[i - 1] + result[i - 2])
+    result.push(result[i - 1] + result[i - 2]);
   }
-  return result[n]
+  return result[n];
 }
 ```
 
@@ -33,16 +33,16 @@ function fibonacci(n) {
 ```js
 function fibonacci() {
   // write code here
-  if (n <= 2) return n
-  return Fibonacci(n - 1) + Fibonacci(n - 2)
+  if (n <= 2) return n;
+  return Fibonacci(n - 1) + Fibonacci(n - 2);
 }
 
 function jumpFloor(n) {
-  const result = [0, 1, 2]
+  const result = [0, 1, 2];
   for (var i = 3; i <= n; i++) {
-    result.push(result[i - 1] + result[i - 2])
+    result.push(result[i - 1] + result[i - 2]);
   }
-  return result[n]
+  return result[n];
 }
 ```
 
@@ -54,6 +54,6 @@ function jumpFloor(n) {
 
 ```js
 function jumpFloorII(number) {
-  return 2 ^ (n - 1)
+  return 2 ^ (n - 1);
 }
 ```

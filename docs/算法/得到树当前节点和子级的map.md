@@ -1,4 +1,4 @@
-## 得到树当前节点和子级的map 
+## 得到树当前节点和子级的 map
 
 ```javascript
 
@@ -30,4 +30,3 @@ _dfsGetIdsMap(data = []) {
       return map;
 }
 ```
-

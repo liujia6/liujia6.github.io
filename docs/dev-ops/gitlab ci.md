@@ -1,71 +1,71 @@
 ## Gitlab-CI
 
-## 介绍	
+## 介绍
 
-Gitlab CI/CD 是一款用于[持续集成（CI），持续交付（CD）](https://github.com/ascoders/weekly/blob/v2/101.%E7%B2%BE%E8%AF%BB%E3%80%8A%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%20vs%20%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%20vs%20%E6%8C%81%E7%BB%AD%E9%83%A8%E7%BD%B2%E3%80%8B.md)的工具，相似的工具有Jenkins、Travis CI、GoCD等。
+Gitlab CI/CD 是一款用于[持续集成（CI），持续交付（CD）](https://github.com/ascoders/weekly/blob/v2/101.%E7%B2%BE%E8%AF%BB%E3%80%8A%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%20vs%20%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%20vs%20%E6%8C%81%E7%BB%AD%E9%83%A8%E7%BD%B2%E3%80%8B.md)的工具，相似的工具有 Jenkins、Travis CI、GoCD 等。
 
-- CI即持续集成，Continuous Integration，目标：持续集成，持续测试（保证代码质量）
-- CD即持续交付，即Continuous Delivery，目标:  持续部署（自动发布版本，供用户使用)。
+- CI 即持续集成，Continuous Integration，目标：持续集成，持续测试（保证代码质量）
+- CD 即持续交付，即 Continuous Delivery，目标:  持续部署（自动发布版本，供用户使用)。
 - 从 GitLab 8.0 开始，GitLab CI 就已经集成在 GitLab 中，我们只要在项目中添加一个 .gitlab-ci.yml 文件，然后添加一个 Runner，即可进行持续集成。
-- .gitlab-ci.yml文件使用yaml语法，[语法介绍请戳](http://www.ruanyifeng.com/blog/2016/07/yaml.html)
+- .gitlab-ci.yml 文件使用 yaml 语法，[语法介绍请戳](http://www.ruanyifeng.com/blog/2016/07/yaml.html)
 
-与jenkins对比
+与 jenkins 对比
 
-- gitlab-ci的优势在于比较配置和使用简单，能在gitlab上直接看到执行过程，不需要配webhook，集成在了gitlab上。
-- jenkins的优势在于编译服务和代码仓库分离，而且编译配置文件不需要在工程中配置，并且jenkins依靠它丰富的插件，可以配置很多gitlab-ci不存在的功能，比如说看编译状况统计等
+- gitlab-ci 的优势在于比较配置和使用简单，能在 gitlab 上直接看到执行过程，不需要配 webhook，集成在了 gitlab 上。
+- jenkins 的优势在于编译服务和代码仓库分离，而且编译配置文件不需要在工程中配置，并且 jenkins 依靠它丰富的插件，可以配置很多 gitlab-ci 不存在的功能，比如说看编译状况统计等
 
 ## gitlab-runner
 
-- gitlab的自动化操作都是在runner机器中运行,我们需要注册runner
-- runner分为shared runner和specified runner.
+- gitlab 的自动化操作都是在 runner 机器中运行,我们需要注册 runner
+- runner 分为 shared runner 和 specified runner.
 
-###  gitlab操作
+### gitlab 操作
 
-gitlab上有关gitlab-ci的配置有两处
+gitlab 上有关 gitlab-ci 的配置有两处
 
-- 一处是CI/CD可以查看构建任务pipeline、job的执行情况
-- 一处是setting里面对ci的设置
+- 一处是 CI/CD 可以查看构建任务 pipeline、job 的执行情况
+- 一处是 setting 里面对 ci 的设置
 
 <img src="https://i.loli.net/2020/12/12/IVjWRdYUlOKbCsn.png" alt="image-20201212122028807"  />
 
-- 一次提交触发一次CI&CD即执行一次脚本对应一个pipeline
+- 一次提交触发一次 CI&CD 即执行一次脚本对应一个 pipeline
 
-- 一个pipeline对应stages下的所有job
+- 一个 pipeline 对应 stages 下的所有 job
 
-- 一个stage可以有多个job；
+- 一个 stage 可以有多个 job；
 
 ### Skip Pipeline
 
-- commit message上加上[ci skip] 或者[skip ci]就可以跳过pipeline执行。
+- commit message 上加上[ci skip]  或者[skip ci]就可以跳过 pipeline 执行。
 - 在一次 git push 调用中进行多次更改时，GitLab 最多创建四个分支和标签管道。此限制不影响任何更新的合并请求管道。所有更新的合并请求在使用管道处理合并请求时都会创建一个管道。
 
-##  stages
+## stages
 
-- gitlab-ci的pipeline由一个个stage顺序执行，每个stage可以有多个job
+- gitlab-ci 的 pipeline 由一个个 stage 顺序执行，每个 stage 可以有多个 job
 
-- job是并行执行的
-  所有build的jobs执行成功后，commit才会标记为success，所有的build的jobs执行成功，
+- job 是并行执行的
+  所有 build 的 jobs 执行成功后，commit 才会标记为 success，所有的 build 的 jobs 执行成功，
 
-- 任何一个前置的jobs失败了，commit会标记为failed并且下一个stages的jobs都不会执行。
+- 任何一个前置的 jobs 失败了，commit 会标记为 failed 并且下一个 stages 的 jobs 都不会执行。
 
 - 默认定义为 build，test 和 deploy。
 
-- 如果一个job没有指定stage，那么这个任务会分配到test stage。
+- 如果一个 job 没有指定 stage，那么这个任务会分配到 test stage。
 
   ```yml
   - stages:
-    - build
-    - release_deploy
-    - dev-deploy
-    - prod_deploy
+      - build
+      - release_deploy
+      - dev-deploy
+      - prod_deploy
   ```
 
 ### Jobs
 
-- .gitlab-ci.yml允许指定无限量jobs。
-- 每个jobs必须有一个唯一的名字，而且不能是上面提到的关键字。
-- job由一列参数来定义jobs的行为。
-- 所属同一个stage的job都是并行的
+- .gitlab-ci.yml 允许指定无限量 jobs。
+- 每个 jobs 必须有一个唯一的名字，而且不能是上面提到的关键字。
+- job 由一列参数来定义 jobs 的行为。
+- 所属同一个 stage 的 job 都是并行的
 
 ```
 job_name:
@@ -73,7 +73,7 @@ job_name:
 
 ### pages
 
-一个特殊的job，用于上传静态内容到 GitLab，可用于服务于您的网站。需要满足以下条件
+一个特殊的 job，用于上传静态内容到 GitLab，可用于服务于您的网站。需要满足以下条件
 
 - 任何静态内容都必须放在`public/` directory. 目录
 - `artifacts` ：path ：`public/` 目录必须有
@@ -107,37 +107,34 @@ script:
      # 长命令可以通过引号包裹，再用&&连接表示顺序执行命令
 ```
 
-
-
-###  变量：variables
+### 变量：variables
 
 变量可以被覆盖，并且是按照以下优先级依次降低
 
 1. [Trigger variables](https://docs.gitlab.com/ce/ci/triggers/README.html#making-use-of-trigger-variables), [scheduled pipeline variables](https://docs.gitlab.com/ce/ci/pipelines/schedules.html#using-variables), and [manual pipeline run variables](https://docs.gitlab.com/ce/ci/variables/README.html#override-a-variable-by-manually-running-a-pipeline).
-2. Project-level [variables](https://docs.gitlab.com/ce/ci/variables/README.html#custom-environment-variables) or [protected variables](https://docs.gitlab.com/ce/ci/variables/README.html#protect-a-custom-variable). 项目CI设置的变量
-3. Group-level [variables](https://docs.gitlab.com/ce/ci/variables/README.html#group-level-environment-variables) or [protected variables](https://docs.gitlab.com/ce/ci/variables/README.html#protect-a-custom-variable). gitlab分组下CI设置的变量
+2. Project-level [variables](https://docs.gitlab.com/ce/ci/variables/README.html#custom-environment-variables) or [protected variables](https://docs.gitlab.com/ce/ci/variables/README.html#protect-a-custom-variable). 项目 CI 设置的变量
+3. Group-level [variables](https://docs.gitlab.com/ce/ci/variables/README.html#group-level-environment-variables) or [protected variables](https://docs.gitlab.com/ce/ci/variables/README.html#protect-a-custom-variable). gitlab 分组下 CI 设置的变量
 4. Instance-level [variables](https://docs.gitlab.com/ce/ci/variables/README.html#instance-level-cicd-environment-variables) or [protected variables](https://docs.gitlab.com/ce/ci/variables/README.html#protect-a-custom-variable).
 5. [Inherited environment variables](https://docs.gitlab.com/ce/ci/variables/README.html#inherit-environment-variables).
-6. [YAML定义的job级别变量](https://docs.gitlab.com/ce/ci/yaml/README.html#job-variables)
-7. [YAML定义的全局变量](https://docs.gitlab.com/ce/ci/yaml/README.html#variables)
+6. [YAML 定义的 job 级别变量](https://docs.gitlab.com/ce/ci/yaml/README.html#job-variables)
+7. [YAML 定义的全局变量](https://docs.gitlab.com/ce/ci/yaml/README.html#variables)
 8. [部署环境变量](https://docs.gitlab.com/ce/ci/variables/README.html#deployment-variables)
 9. [预定义的环境变量](https://docs.gitlab.com/ce/ci/variables/README.html#predefined-variables-environment-variables) (优先级最低)
-
 
 ```javascript
 variables:
   BUSINESS_LINE: ${BUSINESS_LINE}
 ```
 
-### job的执行条件
+### job 的执行条件
 
-only（定义job执行条件）和except（定义了job不被执行的条件）两个参数定义了job被创建的条件:
+only（定义 job 执行条件）和 except（定义了 job 不被执行的条件）两个参数定义了 job 被创建的条件:
 
-- except和only如果没有指定name，默认是tags和branches
+- except 和 only 如果没有指定 name，默认是 tags 和 branches
 
-- only和except如果都存在在一个job声明中，则所需引用将会被only和except所定义的分支过滤.
-- only和except允许使用正则
-- only和except允许使用指定仓库地址，但是不forks仓库
+- only 和 except 如果都存在在一个 job 声明中，则所需引用将会被 only 和 except 所定义的分支过滤.
+- only 和 except 允许使用正则
+- only 和 except 允许使用指定仓库地址，但是不 forks 仓库
 
 ```yml
 only: #都是或者的关系
@@ -179,31 +176,31 @@ rules:
 
 ### image/services
 
-该关键字指定一个任务（job）所使用的docker镜像，例如`image: python:latest`使用Python的最新镜像。
+该关键字指定一个任务（job）所使用的 docker 镜像，例如`image: python:latest`使用 Python 的最新镜像。
 
 镜像下载的策略：
 
-- never： 当使用这个策略，会禁止Gitlab Runner从Docker hub或者其他地方下拉镜像，只能使用自己手动下拉的镜像
-- if-not-present： 当使用这个策略，Runner会先检测本地是否有镜像，有的话使用该镜像，如果没有再去下拉。这个策略如果再配合定期删除镜像，就能达到比较好的效果。
-- always： 这个是gitlab-ci默认使用的策略，即每一次都是重新下拉镜像，导致的结果就是比较耗时间
+- never： 当使用这个策略，会禁止 Gitlab Runner 从 Docker hub 或者其他地方下拉镜像，只能使用自己手动下拉的镜像
+- if-not-present： 当使用这个策略，Runner 会先检测本地是否有镜像，有的话使用该镜像，如果没有再去下拉。这个策略如果再配合定期删除镜像，就能达到比较好的效果。
+- always： 这个是 gitlab-ci 默认使用的策略，即每一次都是重新下拉镜像，导致的结果就是比较耗时间
 
 ### artifacts
 
-artifacts 被用于在 job 作业成功后将制定列表里的文件或文件夹附加到 job 上，传递给下一个 job ，如果要在两个 job 之间传递 artifacts，你必须设置dependencies,下面有几个例子
+artifacts 被用于在 job 作业成功后将制定列表里的文件或文件夹附加到 job 上，传递给下一个 job ，如果要在两个 job 之间传递 artifacts，你必须设置 dependencies,下面有几个例子
 
 ```yml
 artifacts:
-    name: "$CI_JOB_NAME" # artifacts压缩包重命名
-    untracked: true  # 传递所有git没有追踪的文件
-    when: on_failure  # 当job执行失败时，上传artifacts,还有on_success 这个值是默认的，当job成功时上传artifacts。always 不管失败与否，都上传
-    artifacts: expire_in # 设置 artifacts 上传包的失效时间. 如果不设置，artifacts 的打包是永远存在于 gitlab上 的，'3 mins 4 sec','2 hrs 20 min','2h20min','6 mos 1 day','47 yrs 6 mos and 4d','3 weeks and 2 days'
-    paths:
-        - binaries/   #传递所有binaries和.config：
-        - .config
+  name: "$CI_JOB_NAME" # artifacts压缩包重命名
+  untracked: true # 传递所有git没有追踪的文件
+  when: on_failure # 当job执行失败时，上传artifacts,还有on_success 这个值是默认的，当job成功时上传artifacts。always 不管失败与否，都上传
+  artifacts: expire_in # 设置 artifacts 上传包的失效时间. 如果不设置，artifacts 的打包是永远存在于 gitlab上 的，'3 mins 4 sec','2 hrs 20 min','2h20min','6 mos 1 day','47 yrs 6 mos and 4d','3 weeks and 2 days'
+  paths:
+    - binaries/ #传递所有binaries和.config：
+    - .config
 ```
 
 ## 参考
 
-[Gitlab-CI使用教程](https://juejin.cn/post/6844904045581172744#heading-11)
+[Gitlab-CI 使用教程](https://juejin.cn/post/6844904045581172744#heading-11)
 
 [Gitlab-ci-官方文档](https://docs.gitlab.com/ee/ci/README.html)

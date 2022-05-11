@@ -5,7 +5,7 @@
 > Portal 提供了一种将子节点渲染到存在于父组件以外的 DOM 节点的优秀的方案。
 >
 > ```js
-> ReactDOM.createPortal(child, container)
+> ReactDOM.createPortal(child, container);
 > ```
 >
 > 第一个参数（`child`）是任何[可渲染的 React 子元素](https://zh-hans.reactjs.org/docs/react-component.html#render)，例如一个元素，字符串或 fragment。第二个参数（`container`）是一个 DOM 元素。
@@ -112,8 +112,8 @@ v-on：可以用@替换
 
 ```html
 <current-user v-slot="{ user }">
-      {{ user.firstName }}
-    </current-user>
+  {{ user.firstName }}
+</current-user>
 ```
 
 你甚至可以定义后备内容，用于插槽 prop 是 undefined 的情形：
@@ -164,7 +164,7 @@ Vue.component('blog-post', {
 ```
 
 ```js
-import { useSlots, useAttrs } from 'vue';
+import { useSlots, useAttrs } from "vue";
 
 const slots = useSlots();
 const attrs = useAttrs();
@@ -183,7 +183,7 @@ export default {
     // TODO: translation
     // Expose public properties (Function)
     console.log(context.expose);
-  },
+  }
 };
 ```
 

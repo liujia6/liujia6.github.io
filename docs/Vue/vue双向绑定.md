@@ -1,4 +1,5 @@
-# vue双向绑定编写
+# vue 双向绑定编写
+
 ```
 <!DOCTYPE html>
 <html>

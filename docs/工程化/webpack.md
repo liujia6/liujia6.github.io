@@ -62,8 +62,8 @@ Source map 就是一个信息文件，里面储存着位置信息。也就是说
      ```js
      // main.js
      // 监听 child 模块变化
-     module.hot.accept('./child', () => {
-       console.log('老板好，child 模块更新啦～');
+     module.hot.accept("./child", () => {
+       console.log("老板好，child 模块更新啦～");
      });
      ```
 
@@ -87,20 +87,20 @@ Source map 就是一个信息文件，里面储存着位置信息。也就是说
 
 ```js
 // 使用 JSONP
-var head = document.getElementsByTagName('head')[0];
-var script = document.createElement('script');
+var head = document.getElementsByTagName("head")[0];
+var script = document.createElement("script");
 
-script.charset = 'utf-8';
+script.charset = "utf-8";
 script.timeout = 120;
 
 if (__webpack_require__.nc) {
-  script.setAttribute('nonce', __webpack_require__.nc);
+  script.setAttribute("nonce", __webpack_require__.nc);
 }
 // 获取目标chunk的地址，__webpack_require__.p 表示设置的publicPath，默认为空串
-script.src = __webpack_require__.p + '' + chunkId + '.bundle.js';
+script.src = __webpack_require__.p + "" + chunkId + ".bundle.js";
 // 请求超时的时候直接调用方法结束，时间为 120 s
 var timeout = setTimeout(function() {
-  onScriptComplete({ type: 'timeout', target: script });
+  onScriptComplete({ type: "timeout", target: script });
 }, 120000);
 script.onerror = script.onload = onScriptComplete;
 // 设置加载完成或者错误的回调
@@ -113,16 +113,16 @@ function onScriptComplete(event) {
   // 如果为 0 则表示已加载，主要逻辑看 webpackJsonpCallback 函数
   if (chunk !== 0) {
     if (chunk) {
-      var errorType = event && (event.type === 'load' ? 'missing' : event.type);
+      var errorType = event && (event.type === "load" ? "missing" : event.type);
       var realSrc = event && event.target && event.target.src;
       var error = new Error(
-        'Loading chunk ' +
+        "Loading chunk " +
           chunkId +
-          ' failed.\n(' +
+          " failed.\n(" +
           errorType +
-          ': ' +
+          ": " +
           realSrc +
-          ')'
+          ")"
       );
       error.type = errorType;
       error.request = realSrc;
