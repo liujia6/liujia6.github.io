@@ -1,4 +1,4 @@
-# 新名词们
+## 新名词们
 
 - RSC：Remote Service Component 远程服务化组件（通过热插拔的机制，可视化配置，即插即用，快速构建活动页面，是活动页面的核心组成单元。）
 - DPR：Distributed Persistent Rendering 分布式的持续渲染
@@ -16,3 +16,11 @@
   - SWC 是一个可扩展的基于 Rust 的平台，适用于下一代快速开发工具。它被 Next.js、Parcel 和 Deno 等工具以及 Vercel、ByteDance、腾讯、Shopify 等公司使用。
 - pnpm
 - [pinia](https://pinia.vuejs.org/core-concepts/#using-the-store)
+- [svelete](https://svelte.dev/blog/svelte-3-rethinking-reactivity)
+
+## 新概念们
+
+- [漫画：什么是中台？](https://mp.weixin.qq.com/s/rF7_xJBq4NJP6CmkW3HPpQ)
+  - **中台和平台都是某种共性能力，区分两者的重点一是看是否具备业务属性，二是看是否是一种组织。**中台是支持多个前台业务且具备业务属性的共性能力组织，平台是支持多个前台或中台业务且不具备业务属性的共性能力。
+  - 业务中台
+  - 技术中台

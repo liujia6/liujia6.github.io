@@ -1,0 +1,3 @@
+- [vue的jsx写法](https://segmentfault.com/a/119000020436220###)
+- 事件传递额外参数：使用$event ,例如 @on-change="handleChange($event,item.prop)"
+- vue 的 prop 中如果是引用类型的对象，default 需要是一个返回默认值的函数，如果是 Function 类型，则直接返回默认的方法即可
