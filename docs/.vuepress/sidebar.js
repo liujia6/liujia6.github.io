@@ -1,5 +1,17 @@
 module.exports = [
   {
+    title: 'JS',
+    children: [
+      'JS/基础',
+      'JS/异步',
+      'JS/Error',
+      'JS/错误处理',
+      'JS/类型转换',
+      'JS/ts',
+      'JS/RXJS',
+    ],
+  },
+  {
     title: 'Dev Ops',
     children: [
       'dev-ops/ansible',
@@ -8,8 +20,8 @@ module.exports = [
       'dev-ops/gitlab-ci踩坑',
       'dev-ops/linux总结',
       'dev-ops/nginx',
-      'dev-ops/ssh'
-    ]
+      'dev-ops/ssh',
+    ],
   },
   {
     title: 'Vue',
@@ -19,12 +31,17 @@ module.exports = [
       'Vue/vue原理',
       'Vue/vue双向绑定',
       'Vue/vue命名方式',
-      'Vue/vue组件双向绑定'
-    ]
+      'Vue/vue组件双向绑定',
+    ],
   },
   {
     title: '工程化',
-    children: ['工程化/git', '工程化/package.json', '工程化/模块化', '工程化/测试']
+    children: [
+      '工程化/git',
+      '工程化/package.json',
+      '工程化/模块化',
+      '工程化/测试',
+    ],
   },
   {
     title: '算法',
@@ -46,19 +63,22 @@ module.exports = [
       '算法/栈',
       '算法/背包',
       '算法/遍历',
-      '算法/链表'
-    ]
+      '算法/链表',
+    ],
   },
-  { title: '网络', children: ['网络/HTTP', '网络/HTTP权威指南', '网络/网络基础','网络/grpc'] },
+  {
+    title: '网络',
+    children: ['网络/HTTP', '网络/HTTP权威指南', '网络/网络基础', '网络/grpc'],
+  },
   { title: '计算机基础', children: ['计算机基础/web安全'] },
   {
-    title: '编程', 
+    title: '编程',
     children: [
-      '编程/函数式编程', 
-      '编程/重构', 
-      '编程/架构整洁之道', 
-      '编程/状态机', 
-      '编程/设计模式'
-    ]
+      '编程/函数式编程',
+      '编程/重构',
+      '编程/架构整洁之道',
+      '编程/状态机',
+      '编程/设计模式',
+    ],
   },
-]
+];
