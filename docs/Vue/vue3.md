@@ -193,3 +193,7 @@ export default {
 2. 将所有 `this.$slots.mySlot` 替换为 `this.$slots.mySlot()`。
 
 `context` 是一个普通的 JavaScript 对象，也就是说，它不是响应式的，这意味着你可以安全地对 `context` 使用 ES6 解构。
+
+
+- [mini-vue](https://juejin.cn/post/7070809037398343717) 
+- [vue-promised](https://github.com/posva/vue-promised)

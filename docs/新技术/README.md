@@ -14,9 +14,23 @@
   - 不需要关心后端和服务运维，写一个函数返回数据即可开启一个函数功能的后端接口服务，
 - [swc](https://swc.rs/)
   - SWC 是一个可扩展的基于 Rust 的平台，适用于下一代快速开发工具。它被 Next.js、Parcel 和 Deno 等工具以及 Vercel、ByteDance、腾讯、Shopify 等公司使用。
-- pnpm
+- [pnpm](https://juejin.cn/post/6932046455733485575#heading-4)
+  - 优势
+    - 全局安装包，项目内使用硬链接指向全局，大大减少存储空间
+    - 即使同一个包的不同版本，也会极大程度服用
+      - 比如 lodash 有 100 个文件，更新版本之后多了一个文件，那么磁盘当中并不会重新写入 101 个文件，而是保留原来的 100 个文件的 hardlink，仅仅写入那一个新增的文件。
+    - 支持 monorepo
+    - 安全性高
+      - 解决幽灵依赖
+    - [window 下的链接](https://www.cnblogs.com/Naylor/p/7597869.html)
+      - mklink
+        - /H 硬链接
+        - /J 初级软链接，unction 链接方式，又叫初级的软链接
 - [pinia](https://pinia.vuejs.org/core-concepts/#using-the-store)
+  - https://juejin.cn/post/7078281612013764616#heading-0
 - [svelete](https://svelte.dev/blog/svelte-3-rethinking-reactivity)
+- service-worker
+  - [service-worker](https://developers.google.com/web/fundamentals/primers/service-workers/)
 
 ## 新概念们
 
