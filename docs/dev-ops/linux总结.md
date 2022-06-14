@@ -4,13 +4,41 @@ autoGroup-1: linux
 
 # linux 总结
 
-## [新建用户](https://www.jianshu.com/p/eb6d0365c019)
-
 ## 文件
 
 ![img](https://i.loli.net/2020/12/12/t816ZLWsnBzxuvy.png)
 
 文件类型：普通文件（-）、文件夹（d）、字符设备文件（c）、块设备文件（b）、符号链接文件（l）、管道文件（p）、套接字文件 （s）
+
+**字符设备**：【键盘、串口】提供连续的数据流，应用程序可以顺序读取，通常不支持随机存取。相反，此类设备支持按字节/字符来读写数据。举例来说，键盘、串口、调制解调器都是典型的字符设备
+
+**块设备** ：【U 盘】应用程序可以随机访问设备数据，程序可自行确定读取数据的位置。应用程序可以随机访问设备数据，程序可自行确定读取数据的位置。硬盘、软盘、CD-ROM 驱动器和闪存都是典型的块设备，应用程序可以寻址磁盘上的任何位置，并由此读取数据。此外，数据的读写只能以块(通常是 512B)的倍数进行。与字符设备不同，块设备并不支持基于字符的寻址。
+
+## 查看文件类型 file
+
+| 参数 | 示例          | 结果                                | 解释                 |
+| ---- | ------------- | ----------------------------------- | -------------------- |
+| -i   | file -i a.jpg | a.jpg: text/plain; charset=us-ascii | 输出文件的 mime 类型 |
+
+- text/plain：普通文本。
+- text/html：HTML 文本。
+- application/pdf：PDF 文档。
+- application/msword：Word 文档。
+- image/png：PNG 图片。
+- mage/jpeg：JPEG 图片。
+- application/x-tar：TAR 文件。
+- application/x-gzip：GZIP 文件。
+
+## [查看文件内容](https://www.cnblogs.com/yangliguo/p/8463131.html)
+
+- cat 由第一行开始显示文件内容
+- tac 从最后一行开始显示，可以看出 tac 是 cat 的倒着写
+  nl 显示的时候，顺道输出行号！
+- more 一页一页的显示文件内容
+- less 与 more 类似，但是比 more 更好的是，他可以往前翻页！
+  -head 只看头几行
+- tail 只看尾巴几行
+- 你可以使用 man [命令]来查看各个命令的使用文档，如 ：man cp。
 
 ## ls
 
@@ -34,6 +62,7 @@ ls -l #除了文件名之外，还将文件的权限、所有者、文件大小�
 [理解 inode](https://www.ruanyifeng.com/blog/2011/12/inode.html)
 
 可以用 stat 命令，查看某个文件的 inode 信息：
+> stat example.txt
 
 ### inode 的特殊作用
 
@@ -42,11 +71,6 @@ ls -l #除了文件名之外，还将文件的权限、所有者、文件大小�
 - 打开一个文件以后，系统就以 inode 号码来识别这个文件，不再考虑文件名。因此，通常来说，系统无法从 inode 号码得知文件名。
   - 第 3 点使得软件更新变得简单，可以在不关闭软件的情况下进行更新，不需要重启。因为系统通过 inode 号码，识别运行中的文件，不通过文件名。更新的时候，新版文件以同样的文件名，生成一个新的 inode，不会影响到运行中的文件。等到下一次运行这个软件的时候，文件名就自动指向新版文件，旧版文件的 inode 则被回收。
 
-> stat example.txt
-
-**字符设备**：【键盘、串口】提供连续的数据流，应用程序可以顺序读取，通常不支持随机存取。相反，此类设备支持按字节/字符来读写数据。举例来说，键盘、串口、调制解调器都是典型的字符设备
-
-**块设备** ：【U 盘】应用程序可以随机访问设备数据，程序可自行确定读取数据的位置。应用程序可以随机访问设备数据，程序可自行确定读取数据的位置。硬盘、软盘、CD-ROM 驱动器和闪存都是典型的块设备，应用程序可以寻址磁盘上的任何位置，并由此读取数据。此外，数据的读写只能以块(通常是 512B)的倍数进行。与字符设备不同，块设备并不支持基于字符的寻址。
 
 ## 软链接/硬链接
 
@@ -143,22 +167,21 @@ cat test.txt | wc -l #统计输出结果的行数
 #16
 ```
 
-## 查看文件类型 file
+## [curl](http://www.ruanyifeng.com/blog/2011/09/curl.html)和[wget](https://www.cnblogs.com/ftl1012/p/9265699.html)请求 1
 
-| 参数 | 示例          | 结果                                | 解释                 |
-| ---- | ------------- | ----------------------------------- | -------------------- |
-| -i   | file -i a.jpg | a.jpg: text/plain; charset=us-ascii | 输出文件的 mime 类型 |
+[wget](https://www.cnblogs.com/peida/archive/2013/03/18/2965369.html)
 
-- text/plain：普通文本。
-- text/html：HTML 文本。
-- application/pdf：PDF 文档。
-- application/msword：Word 文档。
-- image/png：PNG 图片。
-- mage/jpeg：JPEG 图片。
-- application/x-tar：TAR 文件。
-- application/x-gzip：GZIP 文件。
+wget 是 linux 上的命令行的下载工具。这是一个 GPL 许可证下的自由软件。
 
-## [curl](https://medium.com/hackernoon/how-to-easily-use-curl-for-http-requests-db3249c5d4e6)
+- wget 支持**HTTP(s)、FTP 协议、代理服务器**和**断点续传**功能
+- 能够**自动递归**远程主机的目录，找到合乎条件的文件并将其下载到本地硬盘上
+- 如果必要，wget 将恰当地转换页面中的超级连接以在本地生成可浏览的**镜像**。
+- 由于没有交互式界面，wget 可在**后台运行**，截获并忽略 HANGUP 信号，因此在用户推出登录以后，仍可继续运行。
+- 通常，wget 用于**成批量地下载**Internet 网站上的文件，或制作远程网站的**镜像**。
+
+rcp 命令用于复制远程文件或目录。
+
+## [curl](https://www.cnblogs.com/hujiapeng/p/8470099.html)
 
 如果命令需要换行，在换行处加 反斜杠\
 
@@ -190,33 +213,6 @@ curl --http1.0 --next --no-keepalive -X POST "https://www. domain.com/requestUri
 | curl -O http://www.linux.com/dodo[1-5].JPG                                                               | dodo1，dodo2，dodo3，dodo4，dodo5 全部保存下来 |
 | curl -o #1\_#2.JPG http://www.linux.com/{hello,bb}/dodo[1-5].JPG                                         | 这样就需要对文件进行重命名。                   |
 
-[参考 1](https://www.cnblogs.com/hujiapeng/p/8470099.html)
-
-## [查看文件内容](https://www.cnblogs.com/yangliguo/p/8463131.html)
-
-- cat 由第一行开始显示文件内容
-- tac 从最后一行开始显示，可以看出 tac 是 cat 的倒着写
-  nl 显示的时候，顺道输出行号！
-- more 一页一页的显示文件内容
-- less 与 more 类似，但是比 more 更好的是，他可以往前翻页！
-  -head 只看头几行
-- tail 只看尾巴几行
-- 你可以使用 man [命令]来查看各个命令的使用文档，如 ：man cp。
-
-## [curl](http://www.ruanyifeng.com/blog/2011/09/curl.html)和[wget](https://www.cnblogs.com/ftl1012/p/9265699.html)请求 1
-
-[wget](https://www.cnblogs.com/peida/archive/2013/03/18/2965369.html)
-
-wget 是 linux 上的命令行的下载工具。这是一个 GPL 许可证下的自由软件。
-
-- wget 支持**HTTP(s)、FTP 协议、代理服务器**和**断点续传**功能
-- 能够**自动递归**远程主机的目录，找到合乎条件的文件并将其下载到本地硬盘上
-- 如果必要，wget 将恰当地转换页面中的超级连接以在本地生成可浏览的**镜像**。
-- 由于没有交互式界面，wget 可在**后台运行**，截获并忽略 HANGUP 信号，因此在用户推出登录以后，仍可继续运行。
-- 通常，wget 用于**成批量地下载**Internet 网站上的文件，或制作远程网站的**镜像**。
-
-rcp 命令用于复制远程文件或目录。
-
 ## ps
 
 `ps -l` 默认展示与当前 shell 相关的进程
@@ -244,7 +240,7 @@ tasklist |findstr 9784 : 查找 PID 为 9784 的进程，也就是占用 8080 �
 
 taskkill /T /F /PID 9784 : 杀死这个进程
 
-## awk
+## [awk](http://www.ruanyifeng.com/blog/2018/11/awk.html)
 
 [`awk`](https://en.wikipedia.org/wiki/AWK)是处理文本文件的一个应用程序
 
@@ -252,9 +248,6 @@ taskkill /T /F /PID 9784 : 杀死这个进程
 
 - 对于日志、CSV 那样的**每行格式相同的文本文件**，`awk`可能是最方便的工具。
 
-[awk 入门](http://www.ruanyifeng.com/blog/2018/11/awk.html)
-
-[vim](https://mp.weixin.qq.com/s?__biz=MzA4MTc4NTUxNQ==&mid=2650518612&idx=1&sn=125c2cb9ee6d76a6817fb0ebc5a3c5e4&scene=21#wechat_redirect)
 
 ## [vim 常用操作总结](https://github.com/chenxiaochun/blog/issues/60)
 
@@ -269,6 +262,8 @@ taskkill /T /F /PID 9784 : 杀死这个进程
 **u** 恢复更改
 
 **ggVG** 全选
+
+[vim](https://mp.weixin.qq.com/s?__biz=MzA4MTc4NTUxNQ==&mid=2650518612&idx=1&sn=125c2cb9ee6d76a6817fb0ebc5a3c5e4&scene=21#wechat_redirect)
 
 ## [Ping 命令](https://zhuanlan.zhihu.com/p/45110873)
 

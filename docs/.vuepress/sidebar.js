@@ -4,7 +4,6 @@ module.exports = [
     children: [
       'dev-ops/ansible',
       'dev-ops/docker',
-      'dev-ops/git',
       'dev-ops/gitlab ci',
       'dev-ops/gitlab-ci踩坑',
       'dev-ops/linux总结',

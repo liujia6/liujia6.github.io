@@ -47,4 +47,16 @@ HTTP 请求通过 HOST 请求头指定我们要访问的域名，在 HTTP1.0 不
 
 在服务器上开发时，可以通过 servername 定制自己的域名以及 root 前端打包后的资源，然后再本地配置该域名 host 到该服务器上，则可以访问了
 
+nginx配置
+```nginx
+server {
+  server_name $yourCustomServerName
+  root $yourResourcePath
+}
+```
+host文件
+```
+$serverIp $yourCustomServerName
+```
+
 ## [history 模式的前端页面访问 404 问题解决](https://github.com/febobo/web-interview/issues/31)
