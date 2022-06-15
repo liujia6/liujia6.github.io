@@ -134,8 +134,8 @@ postrestart
 
 ```javascript
 // view.js
-console.log(process.env.npm_package_name) // foo
-console.log(process.env.npm_package_version) // 1.2.5
+console.log(process.env.npm_package_name); // foo
+console.log(process.env.npm_package_version); // 1.2.5
 ```
 
 上面代码中，我们通过环境变量`process.env`对象，拿到`package.json`的字段值。如果是 Bash 脚本，可以用`$npm_package_name`和`$npm_package_version`取到这两个值。
@@ -393,13 +393,13 @@ bin 项用来指定各个内部命令对应的可执行文件的位置。
 
 ```javascript
 scripts: {
-  start: './node_modules/bin/someTool.js build'
+  start: './node_modules/bin/someTool.js build';
 }
 
 // 简写为
 
 scripts: {
-  start: 'someTool build'
+  start: 'someTool build';
 }
 ```
 
@@ -424,3 +424,7 @@ module 字段用来标注库中 esm 版本的入口，若库中包含此字段�
 - cdnjs 提供了一个简单的 API，允许任何人快速查询 CDN 上的资源,`https://api.cdnjs.com/libraries?search=jquery`，返回一个[以 jquery 为搜索条件的包 cdn 列表](https://image-static.segmentfault.com/803/289/803289998-33093935360af500_fix732)，这是一个 get 请求，数组的第一项为名称/功能最相近的资源的最新 CDN 资源地址
 
 ## [package.json 非官方字段集合](https://segmentfault.com/a/1190000016365409)
+
+## 其他
+
+- [手把手教你使用 patch-package 给 npm 包打补丁](https://juejin.cn/post/6962554654643191815)

@@ -59,4 +59,6 @@ host文件
 $serverIp $yourCustomServerName
 ```
 
-## [history 模式的前端页面访问 404 问题解决](https://github.com/febobo/web-interview/issues/31)
+## 常见问题
+[history 模式的前端页面访问 404 问题解决](https://github.com/febobo/web-interview/issues/31)
+[一份简单够用的 Nginx Location 配置讲解](https://github.com/mqyqingfeng/Blog/issues/242)
