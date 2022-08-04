@@ -9,6 +9,7 @@ module.exports = [
       'JS/类型转换',
       'JS/ts',
       'JS/RXJS',
+      'JS/手写代码系列',
     ],
   },
   {
@@ -84,7 +85,7 @@ module.exports = [
   {
     title: '其他',
     children: [
-      '新技术/SSR',
+      '新技术/页面渲染探索和演进',
       '新技术/微前端',
       '新技术/移动端适配',
       '新技术/OAuth2.0与微信登陆',
