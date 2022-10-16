@@ -194,3 +194,15 @@ GrpcWebMode
 
 - [protobuf.js - API 文档](https://protobufjs.github.io/protobuf.js/index.html)
 - [protobuf.js-使用](https://blog.csdn.net/zshake/article/details/117066025)
+
+
+
+
+
+## 如何解决接口文档的问题
+
+使用CI，从服务端注释代码文档中提取出swagger文档，解决了一系列接口问题
+
+- 变量命名方式的问题
+- restful风格，面向资源
+- 

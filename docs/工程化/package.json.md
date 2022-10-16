@@ -1,5 +1,7 @@
 # [package.json](http://javascript.ruanyifeng.com/nodejs/packagejson.html#toc6)
 
+可以使用[ni](https://github.com/antfu/ni)包管理器，统一[npm](https://docs.npmjs.com/cli/v6/commands/npm) · [yarn](https://yarnpkg.com/) · [pnpm](https://pnpm.js.org/en/) · [bun](https://bun.sh/) 各类不同项目的包管理器的自动切换以及命令统一
+
 ## [yarn](https://juejin.im/post/5da9c6b0e51d4524d67486e2#heading-4)
 
 - yarn 会将安装过的包缓存下来，这样再次安装相同包的时候，就不需要再去下载，而是直接从缓存文件中直接 copy 进来。
@@ -229,7 +231,7 @@ npm unlink my-utils
    - 解除项目和模块 link，项目目录下，`npm unlink 模块名`
    - 解除模块全局 link，模块目录下，`npm unlink 模块名`
 
-个人认为使用 npm link 比较麻烦，本地测试其实可以直接修改使用模块的引用路径为本地的绝对路径
+个人认为使用 npm link 比较麻烦，本地测试其实可以直接修改使用模块的引用路径为本地的绝对路径，也可以用yalc替换
 
 ## npx
 
@@ -261,7 +263,7 @@ npm 版本 a-b-c
 
 MAJOR.MINOR.PATCH
 
-![image](https://img-blog.csdnimg.cn/20190812142122685.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3ppc3R4eW0=,size_16,color_FFFFFF,t_70)
+alpha - 开发 （内测） -->     beta - 测试 （公测）--> rc - 灰度 （候选）
 
 #### 升级版本号的规则主要有三个
 

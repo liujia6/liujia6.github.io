@@ -4,25 +4,25 @@ autoGroup-1: linux
 
 # ssh
 
-- 参考https://zhuanlan.zhihu.com/p/21999778
-- 参考https://zhuanlan.zhihu.com/p/126117538
 - [SSH 原理与运用（一）：远程登录](https://www.ruanyifeng.com/blog/2011/12/ssh_remote_login.html)
 - [SSH 原理与运用（二）：远程操作与端口转发](https://www.ruanyifeng.com/blog/2011/12/ssh_port_forwarding.html)
 
-## 简单免密登录服务器
+## 远程登录
 
-[参考](https://www.ruanyifeng.com/blog/2011/12/ssh_remote_login.html)
+### [ssh 配置公钥免密登录实战](https://www.ruanyifeng.com/blog/2011/12/ssh_remote_login.html)
 
-1. 首先需要生成 ssh 秘钥`ssh-keygen -t rsa -C "953993047@qq.com"`,
+1. 生成 ssh 秘钥 `ssh-keygen -t rsa -C "xxx@email.com"`,
 
-2. 控制台问如果之前有生成过一次 ssh 地址，，则需要输入本次的文件名例如 id_rsa_github，不然会覆盖之前的
+2. 控制台问如果之前有生成过一次 ssh 地址，则需要输入本次的文件名例如 id_rsa_github，不然会覆盖之前的
 
 3. 执行 `vi ~/.ssh/config` 按照以下格式写入主机的简称 ，之后可以用 ssh ${hostNickName} 而不是ssh ${username}@\${hostIp}登录了
+
    ```
    Host ${hostNickName}
      HostName ${hostIp}
      User ${username}
    ```
+
 4. windows 下执行`ssh-copy-id -i ~/.ssh/id_rsa.pub 服务器用户名@服务器地址`
 
    - 本地 Mac 环境执行`ssh 服务器用户名@服务器地址 "echo \"`cat .ssh/id_rsa.pub`\" >> .ssh/authorized_keys"`
@@ -36,9 +36,26 @@ autoGroup-1: linux
 
 8. 第一次登录主机的时候会提示你`Are you sure you want to continue connecting (yes/no)? yes`,yes 完成后会将远程主机的公钥存放在此处
 
-## 管理本机的多个 ssh 密钥（多个远程仓库账号）
+### 远程登录的原理
 
-[参考](https://blog.csdn.net/agonie201218/article/details/89561961)
+**账号密码登录**：保证主机提供的密码和账户名一致即可
+
+1. 如何保证密码不被篡改
+   1. 使用服务器的公钥将密码加密并使用私钥解密，如果一致则表示密码没有被篡改
+2. 服务器的公钥没有证书中心 CA 公证，如何保证服务器的身份不被远程拦截（中间人攻击），
+   1. 第一次登录时，系统提示并展示出服务器的公钥指纹，并要求确认，此时我们通过对比服务器公示出来的公钥指纹，确认核对即可
+   2. 核对后，会将主机的公钥保存在.ssh/known_hosts 文件中，下次就可以不用核对了
+
+**ssh 配置公钥免密码登录**：通过预先将本机生成的用户公钥保存在远程主机上，登录时验证通信时本机是否有对应的私钥即可
+
+1. 如何验证对方是否有是否有对应私钥呢
+   1. 登录时，服务器发送一个随机字符
+   2. 主机用私钥将随机字符加密
+   3. 发送给服务器时，服务器用预先存储的用户公钥解密如果确认是否和发送时一致即可确认用户身份
+2. 用户公钥存储
+   1. 远程主机将用户的公钥，保存在登录后的用户主目录的\$HOME/.ssh/authorized_keys 文件中。公钥就是一段字符串，只要把它追加在 authorized_keys 文件的末尾就行了
+
+## [管理本机的多个 ssh 密钥](https://blog.csdn.net/agonie201218/article/details/89561961)（多个远程仓库账号）
 
 可以使用 ssh-agent 统一对私钥代理，也可以通过 config 文件，固定不同域名使用不同私钥
 
@@ -47,8 +64,6 @@ autoGroup-1: linux
 ```
 chmod 600 ~/.ssh/config
 ```
-
-https://serverfault.com/questions/253313/ssh-returns-bad-owner-or-permissions-on-ssh-config
 
 ### ssh-agent
 
@@ -111,15 +126,12 @@ $ git config user.email "xxxx@xx.com"
 $ git config user.name "xxxx"
 ```
 
-### 配置 ssh-agent 登录
+### [配置 ssh-agent 登录](https://zhuanlan.zhihu.com/p/126117538)
 
-​ [参考](https://zhuanlan.zhihu.com/p/126117538)
 
-### ssh-agent 代理转发
+。/俄xxxxxxxxxxxxxxxxxxxxxxxxxx40-[ssh-agent 代理转发原理参考](https://www.zsythink.net/archives/2422)
 
-​ [原理参考](https://www.zsythink.net/archives/2422)
-
-​ [使用参考](https://blog.csdn.net/miss1181248983/article/details/84555264?utm_medium=distribute.pc_relevant.none-task-blog-title-7&spm=1001.2101.3001.4242)
+[使用参考](https://blog.csdn.net/miss1181248983/article/details/84555264?utm_medium=distribute.pc_relevant.none-task-blog-title-7&spm=1001.2101.3001.4242)
 
 现在有 server1、server2、server3 三台机器，其中 server1 已经可以免秘钥登陆 server2 和 server3，但 server2 和 server3 之间无法通过 ssh 登陆。通过 server1 的 ssh-agent 配置可以实现 server 免秘钥登录 server3
 

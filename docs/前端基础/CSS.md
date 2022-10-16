@@ -53,7 +53,7 @@ display: -webkit-box;
   6. 继承的样式没有权值
 
 ## rgba 透明和 opacity 透明的区别
- 
+
 1.opacity 会让所有子元素都变透明，rgba 只相对于当前元素
 2.opacity 会创建新的图层
 
@@ -311,7 +311,7 @@ grid-area:footer ; background:blue}
 
 ## [BFC](https://www.cnblogs.com/CandyManPing/p/5562447.html)
 
-块级格式上下文
+[块级格式上下文](https://www.bilibili.com/video/BV1aZ4y1M7gW/?spm_id_from=333.337.search-card.all.click&vd_source=bbffb4019ced31da1e3d2a77ed42bcee)
 
 - 特点
   1. BFC 区域与外部不相关
@@ -319,13 +319,13 @@ grid-area:footer ; background:blue}
 - 触发条件
   1.  根元素
   2.  (浮动元素)float:none 以外
-  3.  （内容超出不可见或滚动）overflow:visible 以外
+  3.  （内容超出不可见或滚动）overflow:visible 以外 （常用来生成BFC）
   4.  display：inline-block；table-cell、table-caption
   5.  position 的值为 absolute 或 fixed
 - 作用
-  1. 防止上下边距重叠
-  2. 清除浮动防止元素塌陷
-  3. 两栏布局，防止文字环绕
+  1. 防止上下边距重叠 （利用BFC隔离上下间的margin）
+  2. 清除浮动防止元素塌陷  
+  3. 两栏布局，防止文字环绕 （利用BFC可以包含浮动元素）
 
 ## [水平垂直居中](https://segmentfault.com/a/1190000016389031?utm_source=tag-newest)
 
@@ -429,14 +429,14 @@ height 对百分比也是支持的，但是其和 width 还是有一个明显的
   top/right/bottom/left = <length> | <percentage> | auto（默认） | inherit
   /*
   应用于：定位元素（也就是 position 值不是 static 的元素）。无继承性
-
+  
   百分数：对于top和bottom，相对于包含块的 clientHeight；对于right和left，相对于包含块的 clientWidth
-
+  
   这些属性描述了距离包含块最近边的偏移。top描述了定位元素上外边界离其包含块的顶端有多远。如果top为正值，会把定位元素的上外边距边界下移，若为负值，则会把定位元素的上外边距移到其包含块的顶端之上。
   类似地，left描述了定位元素的左外边距边界在其包含块左边界右边（正值）或左边（负值）有多远。如果是正值，会把定位元素的外边距边界移到包含块左边界右边，而负值则将其移到包含块左边界左边。
   所以，正值会导致向内偏移，使边界朝着包含块的中心移动，而负值会导致向外偏移
   偏移定位元素的外边距边界时，带来的影响是元素的所有一切（包含外边距、边框、内边距和内容）都会在定位的过程中移动
-
+  
   注意：
       定位元素的边界是指定位元素 margin 外侧的边界；包含块的包含区域是指包含块的 border 内侧的 padding + content 区域
       如果同时定义了 left 和 right 值，且 width 和 height 有值，那么 left 生效， right 无效，同样，同时定义了 top 和 bottom，top 生效。

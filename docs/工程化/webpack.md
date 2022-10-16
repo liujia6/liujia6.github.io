@@ -12,6 +12,8 @@ Source map 就是一个信息文件，里面储存着位置信息。也就是说
 正如前文所提到的，只要在转换后的代码尾部，加上一行就可以了。
 //@ sourceMappingURL=/path/to/file.js.map
 
+[devtool配置](https://www.webpackjs.com/configuration/devtool/#devtool)
+
 ### 类别
 
 - eval： 使用 eval 包裹模块代码,利用字符串可缓存从而提效

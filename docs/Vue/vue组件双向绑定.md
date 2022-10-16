@@ -51,18 +51,26 @@
   @input="add.show = $event"
   @click="add.show = true"
 ></Add>
+```
 
 - 子组件
+  
+```vue
 <template>
   <fui-modal :visible.sync="value"> </fui-modal>
 </template>
-export default{ //自定义双向绑定的值和事件，value和input是默认值，可以不写
-model: { prop: 'value',//父组件设置 v-model
-时，将value传给子组件，可以设置为其他prop event: 'input'//父组件监听input
-事件，也可以定义其他事件如change }, //用modal定义的prop值，必须的值 props: {
-value: { // required: true, type: [Boolean], default: false, }, },
-//用watch监听value值变化 watch:{ value(v) { this.$emit('input',
-v);//传值给父组件, 让父组件监听到这个变化 }, }, }
+export default { 
+  //自定义双向绑定的值和事件，value和input是默认值，可以不写
+  model: { 
+    prop: 'value', //父组件设置 v-model时，将value传给子组件，可以设置为其他prop 
+    event: 'input' //父组件监听input事件，也可以定义其他事件如change 
+  }, 
+  //用modal定义的prop值，必须的值 
+  props: {
+    value: { // required: true, type: [Boolean], default: false, }, },
+//用watch监听value值变化 
+  watch:{ value(v) { this.$emit('input',
+  v);//传值给父组件, 让父组件监听到这个变化 }, }, }
 ```
 
 ### 2）.sync 修饰符

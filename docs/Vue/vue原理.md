@@ -390,3 +390,8 @@ patch 函数接收两个参数 oldVnode 和 Vnode 分别代表新的节点和之
 - 只有 template，是不行的，因为，vue 对象不知道把 template 放在何处；
 - 只有 render（渲染）函数,也是不行的，因为，vue 对象不知道把 render 后的结果放在何处；
 - 既有 el 又有 template，就会用 template 里的内容替换 el 的 outterHTML。
+
+
+## 参考
+
+- [vue-router原理](https://juejin.cn/post/7070708855046569997)
