@@ -239,6 +239,23 @@ export default {
 }
 ```
 
+鉴于经常会用到详情页面返回列表页面时，列表需要缓存上次访问的状态，可通过keep-alive实现，最简单的使用方法就是在router上加个suspendAndPush方法
+
+```
+```
+
+
+
+
+
+## [原理](https://github.com/answershuto/learnVue/blob/master/vue-src/core/components/keep-alive.js)
+
+keep-alive这个词在HTTP中被称为持久连接，允许多个请求或响应共用一个TCP连接，没有keep-alive的情况下，HTTP请求会在每次结束后关闭，频繁创建和销毁会带来性能开销。
+
+keep-alive组件可以避免组件被平凡地创建和销毁
+
+keep-alive的本质是缓存管理以及特殊的挂载/卸载逻辑，与渲染器的代码强
+
 ## keep-alive 其他知识点
 
 - 使用 router-view 或者是 include 里面写的是路由组件的 name 都是把`整个页面都缓存`起来了，那么该页面的所有状态例如 state 都是缓存了的，在激活的时候会调用 activated 函数
