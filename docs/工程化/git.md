@@ -331,6 +331,11 @@ $ git remote set-url origin https://github.com/USERNAME/REPOSITORY.git
 
 git config --global alias.rc 'rebase --continue'
 
+## node常用命令
+- 获取最近的commit-id: `git rev-parse --short HEAD` 
+- 获取最近的commit-message: `git log -1 --pretty=%B`
+
+
 ## 参考
 
 [GIT-BOOK](https://git-scm.com/book/zh/v2/)
