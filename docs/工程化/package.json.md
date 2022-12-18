@@ -12,12 +12,10 @@
 ## 依赖管理
 
 - `peerDependency`： 从 npm 3.0 版开始，`peerDependencies`不再会默认安装了。一些常用的包会被添加在 b 包的 peerDependencies 里，比如 react、react-router 等，可以认为工作项目 a 中一定已经安装了这些指定版本的依赖，少数情况下才需要手动安装。
-
 - `dependencies` ：是项目所依赖的包。
-
 - `devDependencies` ：是开发阶段所需要的包
-
-- `optionalDependencies`：如果有一些依赖包即使安装失败，项目仍然能够运行或者希望 npm 继续运行，就可以使用 optionalDependencies。另外 optionalDependencies 会覆盖 dependencies 中的同名依赖包，所以不要在两个地方都写。
+- `optionalDependencies`：如果有一些依赖包即使安装失败，项目仍然能够运行或者希望 npm 继续运行，就可以使用 optionalDependencies。另外 optionalDependencies 会覆盖 dependencies 中的同名依赖包，所以不要在两个地方都写
+- [bundleDenpendencies](https://laysent.com/til/2020-01-08_bundleddependencies)： 这些指定的包也将在发布的时候一并被打包。这样，当其他人使用这个包的时候，就可以直接使用打包在项目内的依赖，而不需要在通过包管理器去下载了。
 
 ### [安装包](https://docs.npmjs.com/cli/v7/commands/npm-install)
 
@@ -100,138 +98,21 @@ git+ssh://github.com/owner/package.git#commithashortagorbranch
 6. `yarn add <git remote url>#<branch/commit/tag>` installs a package from a remote git repository at specific git branch, git commit or git tag.
 7. `yarn add https://my-project.org/package.tgz` installs a package from a remote gzipped tarball.
 
-## [npm restart](http://www.ruanyifeng.com/blog/2016/10/npm_scripts.html)
+## [npm scripts 使用指南](http://www.ruanyifeng.com/blog/2016/10/npm_scripts.html)
 
 script 脚本传参 -- arguments
 
-而`npm restart`是一个复合命令,实际上会执行三个脚本命令：`stop`、`restart`、`start`。具体的执行顺序如下。
-
-```
-prerestart
-prestop
-stop
-poststop
-restart
-prestart
-start
-poststart
-postrestart
-```
+而`npm restart`是一个复合命令,实际上会执行三个脚本命令：`stop`、`restart`、`start`。其分别有自己的pre和post命令
 
 ## 变量
 
-首先，通过`npm_package_`前缀，npm 脚本可以拿到`package.json`里面的字段。比如，下面是一个`package.json`。
+首先，通过`npm_package_`前缀，npm 脚本可以拿到`package.json`里面的字段
 
-```javascript
-{
-  "name": "foo",
-  "version": "1.2.5",
-  "scripts": {
-    "view": "node view.js"
-  }
-}
-```
+[调试指南](https://mp.weixin.qq.com/s/I4hhrgI3-Y18HD8zw_9g9w)
 
-那么，变量`npm_package_name`返回`foo`，变量`npm_package_version`返回`1.2.5`。
+除了npm link ，本地测试其实可以直接修改使用模块的引用路径为本地的绝对路径，或者用[yalc](https://juejin.cn/post/7033400734746066957)替换
 
-```javascript
-// view.js
-console.log(process.env.npm_package_name); // foo
-console.log(process.env.npm_package_version); // 1.2.5
-```
-
-上面代码中，我们通过环境变量`process.env`对象，拿到`package.json`的字段值。如果是 Bash 脚本，可以用`$npm_package_name`和`$npm_package_version`取到这两个值。
-
-`npm_package_`前缀也支持嵌套的`package.json`字段。
-
-```javascript
-  "repository": {
-    "type": "git",
-    "url": "xxx"
-  },
-  scripts: {
-    "view": "echo $npm_package_repository_type"
-  }
-```
-
-上面代码中，`repository`字段的`type`属性，可以通过`npm_package_repository_type`取到。
-
-下面是另外一个例子。
-
-```javascript
-"scripts": {
-  "install": "foo.js"
-}
-```
-
-上面代码中，`npm_package_scripts_install`变量的值等于`foo.js`。
-
-然后，npm 脚本还可以通过`npm_config_`前缀，拿到 npm 的配置变量，即`npm config get xxx`命令返回的值。比如，当前模块的发行标签，可以通过`npm_config_tag`取到。
-
-```javascript
-"view": "echo $npm_config_tag",
-```
-
-注意，`package.json`里面的`config`对象，可以被环境变量覆盖。
-
-```javascript
-{
-  "name" : "foo",
-  "config" : { "port" : "8080" },
-  "scripts" : { "start" : "node server.js" }
-}
-```
-
-上面代码中，`npm_package_config_port`变量返回的是`8080`。这个值可以用下面的方法覆盖。
-
-```bash
-$ npm config set foo:port 80
-```
-
-最后，`env`命令可以列出所有环境变量。
-
-```javascript
-"env": "env"
-```
-
-## [npm link](https://www.jianshu.com/p/aaa7db89a5b2) [详细](https://mobilesite.github.io/2017/03/12/npm-link-local-module/)
-
-`npm link`实现引用本机中的模块
-
-- npm link 用来在本地项目和本地 npm 模块之间建立连接，可以在本地进行模块测试. 具体用法
-
-```shell
-# 先去到模块目录，把它 link 到全局
-cd path/to/my-utils
-npm link
-
-# 再去项目目录通过包名来 link
-cd path/to/my-project
-npm link my-utils
-
-cd path/to/egg-init
-npm link
- # 此时全局的 egg-init 指令就已经指向你的本地开发目录了
-egg-init # 即可
-想去掉 link 也很简单：
-
-npm unlink my-utils
-```
-
-[使用](https://www.cnblogs.com/mengff/p/11743145.html)
-
-1.  项目和模块在同一个目录下，可以使用相对路径 `npm link ../module`
-
-2.  项目和模块不在同一个目录下
-
-- cd 到模块目录，npm link，进行全局 link
-- cd 到项目目录，npm link 模块名(package.json 中的 name)
-
-3. 解除 link
-   - 解除项目和模块 link，项目目录下，`npm unlink 模块名`
-   - 解除模块全局 link，模块目录下，`npm unlink 模块名`
-
-个人认为使用 npm link 比较麻烦，本地测试其实可以直接修改使用模块的引用路径为本地的绝对路径，也可以用yalc替换
+- 使用yalc可以解决依赖解析、文件系统之间的符号链接互操作性等问题
 
 ## npx
 
@@ -363,9 +244,15 @@ registry = http://registry.example.com/
 
 [nrm 切换源](https://segmentfault.com/a/1190000017419993)
 
-## bin 字段与 script 字段
+## [bin 字段与 script 字段](http://www.ruanyifeng.com/blog/2016/10/npm_scripts.html)
 
-### 本地调试命令别名
+npm 脚本的原理非常简单。每当执行`npm run`，就会自动新建一个 Shell，在这个 Shell 里面执行指定的脚本命令。因此，只要是 Shell（一般是 Bash）可以运行的命令，就可以写在 npm 脚本里面。
+
+比较特别的是，`npm run`新建的这个 Shell，会将当前目录的`node_modules/.bin`子目录加入`PATH`变量，执行结束后，再将`PATH`变量恢复原样。
+
+这意味着，当前目录的`node_modules/.bin`子目录里面的所有脚本，都可以直接用脚本名调用，而不必加上路径。比如，当前项目的依赖里面有 Mocha，只要直接写`mocha test`就可以了。
+
+#### 本地调试命令别名
 
 ```javascript
 "bin" : {
@@ -375,7 +262,7 @@ registry = http://registry.example.com/
 
 以上配置后，可以在项目目录下运行 myapp，相当于 node index 命令。相当于一个命令别名
 
-### 指定各个内部命令对应的可执行文件
+#### 指定各个内部命令对应的可执行文件
 
 bin 项用来指定各个内部命令对应的可执行文件的位置。
 

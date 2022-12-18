@@ -93,6 +93,8 @@ t();
 - catch 应该只处理它知道的 error，并“抛出”所有其他 error。
 - 通过责任链模式，谁有责任干什么事情是确定的，不要做能力范围以外的事情
 
+## [JS中已有的异常类型](https://mp.weixin.qq.com/s/xXSeT2Q6HDJE0Q8Wn9Zz_A)
+
 ## 自定义 Error，扩展 Error
 
 开发中，需要根据不同的错误场景定义不同的自定义 Error 类型。例如对于网络操作中的 error，我们需要 HttpError，对于数据库操作中的 error，我们需要 DbError，对于搜索操作中的 error，我们需要 NotFoundError，等等。
