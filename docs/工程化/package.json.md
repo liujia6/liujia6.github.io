@@ -65,7 +65,7 @@ common options: [-P|--save-prod|-D|--save-dev|-O|--save-optional|--save-peer] [-
 
 执行 `npm update` 会升级所有的红色依赖。
 
-## yarn add 远程 git 协议
+## [yarn add 远程 git 协议](https://stackoverflow.com/questions/31801271/what-are-the-supported-git-url-formats)
 
 ```js
 yarn add <git remote url> installs a package from a remote git repository.
