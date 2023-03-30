@@ -205,8 +205,13 @@ export default {
     }
   },
   created() {
-  // 在列表页使用suspendAndPush到详情页，然后详情页有多个不同的tab，点击tab通过router.replace添加了tab对应的query在url上，也会触发缓存的重新计算，这时会导致缓存清空路由挂起失效，再返回列表页会重新加载
-  // 此处需要排除用router.replace的方式调用的处理
+  // 场景：在列表页使用suspendAndPush到详情页，然后详情页有多个不同的tab，点击tab通过router.replace添加了tab对应的query在url上，也会触发缓存的重新计算，这时会导致缓存清空路由挂起失效，再返回列表页会重新加载
+  // 处理：此处需要排除用router.replace的方式调用的处理，
+ // 1. 无论是router.replace还是router.push都会走路由的钩子，不会引起页面刷新，但是vue-router等路由库会监听路由处理页面渲染
+ // 2. 直接使用window.history.replaceState也会走路由的钩子
+ // 3. window.history.replace(state,'',url) 
+ // state用于路由改变时的传值,通过popstate事件或者window.history.state可以获取到，会经过json序列化copy一份，可以直接传递空对象
+ // 第二个参数是历史因素，大部分浏览器不支持，传空值就好，url上传值为我们需要跳转的路由路径
     this.$router.beforeEach((to, from, next) => {
       this.cleanCache(to.name, from.name);
       this.changeCache(to, from);
