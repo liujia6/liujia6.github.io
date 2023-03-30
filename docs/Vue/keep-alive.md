@@ -162,6 +162,7 @@ beforeRouteLeave(to, from, next) {
 router-cache 组件解决方案，将逻辑写在 router 的 meta 的 cache 函数里面，该 cache 函数返回需要缓存的组件 name 值，使用 this.\$router.beforeEach，每次跳转前将跳转的 cache 函数返回值作为缓存
 
 - 局限：只能满足两个页面之间的缓存控制，如果需要多页面之间多跳转控制的复杂场景不能满足要求，适用于一般类似新增查看页面返回保存缓存场景
+- 缓存也只存在于包裹的内容内，例如，当从keepalive包裹的页面切换到外部再切换回来，此时是没有缓存的，会重新渲染
 
 ```vue
 <template>
@@ -204,6 +205,8 @@ export default {
     }
   },
   created() {
+  // 在列表页使用suspendAndPush到详情页，然后详情页有多个不同的tab，点击tab通过router.replace添加了tab对应的query在url上，也会触发缓存的重新计算，这时会导致缓存清空路由挂起失效，再返回列表页会重新加载
+  // 此处需要排除用router.replace的方式调用的处理
     this.$router.beforeEach((to, from, next) => {
       this.cleanCache(to.name, from.name);
       this.changeCache(to, from);
@@ -252,9 +255,9 @@ export default {
 
 keep-alive这个词在HTTP中被称为持久连接，允许多个请求或响应共用一个TCP连接，没有keep-alive的情况下，HTTP请求会在每次结束后关闭，频繁创建和销毁会带来性能开销。
 
-keep-alive组件可以避免组件被平凡地创建和销毁
+keep-alive组件可以避免组件被频繁地创建和销毁
 
-keep-alive的本质是缓存管理以及特殊的挂载/卸载逻辑，与渲染器的代码强
+keep-alive的本质是缓存管理以及特殊的挂载/卸载逻辑，与渲染器的代码强关联
 
 ## keep-alive 其他知识点
 
