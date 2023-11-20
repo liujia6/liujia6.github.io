@@ -327,14 +327,14 @@ $ git remote set-url origin https://github.com/USERNAME/REPOSITORY.git
 
 ## [配置别名](https://juejin.cn/post/6844903976245133326#heading-1)
 
-别名配置保存在 ~/.gitconfig 文件
-
-git config --global alias.rc 'rebase --continue'
-
+1. 别名配置保存在 `~/.gitconfig` 文件
+2. 配置单个别名  `git config --global alias.rc 'rebase --continue'`
+3. 以vim的形式修改别名配置文件  `git config --global -e`
+   
 ## node常用命令
 - 获取最近的commit-id: `git rev-parse --short HEAD` 
 - 获取最近的commit-message: `git log -1 --pretty=%B`
-
+- 删除除了master以外所有本地分支 `git branch | grep -v 'master' | xargs git branch -D`
 
 ## 参考
 
