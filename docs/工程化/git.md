@@ -232,14 +232,10 @@ patch 补丁即为根据 git diff 生成的文本内容文件，最简单的生�
 
 **删除 submodule**
 
-    1. 在“.gitmodules”文件中删除相应配置信息。
-    2. 执行“git rm –cached ”命令将子模块所在的文件从git中删除。
+1. 在“.gitmodules”文件中删除相应配置信息。
+2. 执行“git rm –cached ”命令将子模块所在的文件从 git 中删除。
 
-**修改 submodule 的 url 和分支**
-
-    1. 修改.gitmodules文件的对应url和branch
-    2. 执行git submodule sync ，该命令是为了让将新的URL更新到文件`.git/config`；
-    3. 执行git submodule update --force --recursive --init --remote。该命令会抓取修改过的最新的shared仓库并初始化。
+**修改 submodule 的 url 和分支** 1. 修改.gitmodules 文件的对应 url 和 branch 2. 执行 git submodule sync ，该命令是为了让将新的 URL 更新到文件`.git/config`； 3. 执行 git submodule update --force --recursive --init --remote。该命令会抓取修改过的最新的 shared 仓库并初始化。
 
 **合并 submodule 作为仓库代码**
 
@@ -336,6 +332,15 @@ $ git remote set-url origin https://github.com/USERNAME/REPOSITORY.git
 - 获取最近的commit-message: `git log -1 --pretty=%B`
 - 删除除了master以外所有本地分支 `git branch | grep -v 'master' | xargs git branch -D`
 
+## [git rm](https://www.runoob.com/git/git-rm.html)
+
+删除文件
+
+```bash
+git rm -f   #强行删除暂存区修改过的文件
+git rm --cached <file> # 删除文件在git跟踪清单中，但仍然希望保留在当前工作目录中，可以理解为单次操作使得git ignore
+git rm –r *  # 递归删除当前目录所有文件夹和文件
+```
 ## 参考
 
 [GIT-BOOK](https://git-scm.com/book/zh/v2/)
