@@ -6,16 +6,20 @@
 
 - yarn 会将安装过的包缓存下来，这样再次安装相同包的时候，就不需要再去下载，而是直接从缓存文件中直接 copy 进来。
   可以通过命令 yarn cache dir 查看 yarn 的全局缓存目录。我的缓存目录在 /Library/Caches/Yarn/v1 下。
-- yarn.lock 中会准确的存储每个依赖的具体版本信息，以保证在不同机器安装可以得到相同的结果。
 - yarn.lock 文件是在安装期间，由 Yarn 自动生成的，并且由 yarn 来管理，不应该手动去更改，更不应该删除 yarn.lock 文件，且要提交到版本控制系统中，以免因为不同机器安装的包版本不一致引发问题
 
 ## 依赖管理
 
 - `peerDependency`： 从 npm 3.0 版开始，`peerDependencies`不再会默认安装了。一些常用的包会被添加在 b 包的 peerDependencies 里，比如 react、react-router 等，可以认为工作项目 a 中一定已经安装了这些指定版本的依赖，少数情况下才需要手动安装。
-- `dependencies` ：是项目所依赖的包。
+- `dependencies` ：是项目运行所依赖的包。
 - `devDependencies` ：是开发阶段所需要的包
 - `optionalDependencies`：如果有一些依赖包即使安装失败，项目仍然能够运行或者希望 npm 继续运行，就可以使用 optionalDependencies。另外 optionalDependencies 会覆盖 dependencies 中的同名依赖包，所以不要在两个地方都写
 - [bundleDenpendencies](https://laysent.com/til/2020-01-08_bundleddependencies)： 这些指定的包也将在发布的时候一并被打包。这样，当其他人使用这个包的时候，就可以直接使用打包在项目内的依赖，而不需要在通过包管理器去下载了。
+
+
+- 应用开发时无需关注以下类型的依赖，不同类型的依赖在使用时并无区别，yarn时两者都需要安装，一般只区分dependencies与devDependencies作为项目开发规范
+- 而开发库时，需要关注以上类型不同类型的dependencies，在安装库时有实际区分
+
 
 ### [安装包](https://docs.npmjs.com/cli/v7/commands/npm-install)
 
