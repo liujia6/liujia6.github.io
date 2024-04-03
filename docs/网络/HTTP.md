@@ -1,7 +1,10 @@
 # HTTP
 
-- 定义
-- 超文本是用超链接的方法，将各种不同空间的文字信息组织在一起的网状文本
+## 定义
+
+- 超文本是指不同的文本之间可以通过超链接来连接起来，从而形成一个网络。
+- HTML，全称超文本标记语言（Hyper Text Markup Language），是超文本的一种实现方式。它使用一系列标签来标记网页中的文本、图片、音频、视频等内容。还创建了网页中的超链接，使得用户可以在不同的信息节点之间自由跳转。
+- HTTP，全称超文本传输协议（Hypertext Transfer Protocol），是一种应用层协议，用于在计算机网络中传输超文本。HTTP协议是客户端（通常是浏览器）和服务器之间请求和应答的标准，是互联网上应用最为广泛的一种网络协议。
 
 ## HTTP/0.9
 
@@ -41,101 +44,23 @@
 
 ## HTTP/2:基于 SPDY 协议
 
-- 二进制分帧
-  - HTTP/1.1 版的头信息肯定是文本（ASCII 编码），数据体可以是文本，也可以是二进制。HTTP/2 则是一个彻底的二进制协议，头信息和数据体都是二进制，并且统称为"帧"（frame）：头信息帧和数据帧。
-- 多路复用
-  - 客户端和服务端可以同时发送数据，不管顺序
+- **二进制协议**： HTTP/1.1 版的头信息肯定是文本（ASCII 编码），数据体可以是文本，也可以是二进制。HTTP/2 则是一个彻底的二进制协议，头信息和数据体都是二进制。
+  - 二进制数据可以直接由计算机硬件处理，而无需像文本格式那样进行复杂的解析，提高解析效率
+  - 客户端还可以指定数据流的优先级。优先级越高，服务器就会越早回应。
+- **多路复用**
+  - **帧**（Frames）：最小的通信单位：这些帧可以是不同类型的，如 HEADERS、DATA、PUSH_PROMISE 等，并且它们可以在单个 TCP 连接上交错发送，**无需等待**其他帧的完成。
+  - **流**（Streams）：HTTP/2 通过流来管理这些帧的发送和接收。每个请求或响应都对应一个流，并且每个流都有一个唯一的标识符。多个请求和响应可以在同一个TCP连接上交错发送，而不会相互干扰。从而实现**多路复用**。这意味着即使某个请求因为某种原因被延迟，其他请求也可以继续发送和接收数据，从而大大提高了性能
+    -  数据流发送到一半的时候，客户端和服务器都可以发送信号（RST_STREAM帧），取消这个数据流。1.1版取消数据流的唯一方法，就是关闭TCP连接。这就是说，HTTP/2 可以取消某一次请求，同时保证TCP连接还打开着，可以被其他请求使用。
+  - **优先级**（Priorities）：HTTP/2 允许客户端为每个流设置优先级。当网络拥塞或服务器资源有限时，服务器可以根据这些优先级来决定先处理哪些流。这有助于确保重要的请求得到优先处理。
 - 服务端推送
+  - 可以提升首屏加载速度，它允许Web服务器在收到浏览器的请求之前提前发送一些资源给客户端
 - 头部压缩
-  - 头信息使用 gzip 或 compress 压缩后再发送；另一方面，客户端和服务器同时维护一张头信息表，所有字段都会存入这个表，生成一个索引号，以后就不发送同样字段了，只发送索引号，这样就提高速度了。
+  - 通过HPACK算法有效减少了头部字段的传输大小，提高了网络传输的性能和效率
+    - 在客户端和服务器两端建立“字典”，用索引号表示重复的字符串。对于相同的数据，不再通过每次请求和响应发送，而是使用首部表中的引用。这种机制可以大大减少冗余数据的传输，降低开销。
+    - 采用哈夫曼编码来压缩整数和字符串，从而达到高压缩率（50%~90%）
 
 参考：
 
 - [HTTP 协议入门](http://www.ruanyifeng.com/blog/2016/08/http.html)
 - [理解 HTTP 协议](https://www.cnblogs.com/wxisme/p/6212797.html)
-
-## cookie 和 localstorage 区别
-
-```
-Set-Cookie: <cookie-name>=<cookie-value>; Expires=<date> Set-Cookie: <cookie-name>=<cookie-value>; Max-Age=<non-zero-digit> Set-Cookie: <cookie-name>=<cookie-value>; Domain=<domain-value> Set-Cookie: <cookie-name>=<cookie-value>; Path=<path-value> Set-Cookie: <cookie-name>=<cookie-value>; Secure Set-Cookie: <cookie-name>=<cookie-value>;
-```
-
-HttpOnly 如果服务器想改变一个早先设置的 Cookie，必须同时满足四个条件：Cookie 的 key、domain、path 和 secure 都匹配。举例来说，如果原始的 Cookie 是用如下的 Set-Cookie 设置的。
-
-Set-Cookie: key1=value1; domain=example.com; path=/blog
-
-改变上面这个 Cookie 的值，就必须使用同样的 Set-Cookie。
-
-Set-Cookie: key1=value2; domain=example.com; path=/blog
-
-只要有一个属性不同，就会生成一个全新的 Cookie，而不是替换掉原来那个 Cookie。
-
-服务器收到浏览器发来的 Cookie 时，有两点是无法知道的。
-
-- Cookie 的各种属性，比如何时过期。
-- 哪个域名设置的 Cookie，到底是一级域名设的，还是某一个二级域名设的。
-
-浏览器的同源政策规定，两个网址只要域名相同和端口相同，就可以共享 Cookie（参见《同源政策》一章）。注意，这里不要求协议相同。也就是说，http://example.com设置的 Cookie，可以被https://example.com读取。
-
-## session 和 token 区别
-
-- 是 session 是**后端保存**，会增加**服务端**查询，保存数据的**压力**，而且容易有**CSRF**跨站伪造请求攻击，因为 sessionID 是存在 cookie 中的， cookie 如果被截获，用户就会很容易受到跨站请求伪造的攻击。
-
-- token 是前端保存，比较灵活，可以实现单点登录而不受后端的限制；但是缺点也是不受后端控制，签发后不能撤销，只能通过建立黑名单再存储到数据库中
-
-- session 需要考虑分布式部署下 redis 数据库保存数据
-
-## 密码安全
-
-1. 从信息安全的角度上不允许存储明文密码
-2. 加密方式
-3. HAMC 加盐的方式
-
-### JWT
-
-JWT 的最佳用途是「**一次性授权 Token**」，这种场景下的 Token 的特性如下：
-有效期短，只希望被使用一次。
-例如分享一个文件给朋友，在指定 1 小时打开有效。
-
-尽管这看上去像 cross-site scripting 攻击，结果并不会导致什么。HTML 5 中指定不执行由 innerHTML 插入的\<script\>标签。
-
-#### 过程
-
-1、第一次登录的时候，前端调后端的登陆接口，发送用户名和密码
-2、后端收到请求，验证用户名和密码，验证成功，就给前端返回一个 token
-3、前端拿到 token，将 token 存储到 localStorage 和 vuex 中，并跳转路由页面（本项目根据是否记住密码来判断 token 存储到 sessionStorage 或 localStorage ）
-4、前端每次跳转路由，就判断 localStroage 中有无 token ，没有就跳转到登录页面，有则跳转到对应路由页面
-5、每次调后端接口，都要在请求头中加 token
-6、后端判断请求头中有无 token，有 token，就拿到 token 并验证 token，验证成功就返回数据，验证失败（例如：token 过期）就返回 401，请求头中没有 token 也返回 401
-7、如果前端拿到状态码为 401，就清除 token 信息并跳转到登录页面
-
-### WebStorage
-
-**生命周期**：sessionStorage 在关闭页面后即被清空，而 localStorage 则会一直保存。
-
-cookie 机制：如果不在浏览器中设置过期时间，cookie 被保存在内存中，生命周期随浏览器的关闭而结束，这种 cookie 简称会话 cookie。如果在浏览器中设置了 cookie 的过期时间，cookie 被保存在硬盘中，关闭浏览器后，cookie 数据仍然存在，直到过期时间结束才消失。
-
-**安全性**：WebStorage 不会随着 HTTP header 发送到服务器端，所以安全性相对于 cookie 来说比较高一些，不会担心截获，但是仍然存在伪造问题；
-
-HTML5 的本地存储 API 中的 localStorage 与 sessionStorage 在使用方法上是相同的，区别在于
-
-Cookie 是服务器发给客户端的特殊信息，cookie 是以文本的方式保存在客户端，每次请求时都带上它
-
-**存储内容**：cookie 只能保存字符串类型，以文本的方式；session 通过类似与 Hashtable 的数据结构来保存，能支持任何类型的对象(session 中可含有多个对象)
-
-**存储容量：cookie**为 4kb，localStorage 和 sessionStorage 的存储数据大小一般都是：5MB，
-
-有些网站测试出来的不是整整的 5242880 （ 5120x1024 ），而是 5101k 之类的，我猜测应该是没把 key 算上，上面这个测试页面统计包含 key 的长度，所以很整齐，刚好 5120\*1024，由此可知 key 也是算容量的 localstorage 的容量每个浏览器都不一样，都是在 5MB 左右，关于单位问题，单位是字符，可以是中文或英文字母，一个中文等同一个英文字母。所以有些地方说是容量是 10M，也不能算错。因为 js 用 utf-16，所以中文英文一个字符都是是 2 个字节，10M 指的是字节数。
-
-**存储位置**：localStorage 和 sessionStorage 都保存在客户端，不与服务器进行交互通信，节省了网络流量，而且显示更快。而 cookie 每次访问都要传送 cookie 给服务器
-
-
-
-
-
-其他请求头：
-
-origin：跨域的判断
-
-referer：防盗链
-
+- [深入理解http2.0协议，看这篇就够了！ - 知乎](https://zhuanlan.zhihu.com/p/89471776)
