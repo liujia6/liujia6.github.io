@@ -30,13 +30,20 @@ function fibonacci(n) {
 
 - 利用动态规划，到达第 n 个台阶只可能有两种情况，从前一个台阶来，从前前个台阶来
 
-```js
-function fibonacci() {
-  // write code here
-  if (n <= 2) return n;
-  return Fibonacci(n - 1) + Fibonacci(n - 2);
-}
+递归
 
+```js
+function jumpFloor(number) {
+  // write code here
+  if (number === 1) return 1;
+  if (number === 2) return 2;
+  return jumpFloor(number - 1) + jumpFloor(number - 2);
+}
+```
+
+动态规划
+
+```js
 function jumpFloor(n) {
   const result = [0, 1, 2];
   for (var i = 3; i <= n; i++) {
