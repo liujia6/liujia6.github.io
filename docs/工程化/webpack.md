@@ -140,3 +140,8 @@ head.appendChild(script);
 
 - 传统的编译语言，编译器就可以醉哦到删除 Dead Code，但是 JS 是动态语言，编译器无法做到，我们需要借助打包工具实现消除 dead Code
 - 借助 ESM 的静态结构分析，找到没有引入的模块打上标记，在压缩阶段利用 uglify-js 这样的压缩工具删除无用代码
+
+
+## 参考资料
+
+- [Webpack Guidebook - 📚 Webpack 知识图谱：模块化、基础概念、工作原理、实战应用 - Webpack Guidebook](https://tsejx.github.io/webpack-guidebook/)

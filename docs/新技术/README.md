@@ -31,27 +31,24 @@
 - [svelete](https://svelte.dev/blog/svelte-3-rethinking-reactivity)
 - [service-worker](https://developers.google.com/web/fundamentals/primers/service-workers/)
 
-  - service-worker是一个特化的worker，专门用来处理网页资源，在浏览器和真正的服务器之间做为一个正向代理
-  - HTTP请求的本地代理服务器+响应和资源的缓存管理器
+  - service-worker 是一个特化的 worker，专门用来处理网页资源，在浏览器和真正的服务器之间做为一个正向代理
+  - HTTP 请求的本地代理服务器+响应和资源的缓存管理器
   - 主要解决两个问题
     - 作为[PWA (Progressive Web Application, 渐进式网络应用)](https://link.zhihu.com/?target=https%3A//developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Introduction)的核心。
     - 提供更好的网页性能。
     - 提供优秀的[离线缓存](https://mp.weixin.qq.com/s/3Ep5pJULvP7WHJvVJNDV-g)（对缓存的极限控制）和弱网环境的使用体验。
-  - Service Worker缓存策略
-
+  - Service Worker 缓存策略
     - **仅缓存（Cache Only）**
-
     - **重新验证时失效(Stale while revalidate)**
   - 苹果设备对其支持一般
-
-    - **可以使用service worker 和缓存API**
-
+    - **可以使用 service worker 和缓存 API**
     - **但是不能使用消息推送以及后台同步**
   - 有一定的数据存储能力
-- [面试官：请你实现一个PWA 我：😭 - 掘金](https://juejin.cn/post/6844904052166230030)
--   在国内市场低：市场被小程序抢占
 
-- [RUST新基建](https://github.com/ascoders/weekly/blob/master/%E5%89%8D%E6%B2%BF%E6%8A%80%E6%9C%AF/218.%E7%B2%BE%E8%AF%BB%E3%80%8ARust%20%E6%98%AF%20JS%20%E5%9F%BA%E5%BB%BA%E7%9A%84%E6%9C%AA%E6%9D%A5%E3%80%8B.md)
+- [面试官：请你实现一个 PWA 我：😭 - 掘金](https://juejin.cn/post/6844904052166230030)
+- 在国内市场低：市场被小程序抢占
+
+- [RUST 新基建](https://github.com/ascoders/weekly/blob/master/%E5%89%8D%E6%B2%BF%E6%8A%80%E6%9C%AF/218.%E7%B2%BE%E8%AF%BB%E3%80%8ARust%20%E6%98%AF%20JS%20%E5%9F%BA%E5%BB%BA%E7%9A%84%E6%9C%AA%E6%9D%A5%E3%80%8B.md)
 
 ## 新概念们
 
