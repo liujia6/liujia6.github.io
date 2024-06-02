@@ -17,9 +17,7 @@ module.exports = {
       updatePopup: true
     },
     sidebar,
-    repo: 'vuejs/vuepress',
-    // 自定义仓库链接文字。默认从 `themeConfig.repo` 中自动推断为
-    // "GitHub"/"GitLab"/"Bitbucket" 其中之一，或是 "Source"。
+    repo: 'liujia6/liujia6.github.io',
     repoLabel: 'GitHub',
     editLinks: true,
     // 默认为 "Edit this page"

@@ -1,7 +1,3 @@
-# [css](https://juejin.cn/post/6905695376645292045#heading-202)
-
-### [绝对定位元素](https://www.jianshu.com/p/ecbac906cd5b)
-
 ## 替换元素与非替换元素
 
 大部分元素，页面上显示的结果，取决于元素内容，称为**非可替换元素**
@@ -15,15 +11,14 @@
 static
 relative
 fixed
-absolute 当元素绝对定位时，会从文档流中完全删除，相对于距离最近的非static祖先元素位置决定的
-sticky
+absolute 当元素绝对定位时，会从文档流中完全删除，相对于距离最近的非static 祖先元素位置决定的
+sticky 视口能看时表现为relative定位，看不见时表现为fixed定位
 ```
 
 sticky 定位
 
 - 当元素在屏幕内，表现为 relative，就要滚出显示器屏幕的时候，表现为 fixed
 - 父级元素不能有任何 overflow:visible 以外的 overflow 设置，否则没有粘滞效果。因为改变了滚动容器（即使没有出现滚动条）。
-
 
 ## 文本省略
 
@@ -56,11 +51,6 @@ display: -webkit-box;
   5. 通配符、子类选择器、兄弟选择器，如\*, >, +，权值为 0000
   6. 继承的样式没有权值
 
-## rgba 透明和 opacity 透明的区别
-
-1.opacity 会让所有子元素都变透明，rgba 只相对于当前元素
-2.opacity 会创建新的图层
-
 ## link 和 import 引入 css 的区别
 
 - link：是 html 标签，并且并行加载文件，还可以加载图片的资源文件
@@ -77,12 +67,11 @@ src 是 source 的缩写，src 指向的内容会嵌入到文档当前标签所�
 ## 浮动
 
 - 带来的问题
-  1.  浮动元素脱离文档流，父元素塌陷，会覆盖在后面紧随的元素之上
+  1. 浮动元素脱离文档流，父元素塌陷，会覆盖在后面紧随的元素之上
 - 清除浮动的方式
-  1.  父级定义高度
-  2.  最后一个浮动元素后添加空 div 标签并且添加 clear：both
-  3.  包含浮动元素的父标签添加样式 overflow：hidden
-  4.  使用伪类再去除
+  1. 最后一个浮动元素后添加空 div 标签并且添加 clear：both
+  2. 包含浮动元素的父标签添加样式 overflow：hidden (利用bfc)
+  3. 使用伪类再去除
 
 ## 圣杯布局（全部浮动、container 留 padding、再通过 margin、position 调整位置、记得清除浮动）
 
@@ -196,45 +185,15 @@ src 是 source 的缩写，src 指向的内容会嵌入到文档当前标签所�
   <div class="footer">4</div>
 </div>
 
-.container { display:grid; grid-template-columns: 100px 1fr 100px;
-grid-template-rows: 1fr 300px 1fr; grid-template-areas: "top top top" "left
-middle right" "footer footer footer"; } .header { grid-area: top;
+.container { 
+	display:grid; 
+	grid-template-columns: 100px 1fr 100px;
+	grid-template-rows: 1fr 300px 1fr; 
+	grid-template-areas: "top top top" "left middle right" "footer footer footer"; } 
+	.header { grid-area: top;
 background:blue} .left { grid-area: left; background:pink} .middle{ grid-area:
 middle; background:yellow} .right{grid-area:right;background:red} .footer {
 grid-area:footer ; background:blue}
-```
-
-## table 布局
-
-```html
-<div class="container">
-  <div class="left">left</div>
-  <div class="center">center</div>
-  <div class="right">right</div>
-</div>
-
-<style>
-  div {
-    height: 200px;
-  }
-  .container {
-    display: table;
-  }
-  .container > div {
-    display: table-cell;
-  }
-  .middle {
-    background: blue;
-  }
-  .left {
-    background: pink;
-    width: 100px;
-  }
-  .right {
-    background: green;
-    width: 100px;
-  }
-</style>
 ```
 
 ## [自适应三栏布局](https://blog.csdn.net/weixin_44071019/article/details/85951685#1flex_3)
@@ -251,16 +210,13 @@ grid-area:footer ; background:blue}
 ## 垂直居中
 
 1. display：inline-block; + vertical-align:middle;
-
-2. display:flex; + justify-content:center; + align-items:center;
-
+2. display:flex; + justify-content:center; + align-content:center;
 3. position:absolute; + left + top
-
 4. 父元素设置
 
    display:grid;
-   align-items:center;
-   justify-items:center;
+   align-content:center;
+   justify-content:center;
 
 ## [等高布局](https://segmentfault.com/a/1190000019365216#articleHeader4)
 
@@ -286,7 +242,7 @@ grid-area:footer ; background:blue}
 
 - 块级元素：
   1. div、p、ul、li、ol、h1-h6、table、form、hr、dl、header、footer、aside...
-  1. 占据一行、垂直排列
+  2. 占据一行、垂直排列
 - 内联元素:
   1. img、a、span、input、label、strong、em
   2. 水平排列
@@ -315,18 +271,24 @@ grid-area:footer ; background:blue}
 
 ## [BFC](https://www.cnblogs.com/CandyManPing/p/5562447.html)
 
-[块级格式上下文](https://www.bilibili.com/video/BV1aZ4y1M7gW/?spm_id_from=333.337.search-card.all.click&vd_source=bbffb4019ced31da1e3d2a77ed42bcee)
-
+- [块级格式上下文](https://www.bilibili.com/video/BV1aZ4y1M7gW/?spm_id_from=333.337.search-card.all.click&vd_source=bbffb4019ced31da1e3d2a77ed42bcee)
+- [BFC](https://github.com/sisterAn/blog/issues/118)
+- [BFC](https://www.sysuke.com/fe/css/BFC.html)
 - 特点
+
   1. BFC 区域与外部不相关
   2. 可以包含浮动元素
+  3. 内部元素从上往下排列
 - 触发条件
-  1.  根元素
-  2.  (浮动元素)float:none 以外
-  3.  （内容超出不可见或滚动）overflow:visible 以外 （常用来生成 BFC）
-  4.  display：inline-block；table-cell、table-caption
-  5.  position 的值为 absolute 或 fixed
+
+  1. 根元素
+  2. (浮动元素)float:none 以外
+  3. （内容超出不可见或滚动）overflow:visible 以外 （常用来生成 BFC）
+  4. display：inline-block；table-cell、table-caption
+  5. position 的值为 absolute 或 fixed
+  6. tan
 - 作用
+
   1. 防止上下边距重叠 （利用 BFC 隔离上下间的 margin）
   2. 清除浮动防止元素塌陷
   3. 两栏布局，防止文字环绕 （利用 BFC 可以包含浮动元素）
@@ -371,8 +333,8 @@ grid-area:footer ; background:blue}
 }
 ```
 
-vertical-align：定义`行内`元素的`基线`相对于该元素所在行的基线的垂直对齐
-在`表单元格table-cell`中，该元素设置单元格框中的单元格内容的对齐方式
+vertical-align：定义 `行内`元素的 `基线`相对于该元素所在行的基线的垂直对齐
+在 `表单元格table-cell`中，该元素设置单元格框中的单元格内容的对齐方式
 
 总结：
 
@@ -414,15 +376,14 @@ height 对百分比也是支持的，但是其和 width 还是有一个明显的
 在\<body\>之中的元素的父元素并不仅仅只是\<body\>，还包括了\<html\>。
 所以我们要同时设置这两者的 height，只设置其中一个是不行的
 
-- 正常流下，如果块级元素的`width`是个固定值，`margin`是`auto`，则`margin`会撑满剩下的空间；如果`margin`是固定值，`width`是`auto`，则`width`会撑满剩下的空间。这就是流体布局的根本所在。
-
+- 正常流下，如果块级元素的 `width`是个固定值，`margin`是 `auto`，则 `margin`会撑满剩下的空间；如果 `margin`是固定值，`width`是 `auto`，则 `width`会撑满剩下的空间。这就是流体布局的根本所在。
 - **外在盒子和内在盒子**
 
   外在盒子是决定元素排列方式的盒子，即决定盒子具有块级特性还是内联特性的盒子。外在盒子负责结构布局。
 
   内在盒子是决定元素内部一些属性是否生效的盒子。内在盒子负责内容显示。
 
-  如 `display: inline-table;` 外在盒子就是`inline`，内在盒子就是`table`。外在盒子决定了元素要像内联元素一样并排在一排显示，内在盒子则决定了元素可以设置宽高、垂直方向的 margin 等属性。如下图
+  如 `display: inline-table;` 外在盒子就是 `inline`，内在盒子就是 `table`。外在盒子决定了元素要像内联元素一样并排在一排显示，内在盒子则决定了元素可以设置宽高、垂直方向的 margin 等属性。如下图
 
 ![img](https://user-gold-cdn.xitu.io/2019/6/28/16b9eb290f144367?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
 
@@ -433,14 +394,14 @@ height 对百分比也是支持的，但是其和 width 还是有一个明显的
   top/right/bottom/left = <length> | <percentage> | auto（默认） | inherit
   /*
   应用于：定位元素（也就是 position 值不是 static 的元素）。无继承性
-  
+
   百分数：对于top和bottom，相对于包含块的 clientHeight；对于right和left，相对于包含块的 clientWidth
-  
+
   这些属性描述了距离包含块最近边的偏移。top描述了定位元素上外边界离其包含块的顶端有多远。如果top为正值，会把定位元素的上外边距边界下移，若为负值，则会把定位元素的上外边距移到其包含块的顶端之上。
   类似地，left描述了定位元素的左外边距边界在其包含块左边界右边（正值）或左边（负值）有多远。如果是正值，会把定位元素的外边距边界移到包含块左边界右边，而负值则将其移到包含块左边界左边。
   所以，正值会导致向内偏移，使边界朝着包含块的中心移动，而负值会导致向外偏移
   偏移定位元素的外边距边界时，带来的影响是元素的所有一切（包含外边距、边框、内边距和内容）都会在定位的过程中移动
-  
+
   注意：
       定位元素的边界是指定位元素 margin 外侧的边界；包含块的包含区域是指包含块的 border 内侧的 padding + content 区域
       如果同时定义了 left 和 right 值，且 width 和 height 有值，那么 left 生效， right 无效，同样，同时定义了 top 和 bottom，top 生效。
@@ -453,22 +414,7 @@ height 对百分比也是支持的，但是其和 width 还是有一个明显的
 
 ## 定位元素的 left/right/bottom/top 百分比值
 
-top 的百分比值是按离其最近的有定位属性的祖先元素的（内容高+padding）值来计算的
-
-## DPR(devicePixelRatio) 设备像素比
-
-它是默认缩放为 100%的情况下，设备像素和 CSS 像素的比值
-window.devicePixelRatio=物理像素 /CSS 像素
-
-## border-box 和 content-box 选择
-
-Better box model by default. Everything in Bootstrap gets box-sizing: border-box, making for easier sizing options and an enhanced grid system.
-
-可以看到之所以选择 border-box 是为了**更加方便控制 Dom 的大小，也更加容易实现和使用栅格系统**
-
-在栅格系统中，bootstrap3 是通过百分比来控制 Dom 的大小，使用 border-box 只需要控制宽度即可，否者需要控制宽度和 padding，实现上过于麻烦，而且 padding 容易被修改，一旦被修改就会影响其他的布局。所以 bootstrap 才选择了 border-box 作为框架的统一的盒模型。
-
-## css 选择器
+top 的百分比值是按离其最近的有定位属性的祖先元素的（内容高+padding）值来计算的css 选择器
 
 这些都是以它的父元素，如果只知道父元素，可以先随便选择一个它的子元素来选择
 特殊--p:nth-child(2) 父元素匹配的第 n 个子元素
@@ -484,13 +430,13 @@ p:first-of-type 父元素的第一个 p
 p:last-child 最后一个 p
 p:first-child 第一个 p
 
-p:first-child i //匹配所有作为第一个子元素的 <p> 元素中的所有 <i> 元素
+p:first-child i //匹配所有作为第一个子元素的 `<p>` 元素中的所有 `<i>` 元素
 p:first-of-type 选择的每个 p 元素是其父元素的第一个 p 元素
-p > i:first-child//匹配所有<p> 元素中的第一个 <i> 元素
+p > i:first-child//匹配所有 `<p>` 元素中的第一个 `<i>` 元素
 总结：有 of-type 的就是其父元素的第 n 个匹配
 没有的就是纯粹的满足匹配的第 n 个
-attribute 属性中包含 value [title~=flower]  
-attribute 属性以 value 开头 [lang|=en] 性中必须是完整且唯一的单词，或者以 - 分隔开 <p lang="en"> <p lang="en-us">
+attribute 属性中包含 value [title~=flower]
+attribute 属性以 value 开头 [lang|=en] 性中必须是完整且唯一的单词，或者以 - 分隔开 `<p lang="en">` `<p lang="en-us">`
 [attribute^=value] 属性的前几个字母是 value 就可以
 .attribute 属性以 value 结尾: [attribute$=value]
 
@@ -517,55 +463,33 @@ transform 属性向元素应用 2D 或 3D 转换。该属性允许我们对元�
 对应移动，注意 translateZ 是空间里外移动，x 是横轴，y 是竖向
 
 - scale 是放大缩小倍数
-
 - rotate 是旋转度数
-
 - skew 定义沿着 X 和 Y 轴的 2D 倾斜转换。我的理解是是坐标轴变换度数
 
-  ```css
-  animation-play-state: paused|running;
-  /*动画*/
-  @keyframes myfirst {
-   from {background: red;}
-   to {background: yellow;}
-  }
-  div {
-    animation: myfirst 5s;
-    -webkit-animation: myfirst 5s; /* Safari 与 Chrome */
-  }
-  /*过渡*/
-  div {
-    transition: width 2s;
-    -webkit-transition: width 2s; /* Safari */
-  }
-  div:hover { width:300px; }
-  /*只有属性值改变才会产生过渡*/
-  animation: name duration timing-function delay iteration-count direction;
-  transform:\scale(0.85,0.90)\ translate(0px,-30px)\ skew(-9deg,0deg)\Animation:
-  word-wrap(单词换行)：normal(只允许在断点处换行)|break-world(如果单词过长，截断强制换行);
-  ```
+```css
+animation-play-state: paused|running;
+/*动画*/
+@keyframes myfirst {
+  from {background: red;}
+  to {background: yellow;}
+}
+div {
+  animation: myfirst 5s;
+  -webkit-animation: myfirst 5s; /* Safari 与 Chrome */
+}
+/*过渡*/
+div {
+  transition: width 2s;
+  -webkit-transition: width 2s; /* Safari */
+}
+div:hover { width:300px; }
+/*只有属性值改变才会产生过渡*/
+animation: name duration timing-function delay iteration-count direction;
+transform:\scale(0.85,0.90)\ translate(0px,-30px)\ skew(-9deg,0deg)\Animation:
+word-wrap(单词换行)：normal(只允许在断点处换行)|break-world(如果单词过长，截断强制换行);
+```
 
 * word-break(单词换行)：normal(浏览器默认的换行规则，一般是不允许长单词内部换行) | break-all（允许在单词内换行) | keep-all(只能在半角空格或连字符处换行)
-
-## [background](https://juejin.im/entry/589ff0c75c497d0056358912)
-
-```
-background-image: 设置背景图像, 可以是真实的图片路径, 也可以是创建的渐变背景;
-background-position: 设置背景图像的位置;
-background-size: 设置背景图像的大小;
-background-repeat: 指定背景图像的铺排方式;
-background-attachment: 指定背景图像是滚动还是固定;
-background-origin: 设置背景图像显示的原点[background-position相对定位的原点];
-background-clip: 设置背景图像向外剪裁的区域;
-background-color: 指定背景颜色。
-简写的顺序如下: bg-color || bg-image || bg-position [ / bg-size]? || bg-repeat || bg-attachment || bg-origin || bg-clip
-background是一个复合属性, 可设置多组属性, 每组属性间使用逗号分隔, 其中背景颜色不能设置多个且只能放在最后一组。
-如设置的多组属性背景图像之间存在重叠, 则前面的背景图像会覆盖在后面的背景图像上。
-
-background: url("image.png") 0% 0%/60px 60px no-repeat padding-box,
-            url("image.png") 40px 10px/110px 110px no-repeat content-box,
-            url("image.png") 140px 40px/200px 100px no-repeat content-box #58a;
-```
 
 [perspective](https://css-tricks.com/how-css-perspective-works/)
 
@@ -591,13 +515,11 @@ background: url("image.png") 0% 0%/60px 60px no-repeat padding-box,
   1. block 元素会独占一行，多个 block 元素会各自新起一行。默认情况下，block 元素宽度自动填满其父元素宽度。
   2. block 元素可以设置 width,height 属性。块级元素即使设置了宽度,仍然是独占一行。
   3. block 元素可以设置 margin 和 padding 属性。
-
 - display:inline
 
   1. inline 元素不会独占一行，多个相邻的行内元素会排列在同一行里，直到一行排列不下，才会新换一行，其宽度随元素的内容而变化。
   2. inline 元素设置 width,height 属性无效。
   3. inline 元素的 margin 和 padding 属性，水平方向的 padding-left, padding-right, margin-left, margin-right 都产生边距效果；但竖直方向的 padding-top, padding-bottom, margin-top, margin-bottom 不会产生边距效果。
-
 - display:inline-block
 
   1. 简单来说就是将对象呈现为 inline 对象，但是对象的内容作为 block 对象呈现。之后的内联对象会被排列在同一行内。比如我们可以给一个 link（a 元素）inline-block 属性值，使其既具有 block 的宽度高度特性又具有 inline 的同行特性。
@@ -606,52 +528,34 @@ background: url("image.png") 0% 0%/60px 60px no-repeat padding-box,
 
   inline-block 将会使元素成为一个 inline 元素（如后跟内联元素，将不会换行），但本身却仍然支持 block 元素的属性。
 
-  ```
-  <div>A</div>
-  <span>B</span>
-  ```
+  ``<div>A</div><span>B</span>``
 
   此时 div 为 block 元素，span 为 inline 元素，显示顺序为 A->换行->B。
 
   对 block 元素使用 inline-block 属性。
-
-  ```
-  <div style="display:inline-block;margin-top:10px">A</div>
-  <span>B</span>
-  ```
+  `<div style="display:inline-block;margintop:10px">A</div><span>B</span> `
 
   此时 div 为 inline 元素，但仍然支持 margin 的垂直属性 top，显示顺序为 A->同行->B(整体下降 10px)。
 
   对 inline 元素使用 inline-block 属性。
 
-  ```
-  <div>A</div>
-  <span style="display:inline-block;margin-top:10px">B</span>
-  <span>C</span>
-  ```
+``<div>A</div><span style="display:inline-block;margin-top:10px">B</span><span>C</span>``
 
-  此时 div 为 block 元素，B 仍然为 inline 元素，但开始支持 margin 的垂直属性 top，C 为 inline 元素。显示顺序为 A->换行->B->同行->C(B,C 整体下降 10px)。
+此时 div 为 block 元素，B 仍然为 inline 元素，但开始支持 margin 的垂直属性 top，C 为 inline 元素。显示顺序为 A->换行->B->同行->C(B,C 整体下降 10px)。
 
-  虽然 inline-block 有着 block 与 inline 结合的好处的，在某些布局上可以贡献些力量，但是同时它也存在一些问题。
+虽然 inline-block 有着 block 与 inline 结合的好处的，在某些布局上可以贡献些力量，但是同时它也存在一些问题。
 
 ### **水平间隙问题**
 
 我们创建一个导航列表，并将其列表 item 设置为 inline-block，主要代码如下：
 
-```
+```html
+
 <div class="nav">
   <a class="nav-item" href="#">导航</a>
   <a class="nav-item" href="#">导航</a>
   <a class="nav-item" href="#">导航</a>
 </div>
-.nav {
-  background: #999;
-}
-.nav-item{
-  display:inline-block; /* 设置为inline-block */
-  width: 100px;
-  background: #ddd;
-}
 ```
 
 效果图如下：
@@ -670,11 +574,11 @@ background: url("image.png") 0% 0%/60px 60px no-repeat padding-box,
 
 从上面我们了解到空白符，是浏览器正常的表现行为。但是对于某些场景来说，并不美观，而且间隙大小非可控，所以我们往往需要去掉这个空白间隙。一般来说我们有两种方法来去掉这个换行引起间隙：代码不换行和设置 font-size。
 
-### **代码不换行**
+**代码不换行**
 
 我们了解到，由于换行空格导致产生换行符，因此我们可以将上述例子中的列表 item 写成一行，这样空白符便消失，间隙就不复存在了。其代码如下：
 
-```
+```html
 <div class="nav">
   <a class="nav-item" href="#">导航</a><a class="nav-item" href="#">导航</a> <a class="nav-item" href="#">导航</a>
 </div>
@@ -692,7 +596,7 @@ background: url("image.png") 0% 0%/60px 60px no-repeat padding-box,
 
 ![img](https://pic2.zhimg.com/80/v2-b067648c7f051cf9a9846b98c025c259_720w.jpg?ynotemdtimestamp=1622903086798)
 
-### **设置 Font-Size**
+#### **设置 Font-Size**
 
 首先要理解空白符归根结底是个字符，因此，我们可以通过设置 font-size 属性来控制其产生的间隙的大小。我们知道如果将 font-size 设置为 0，文字字符是没法显示的，那么同样这个空白字也没了，间隙也就没了。
 
@@ -700,7 +604,7 @@ background: url("image.png") 0% 0%/60px 60px no-repeat padding-box,
 
 所以该方法代码如下：
 
-```
+```css
 .nav {
   background: #999;
   font-size: 0; /* 空白字符大小为0 */
@@ -717,9 +621,9 @@ background: url("image.png") 0% 0%/60px 60px no-repeat padding-box,
 
 使用该方法时需要特别注意其子元素一定要重置 font-size，不然很容易掉进坑里（文字显示不出来）。
 
-### **垂直间隙问题**
+#### **垂直间隙问题**
 
-由于 inline-block 垂直对齐使用的是 `vertical-align` 属性，而该属性默认的对齐方式为 `baseline`，而基线的位置为小写英文字母`x`的下端沿。该线离底线（text-bottom）还是有点距离的。
+由于 inline-block 垂直对齐使用的是 `vertical-align` 属性，而该属性默认的对齐方式为 `baseline`，而基线的位置为小写英文字母 `x`的下端沿。该线离底线（text-bottom）还是有点距离的。
 
 下面以实例论证，如下：
 
@@ -744,7 +648,6 @@ background: url("image.png") 0% 0%/60px 60px no-repeat padding-box,
 所以一般为了避免这个垂直的间隙，在设置 inline-block 的时候，还需要顺手带个 `vertical-align: middle;`
 
 ```
- <style>
  .nav {
            background: #999;
            text-align:center;
@@ -761,6 +664,57 @@ background: url("image.png") 0% 0%/60px 60px no-repeat padding-box,
 
 ## [如何画一个三角形](https://q.shanyue.tech/fe/css/191.html)
 
-[BEM](https://lkangd.com/post/write-bem-with-scss/)
-
 [爆肝三天，学习Scss-看这篇就够了](https://www.yuque.com/istao/inunbi/vvf14z)
+
+## flex
+
+- display：flex/ inline-flex
+- flex-direction：row/row-reverse/column/column-reverse
+- flex-wrap：nowrap/wrap/wrap-reverse
+- justify-content：flex-start/flex-end/center/space-between/space-around
+- align-items：flex-start/flex-end/center/baseline/stretch
+- align-content：flex-start/flex-end/center/space-between/space-around
+- flex-grow：设置子元素的放大比例，默认值为0，即子元素不放大
+- flex-shrink：设置子元素的缩小比例，默认值为1，即子元素可缩小
+- flex-basis：设置子元素在分配多余空间之前的默认大小，默认值为auto，即子元素的默认大小由内容决定
+- order：设置子元素的排列顺序，默认值为0，即按照文档流的顺序排列
+- `flex:1` 和 `flex:auto` 的区别，可以归结于 `flex-basis:0`和 `flex-basis:auto`的
+  - 当设置为0时（绝对弹性元素），此时相当于告诉 `flex-grow`和 `flex-shrink`在伸缩的时候不需要考虑我的尺寸
+  - 当设置为 `auto`时（相对弹性元素），此时则需要在伸缩时将元素尺寸纳入考虑
+
+## 层叠上下文
+
+1. )层叠上下文是HTML元素层级的一个子集，可以理解为浏览器在渲染时z轴方向，有多个平面，每个平面就是一个层叠上下文
+
+   1. 每个层叠上下文可以包含多个元素，元素之间也有其相应的层叠顺序。
+   2. 在比较元素的层级顺序时，首先要比较其所属的层叠上下文的顺序
+      1. 如果不在一个层叠上下文，则其先后顺序就是其**层叠上下文的顺序**
+      2. 如果在一个层叠上下文中，则其先后顺序由浏览器默认的**元素层叠顺序**决定
+2. 如何创建层叠上下文
+
+   1. 文档根元素HTML
+   2. [`position`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/position) 值为 `absolute`（绝对定位）或 `relative`（相对定位）且 [`z-index`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/z-index) 值不为 `auto` 的元素；
+   3. [`position`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/position) 值为 `fixed`（固定定位）或 `sticky`（粘滞定位）的元素
+   4. flex ([`flex`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/flex)) 容器的子元素，且 [`z-index`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/z-index) 值不为 `auto`；
+   5. grid ([`grid`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/grid)) 容器的子元素，且 [`z-index`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/z-index) 值不为 `auto`；
+   6. CSS3中的新属性也可以产生层叠上下文。具体参考 [mdn](https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_positioned_layout/Understanding_z-index/Stacking_context)
+3. z-index
+
+   1. 该属性影响定位元素在同一个层叠上下文中的层叠顺序，非定位元素默认为auto
+   2. 数值越大，则元素越在z轴上方
+4. 浏览器默认元素层叠顺序
+   ![img](https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2018/8/30/1658910c5cb364b6~tplv-t2oaga2asx-jj-mark:3024:0:0:0:q75.png)
+
+
+## 相关文档
+
+- [ 两栏布局、三栏布局](https://i-want-offer.github.io/FE-Essay/CSS/%E4%B8%A4%E6%A0%8F%E5%B8%83%E5%B1%80.html)
+- [面试官：元素水平垂直居中的方法有哪些？如果元素不定宽高呢？ | web前端面试 - 面试官系列](https://vue3js.cn/interview/css/center.html#%E4%B8%80%E3%80%81%E8%83%8C%E6%99%AF)
+
+
+
+
+
+
+
+相关文档

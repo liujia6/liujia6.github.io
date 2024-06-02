@@ -128,7 +128,7 @@ Department o-- Employee : contains >
 
 ## vue 组件示例
 
-```mermaid
+```plantuml
 class operation {
   + String desc
   + getValues()

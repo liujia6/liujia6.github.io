@@ -1,4 +1,4 @@
-# vue 原理
+# vue 2原理
 
 我们往后看这里有很多 xxxMixin 的函数调用，并把 Vue 当参数传入，它们的功能都是给 Vue 的 prototype 上扩展一些方法（这里具体的细节会在之后的文章介绍，这里不展开），Vue 按功能把这些扩展分散到多个模块中去实现，而不是在一个模块里实现所有，这种方式是用 Class 难以实现的。这么做的好处是非常方便代码的维护和管理，这种编程技巧也非常值得我们去学习
 
@@ -295,15 +295,6 @@ dep 这个东东给大家解释一下，就是 data 里的每个属性都有一�
 
 ### mvvm 的理解
 
-视图（view）：用户界面
-控制器（controller）：业务逻辑
-模型（model）：数据保存
-通信方式如下：
-view 传送指令到 controller
-controller 完成业务逻辑后，model 改变状态
-model 将新的数据发送到 view，用户得到反馈
-Vue 的 mvvm 主要就是 view 层、model 层、viewModel 层
-唯一的区别是 MVVM 采用了双向数据绑定，view 的变动自动反映在 view-model。Vue.js、
 那么这么多 MVVM 框架的诞生是为了解决什么问题？
 如何处理数据的更新和界面的更新。通过操作数据会自动反应到界面而不用操作 dom 来实现更新
 
@@ -390,7 +381,6 @@ patch 函数接收两个参数 oldVnode 和 Vnode 分别代表新的节点和之
 - 只有 template，是不行的，因为，vue 对象不知道把 template 放在何处；
 - 只有 render（渲染）函数,也是不行的，因为，vue 对象不知道把 render 后的结果放在何处；
 - 既有 el 又有 template，就会用 template 里的内容替换 el 的 outterHTML。
-
 
 ## 参考
 

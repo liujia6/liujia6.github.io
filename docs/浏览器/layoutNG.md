@@ -1,4 +1,6 @@
-- layout tree只是结合了dom tree和compuedStyle，并没有计算出每个layout object的具体在屏幕上的物理位置，之前是直接将更新结果更新在layout tree上，通过layoutNG，我们将布局输出，放在NGPhysicalFragment上面，从而实现了layout的输入与输出分离
+
+
+layout tree只是结合了dom tree和compuedStyle，并没有计算出每个layout object的具体在屏幕上的物理位置，之前是直接将更新结果更新在layout tree上，通过layoutNG，我们将布局输出，放在NGPhysicalFragment上面，从而实现了layout的输入与输出分离
 
 <img src="https://i.loli.net/2021/01/13/MYtPWRQ9fF3p1hK.png" alt="image-20210113183808157" style="zoom:50%;" />
 
@@ -34,7 +36,7 @@ NGFragment是CSS Fragment在LayoutNG中的形式。任何CSS Box都可以生成N
 
 <img src="https://pic1.zhimg.com/80/v2-1f29faff0678db5f134d88d19dacc35c_720w.jpg" alt="img" style="zoom:50%;" />
 
-NGLayout Tree（LayoutNG Tree/Fragment Tree）	
+NGLayout Tree（LayoutNG Tree/Fragment Tree）
 
 <img src="https://pic1.zhimg.com/80/v2-6a28a56f47f42d6fecae58cb70b13b08_720w.jpg" alt="img" style="zoom:50%;" />
 
