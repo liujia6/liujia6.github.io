@@ -227,17 +227,6 @@ grid-area:footer ; background:blue}
 5. grid 布局
    display: grid;grid-template-columns: 1fr 1fr 1fr; width:100%;
 
-## [对 display,position 和 float 之间关系的定义](https://www.iteye.com/blog/desert3-1562782)
-
-1. display 为 none| => position、float 无效,display:转换
-2. position:absolute，fixed |=> float 无效，
-3. 有浮动：display 转换
-4. 根元素：display 转换
-5. 其他都没有就按照指定格式
-   display 转换：
-   1.inline-table => table
-   2.inline、table-row、table-group 等 table 布局 => block
-
 ## 块级元素与内联元素的区别
 
 - 块级元素：
@@ -286,7 +275,7 @@ grid-area:footer ; background:blue}
   3. （内容超出不可见或滚动）overflow:visible 以外 （常用来生成 BFC）
   4. display：inline-block；table-cell、table-caption
   5. position 的值为 absolute 或 fixed
-  6. tan
+  6. display：flow-root（专门用于生成BFC）
 - 作用
 
   1. 防止上下边距重叠 （利用 BFC 隔离上下间的 margin）
@@ -705,16 +694,9 @@ word-wrap(单词换行)：normal(只允许在断点处换行)|break-world(如果
 4. 浏览器默认元素层叠顺序
    ![img](https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2018/8/30/1658910c5cb364b6~tplv-t2oaga2asx-jj-mark:3024:0:0:0:q75.png)
 
-
 ## 相关文档
 
 - [ 两栏布局、三栏布局](https://i-want-offer.github.io/FE-Essay/CSS/%E4%B8%A4%E6%A0%8F%E5%B8%83%E5%B1%80.html)
 - [面试官：元素水平垂直居中的方法有哪些？如果元素不定宽高呢？ | web前端面试 - 面试官系列](https://vue3js.cn/interview/css/center.html#%E4%B8%80%E3%80%81%E8%83%8C%E6%99%AF)
-
-
-
-
-
-
 
 相关文档

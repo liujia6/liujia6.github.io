@@ -1,8 +1,6 @@
----
-marp: true
----
 
-# 浏览器执行时间线：
+
+# 浏览器执行时间线
 
 根据js执行那一刻开始的执行顺序 浏览器加载的时间线
 
@@ -23,4 +21,3 @@ marp: true
 8.文档解析完成之后 页面会触发document上的一个DOMContentLoad事件
 
 9.当页面所有部分都执行完成之后 document.readyState =‘complete’ 之后就可以执行window.onload事件了
-

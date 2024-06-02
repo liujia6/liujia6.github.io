@@ -1,12 +1,12 @@
 
 
-layout tree只是结合了dom tree和compuedStyle，并没有计算出每个layout object的具体在屏幕上的物理位置，之前是直接将更新结果更新在layout tree上，通过layoutNG，我们将布局输出，放在NGPhysicalFragment上面，从而实现了layout的输入与输出分离
-
-<img src="https://i.loli.net/2021/01/13/MYtPWRQ9fF3p1hK.png" alt="image-20210113183808157" style="zoom:50%;" />
-
 ### [LayoutNG介绍](https://zhuanlan.zhihu.com/p/37847490)
 
 参考： https://docs.google.com/document/d/1uxbDh4uONFQOiGuiumlJBLGgO4KDWB8ZEkp7Rd47fw4/edit#heading=h.guvbepjyp0oj
+
+layout tree只是结合了dom tree和compuedStyle，并没有计算出每个layout object的具体在屏幕上的物理位置，之前是直接将更新结果更新在layout tree上，通过layoutNG，我们将布局输出，放在NGPhysicalFragment上面，从而实现了layout的输入与输出分离
+
+<img src="https://i.loli.net/2021/01/13/MYtPWRQ9fF3p1hK.png" alt="image-20210113183808157" style="zoom:50%;" />
 
 NGPaintFragments是：
 
