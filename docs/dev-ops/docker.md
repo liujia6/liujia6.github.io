@@ -24,10 +24,8 @@ Docker 镜像是一个特殊的文件系统，除了提供容器运行时所需�
 运行下面的命令，将 image 文件从仓库抓取到本地。中 library 是 image 文件所在的组，hello-world 是 image 文件的名字。
 由于 Docker 官方提供的 image 文件，都放在 library 组里面，所以它的是默认组，可以省略
 
-- `docker image pull library/hello-world`  
-  抓取成功以后，就可以在本机看到这个 image 文件了。
-- `docker image ls`  
-  运行这个 image 文件。
+- `docker image pull library/hello-world`抓取成功以后，就可以在本机看到这个 image 文件了。
+- `docker image ls`运行这个 image 文件。
 - `docker container run hello-world`
   有些容器不会自动终止，因为提供的是服务。比如，安装运行 Ubuntu 的 image，就可以在命令行体验 Ubuntu 系统。
 
@@ -87,7 +85,7 @@ EXPOSE 3000  // 将容器 3000 端口暴露出来， 允许外部连接这个端
 CMD node demos/01.js // 容器启动后自动执行node demos/01.js。
 ```
 
-有了 Dockerfile 文件以后，就可以使用`docker image build`命令创建 image 文件了。
+有了 Dockerfile 文件以后，就可以使用 `docker image build`命令创建 image 文件了。
 `docker image build -t koa-demo .`
 或者
 `docker image build -t koa-demo:0.0.1 .`
@@ -238,12 +236,11 @@ Kubernetes 相关术语
 - [Docker](http://www.ruanyifeng.com/blog/2018/02/docker-tutorial.html)本身并不是容器，它是创建容器的工具，是应用容器引擎
 - 核心
   - 镜像（Image），那个放在包里的“镜像”，就是 Docker 镜像
-  -
   - 容器（Container），我在空地上，用魔法造好的房子，就是一个 Docker 容器
   - 仓库（Repository），而我的背包，就是 Docker 仓库
 - K8S，就是基于容器的集群管理平台，它的全称，是 kubernetes
 - 跳板机，就是可以给你远程连接的机器，然后通过这个机器再去访问别的机器，这个跳板机可以是 windows 下也可以是 Linux 下，跟操作系统无关，下面是其中比较常见的一种场景：
-- 很多客户方的服务器外网是连接不了的，一般只能通过 VPN 然后才能连接，然而一些客户方觉得做 VPN 的代价太大，但是开发方不方便经常去现场或者其他原因需要访问客户方的服务器并且服务器外网不能连接时，没有 VPN 时，只能通过远程连接，比如 teamview,QQ 远程，还有 windows 自带的远程连接工具，连接到远端的一台电脑上，这台电脑就是跳板机，作为一个桥梁，然后再通过这个机器在内网中访问其服务器，也就是相当于一个代理
+  - 很多客户方的服务器外网是连接不了的，一般只能通过 VPN 然后才能连接，然而一些客户方觉得做 VPN 的代价太大，但是开发方不方便经常去现场或者其他原因需要访问客户方的服务器并且服务器外网不能连接时，没有 VPN 时，只能通过远程连接，比如 teamview,QQ 远程，还有 windows 自带的远程连接工具，连接到远端的一台电脑上，这台电脑就是跳板机，作为一个桥梁，然后再通过这个机器在内网中访问其服务器，也就是相当于一个代理
 
 ## [数据卷 Volume](http://www.hangdaowangluo.com/archives/2150)
 

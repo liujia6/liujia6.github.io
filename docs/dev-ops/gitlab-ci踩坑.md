@@ -68,9 +68,7 @@ artifacts:
 ## 问题七： ssh 执行命令，显示 command not find
 
 - 问题：在 ssh 登录或者 ansible 登录执行命令报错显示 command not find
-
 - 原因 ： ssh 登录少了环境变量
-
 - **首先了解一下 login shell 与 non-login shell**
 
   /etc/profile 及/etc/bashrc 的区别：
@@ -89,6 +87,6 @@ artifacts:
 
 [测试好的脚本放到](https://www.yuque.com/plantegg/weyi1s/mysyy3#342wyn) crontab 里就报错: 找不到命令
 
-[关于 ansible 远程执行的环境变量问题（login shell & nonlogin shelll）](https://blog.csdn.net/u010871982/article/details/78525367)
+[关于 ansible 远程执行的环境变量问题（login shell &amp; nonlogin shelll）](https://blog.csdn.net/u010871982/article/details/78525367)
 
 [远程执行命令的填坑记录](https://zhuanlan.zhihu.com/p/60914157)

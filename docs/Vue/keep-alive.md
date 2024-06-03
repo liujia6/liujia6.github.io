@@ -1,7 +1,6 @@
 ---
 autoGroup-1: VUE
 ---
-
 # keep-alive 缓存
 
 keep-alive 是 Vue 内置的一个组件，可以使被包含的组件保留状态，或避免重新渲染。
@@ -250,11 +249,8 @@ export default {
 鉴于经常会用到详情页面返回列表页面时，列表需要缓存上次访问的状态，可通过keep-alive实现，最简单的使用方法就是在router上加个suspendAndPush方法
 
 ```
+
 ```
-
-
-
-
 
 ## [原理](https://github.com/answershuto/learnVue/blob/master/vue-src/core/components/keep-alive.js)
 
@@ -266,7 +262,7 @@ keep-alive的本质是缓存管理以及特殊的挂载/卸载逻辑，与渲染
 
 ## keep-alive 其他知识点
 
-- 使用 router-view 或者是 include 里面写的是路由组件的 name 都是把`整个页面都缓存`起来了，那么该页面的所有状态例如 state 都是缓存了的，在激活的时候会调用 activated 函数
+- 使用 router-view 或者是 include 里面写的是路由组件的 name 都是把 `整个页面都缓存`起来了，那么该页面的所有状态例如 state 都是缓存了的，在激活的时候会调用 activated 函数
 - 首次渲染的时候 actived 也会调用，调用顺序是在 mounted 之后，，如果逻辑和 creaed 或者 mounted 重复，需要去掉 created 或者 mounted 里面的逻辑，不然会重复。让 activated 里面的函数不在首次渲染时执行。
 
 ```javascript
@@ -276,7 +272,7 @@ activated() {
 },
 ```
 
-### activated 钩子函数调用顺序
+## activated 钩子函数调用顺序
 
 - component-a 初始化：
   - beforeCreate
@@ -297,7 +293,7 @@ activated() {
   - component-a activated
 - 因为这个时候 component-a 已经初始化了，所以没有触发 create 与 mount 类的 hook，而是先 component-b 停用，再 component-a 激活；后续不断切换也是只反复调用这两个 hook...
 
-### 参考
+## 参考
 
 - [vue-router 时 keep-alive 页面缓存问题解决](https://zhuanlan.zhihu.com/p/137458102)
 - [vue 组件的生命周期与 hook 执行顺序](https://github.com/jingzhiMo/jingzhiMo.github.io/issues/8)

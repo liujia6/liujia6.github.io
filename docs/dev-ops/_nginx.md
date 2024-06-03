@@ -8,8 +8,6 @@ Nginx 的最重要的几个使用场景：
 
 ### 动静分离
 
-![动静分离](https://cdn.jsdelivr.net/gh/SHERlocked93/pic@env/uPic/2020-03-09-%E5%8A%A8%E9%9D%99%E5%88%86%E7%A6%BB.png)
-
 Nginx 的高并发和静态资源缓存等特性，经常将静态资源部署在 Nginx 上。
 
 如果请求的是静态资源，直接到静态资源目录获取资源，
@@ -21,10 +19,10 @@ Nginx 的高并发和静态资源缓存等特性，经常将静态资源部署�
 ### 匹配优先级
 
 1. 精确匹配 =
-1. 前缀匹配 ^~（立刻停止后续的正则搜索）
-1. 按文件中顺序的正则匹配 ~或~\*
-1. 匹配不带任何修饰的前缀匹配。
-1. 正则匹配是使用文件中的顺序，找到返回
+2. 前缀匹配 ^~（立刻停止后续的正则搜索）
+3. 按文件中顺序的正则匹配 ~或~\*
+4. 匹配不带任何修饰的前缀匹配。
+5. 正则匹配是使用文件中的顺序，找到返回
 
 | 符号      | 含义                                                                            |
 | --------- | ------------------------------------------------------------------------------- |
@@ -48,17 +46,21 @@ HTTP 请求通过 HOST 请求头指定我们要访问的域名，在 HTTP1.0 不
 在服务器上开发时，可以通过 servername 定制自己的域名以及 root 前端打包后的资源，然后再本地配置该域名 host 到该服务器上，则可以访问了
 
 nginx配置
+
 ```nginx
 server {
   server_name $yourCustomServerName
   root $yourResourcePath
 }
 ```
+
 host文件
+
 ```
 $serverIp $yourCustomServerName
 ```
 
 ## 常见问题
+
 [history 模式的前端页面访问 404 问题解决](https://github.com/febobo/web-interview/issues/31)
 [一份简单够用的 Nginx Location 配置讲解](https://github.com/mqyqingfeng/Blog/issues/242)
