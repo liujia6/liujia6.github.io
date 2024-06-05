@@ -154,8 +154,7 @@ div {
 ##### 矩形区域
 
 对于一个块级(block-level)元素，会计算它内容区域所占据的矩形坐标与尺寸。建立在盒模型的基础上
-
-<img src="https://i.loli.net/2021/01/12/zjdfBl4V9Xc5omS.png" alt="image-20210112131848338" style="zoom: 33%; display: inline-block;" /><img src="C:%5CUsers%5Cliujia11%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210112141539904.png" alt="image-20210112141539904" style="zoom: 50%; display: inline-block;" />
+<img src="https://i.loli.net/2021/01/12/zjdfBl4V9Xc5omS.png" alt="image-20210112131848338" style="zoom: 33%; display: inline-block;" />
 
 ##### **流动方向**
 

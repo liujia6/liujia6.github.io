@@ -44,8 +44,8 @@
 * [RXJS](docs/JS/RXJS.md)
 * [ts](docs/JS/ts.md)
 * [基础](docs/JS/基础.md)
-* [异步](docs/JS/异步.md)
-* [正则](docs/JS/正则.md)
+* [
+  ](docs/JS/异步.md)
 * [二进制](docs/JS/二进制.md)
 * [类型转换](docs/JS/类型转换.md)
 * [错误处理](docs/JS/错误处理.md)

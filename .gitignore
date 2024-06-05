@@ -2,3 +2,5 @@
 /docs/.vuepress/dist
 /docs/记录
 */.DS_Store
+/docs/.vuepress/.temp
+/docs/.vuepress/.cache
