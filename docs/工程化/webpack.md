@@ -1,4 +1,4 @@
-[toc]
+# webpack
 
 ## [sourceMap](https://juejin.cn/post/6969748500938489892#heading-3)
 
@@ -138,6 +138,18 @@ head.appendChild(script);
 
 - 传统的编译语言，编译器就可以到删除 Dead Code，但是 JS 是动态语言，编译器无法做到，我们需要借助打包工具实现消除 dead Code
 - 借助 ESM 的静态结构分析，找到没有引入的模块打上标记，在压缩阶段利用 uglify-js 这样的压缩工具删除无用代码
+
+
+## 图片资源和css资源是如何解析的
+
+[24.重学webpack——loader的原理及常用loader的实现（高频面试题）_俞华的博客-CSDN博客](https://blog.csdn.net/qq_17175013/article/details/119425847)
+
+**asset-loader**
+
+* [raw-loader](https://www.webpackjs.com/loaders/raw-loader/)：加载文件原始内容（utf-8）
+* [val-loader](https://www.webpackjs.com/loaders/val-loader/)：将代码作为模块执行，并将 exports 转为 JS 代码
+* [url-loader](https://www.webpackjs.com/loaders/url-loader/)：像 file loader 一样工作，但如果文件小于限制，可以返回 data URL
+* [file-loader](https://www.webpackjs.com/loaders/file-loader/)：将文件发送到输出文件夹，并返回（相对）URL
 
 ## 参考资料
 

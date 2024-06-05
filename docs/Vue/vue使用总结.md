@@ -1,4 +1,4 @@
-# vue 积累
+# vue 使用总结
 
 ## [Vue.extend](https://juejin.cn/post/6844904126065688583)
 
@@ -39,20 +39,18 @@
 
 ## vue 单根结点
 
-- [vue 为什么根节点只能用一个](vuejs/vue#7088 'comment')
+- [vue 为什么根节点只能用一个](vuejs/vue#7088 "comment")
 - [vue-fragment](https://github.com/Thunberg087/vue-fragment/blob/master/src/component.js)
 
 **原因**
 
 - 由于技术限制：当前的 diff 算法实现都是基于 vNode 和 dom 真实元素一一对应，依赖于具有单个根的组件，如果允许 Fragments 需要对该算法进行重大更改，不仅要使其正常工作，而且必须使其具有高性能，这是一项非常艰巨的任务
-
 - 代表任何组件的 vue 实例需要绑定到一个单一的 DOM 元素中。唯一可以创建一个具有多个 DOM 节点的组件的方法就是创建一个没有底层 Vue 实例的功能组件
 
 **两种解决方案**：
 
 - 使用 vue 功能组件（见[本期第二条评论](https://github.com/vuejs/vue/issues/7088#issuecomment-345855657)）
 - 使用[vue-fragments](https://github.com/y-nk/vue-fragments)（第三方扩展）
-
 - - render 函数中使用 div 包裹子组件
   - 在 mounted 后，修改 this.\$el,将改了后的 dom 插入到 parent 里，并删除原有的 dom
 
@@ -122,11 +120,9 @@ export default {
 ## 抽象组件
 
 - 没有真实的节点，不去解析渲染成真实的 dom 节点，而只是作为中间的数据过渡层处理，在 keep-alive 中是对组件缓存的处理。
-
 - \<keep-alive\>、\<transition\>、\<transition-group\>等组件的实现是一个对象，注意它有一个属性 abstract 为 true，表明是它一个抽象组件
 
   - 在抽象组件的**生命周期**过程中，我们可以对包裹的子组件**监听的事件进行拦截**，也可以对子组件进行 **Dom 操作**，从而可以对我们需要的功能进行封装，而不需要关心子组件的具体实现。
-
 - set(vnode, `data.on[${eventName}]`, debounce(event, this.wait, this.options));
 - 原理：就是父子组件建立关系时会跳过 abstract 组件
 
@@ -135,19 +131,4 @@ export default {
 - [用 Vue 编写抽象组件：实现一个按钮 debounce](https://juejin.cn/post/6844903838470635528)
 - [原理](https://www.bookstack.cn/read/5865c0921b69e6006b3145a1/spilt.4.src-%E5%BD%BB%E5%BA%95%E6%90%9E%E6%87%82Vue%E4%B8%ADkeep-alive%E7%9A%84%E9%AD%94%E6%B3%95-%E4%B8%8A.md)
 
-
-
 [learnVue/Vue.js异步更新DOM策略及nextTick.MarkDown at master · answershuto/learnVue](https://github.com/answershuto/learnVue/blob/master/docs/Vue.js%E5%BC%82%E6%AD%A5%E6%9B%B4%E6%96%B0DOM%E7%AD%96%E7%95%A5%E5%8F%8AnextTick.MarkDown)
-
-## vue.nextTick原理
-
-- vue的在watcher的更新回调函数不会立即执行，会用一个arr队列，在当前执行栈调用完成之后，才会去调用微任务（更新回调函数，这时我们的更新回调才会真正执行），
-- 而nextTick的作用正是将传入的回调函数加入arr队列，这样，我们就能够保证该回调函数，在之前的watcher都执行完成之后执行，拿到所需要的dom，
-
-问题：
-
-为什么nextTick的回调函数在执行时，实际页面并没有渲染却可以获取到document.innerHTML等更新后的数据呢，
-
-答：
-
-真正的页面渲染与否与当前是否能拿到真实数据是两回事，如果我们需要获取到dom在页面的变化后的位置，则使用nextTick也获取不到

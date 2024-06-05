@@ -16,6 +16,5 @@
     "pm2": "^4.5.6",
     "vuepress": "^1.8.2",
     "vuepress-plugin-mermaidjs": "^1.8.1"
-  },
-  "dependencies": {}
+  }
 }

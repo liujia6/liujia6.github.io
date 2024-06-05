@@ -1,33 +1,4 @@
-## 浏览器执行时间线
-
-根据js执行那一刻开始的执行顺序 浏览器加载的时间线
-
-1.创建document对象，开始解析web页面 这时document.readyState 等于’loading’
-
-2.遇到link标签（外部引用css）创建线程加载，并继续解析文档， 即异步加载
-
-3.遇到非异步的script标签，浏览器加载并阻塞，等待js加载完成
-
-4.遇到异步的script标签，浏览器创建线程加载，并继续解析文档。对于async属性的脚本，脚本加载完成后立即执行；对于defer属性的脚本，脚本等到页面加载完之后再执行（异步禁止使用document.write）
-
-5.遇到img等，先正常解析dom结构，然后浏览器异步加载src，并继续解析文档
-
-6.当文档解析完成之后（即renderTree构建完成之后， 此时还未下载完对吧），document.readyState=‘interative’。活跃的 动态的
-
-7.文档解析完成后，所有设置有defer的脚本会按照顺序执行。
-
-8.文档解析完成之后 页面会触发document上的一个DOMContentLoad事件
-
-9.当页面所有部分都执行完成之后 document.readyState =‘complete’ 之后就可以执行window.onload事件了
-
-
-## CSS和JS的加载与阻塞
-
-- css
-  - 阻塞dom渲染
-- JS
-  - 阻塞dom解析
-  - 在遇到script标签时会触发页面渲染，如果前面有css，则会等待其加载完毕再执行脚本
+# 浏览器
 
 ## [事件](https://developer.mozilla.org/zh-CN/docs/Learn/JavaScript/Building_blocks/Events)
 
@@ -77,7 +48,7 @@
 - Step1: 创建 callback 方法
 - Step2: 插入 script 标签
 - Step3: 后台接受到请求，解析前端传过去的 callback 方法，返回该方法的调用，并且数据作为参数传入该方法
-- Step4: 前端执行服务端返回的方法调用
+- Step4: 由于将接口调用放在script脚本里面，浏览器加载完后，会将接口返回的内容，作为script脚本执行
 
 jsonp 源码实现
 
@@ -176,6 +147,14 @@ function getasync(url) {
 const xhr = XMLHTTPRequest();
 ```
 
+## CSS和JS的加载与阻塞
+
+- css
+  - 阻塞dom渲染
+- JS
+  - 阻塞dom解析
+  - 在遇到script标签时会触发页面渲染，如果前面有css，则会等待其加载完毕再执行脚本
+
 ## 资源异步加载和预加载
 
 [参考](https://www.luoyelusheng.com/post/%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%B9%8B%E5%BC%82%E6%AD%A5%E5%8A%A0%E8%BD%BD(defer%E3%80%81async%E3%80%81module)%E5%92%8C%E9%A2%84%E5%8A%A0%E8%BD%BD(preload%E3%80%81prefetch%E3%80%81dns-prefetch%E3%80%81preconnect%20%E3%80%81prerender)/)
@@ -232,6 +211,28 @@ const xhr = XMLHTTPRequest();
   - `interactive` —— 文档已被解析完成，与 `DOMContentLoaded` 几乎同时发生，但是在 `DOMContentLoaded` 之前发生。
   - `complete` —— 文档和资源均已加载完成，与 `window.onload` 几乎同时发生，但是在 `window.onload` 之前发生。
 
+## 浏览器执行时间线
+
+根据js执行那一刻开始的执行顺序 浏览器加载的时间线
+
+1.创建document对象，开始解析web页面 这时document.readyState 等于’loading’
+
+2.遇到link标签（外部引用css）创建线程加载，并继续解析文档， 即异步加载
+
+3.遇到非异步的script标签，浏览器加载并阻塞，等待js加载完成
+
+4.遇到异步的script标签，浏览器创建线程加载，并继续解析文档。对于async属性的脚本，脚本加载完成后立即执行；对于defer属性的脚本，脚本等到页面加载完之后再执行（异步禁止使用document.write）
+
+5.遇到img等，先正常解析dom结构，然后浏览器异步加载src，并继续解析文档
+
+6.当文档解析完成之后（即renderTree构建完成之后， 此时还未下载完对吧），document.readyState=‘interative’。活跃的 动态的
+
+7.文档解析完成后，所有设置有defer的脚本会按照顺序执行。
+
+8.文档解析完成之后 页面会触发document上的一个DOMContentLoad事件
+
+9.当页面所有部分都执行完成之后 document.readyState =‘complete’ 之后就可以执行window.onload事件了
+
 ## [页面的重绘和回流以及优化](https://segmentfault.com/a/1190000017329980#articleHeader11)
 
 回流（reflow）：当 DOM 元素的内容，结构，位置或大小发生变化的时候，需要重新计算样式和渲染树。（计算属性、布局（盒子模型相关）的属性、窗口大小，）
@@ -252,10 +253,12 @@ const xhr = XMLHTTPRequest();
 ### 触发重绘的操作
 
 因为回流引起的重绘。
-　　　　　　- 颜色、背景、outline 相关的。
-　　　　　　* 浏览器的自带优化：浏览器会维护一个队列，把所有的会引起回流或重绘的操作放到里面。等队列中的操作到了一定数量的时候或者到了一定时间间隔的时候就会一起执行这些操作，这样就让多次回流和重绘合并成一次。
-　　　　　　* 开发者优化：尽量减少不必要的 DOM 操作修改，减少对一些 style 信息的请求。
-　　　　　　* 避免逐个修改节点样式，尽量一次性修改。
-　　　　　　* 将需要多次修改的 DOM 设置为 display:none；后修改，然后再显示（因为隐藏元素不在渲染树里面，所以修改隐藏元素不会触发回流和重绘）。
-　　　　　　* 避免多次读取元素的某些属性。
-　　　　　　* 将复杂的节点元素设置脱离文档流，降低回流成本。
+
+- 颜色、背景、outline 相关的。
+
+* 浏览器的自带优化：浏览器会维护一个队列，把所有的会引起回流或重绘的操作放到里面。等队列中的操作到了一定数量的时候或者到了一定时间间隔的时候就会一起执行这些操作，这样就让多次回流和重绘合并成一次。
+* 开发者优化：尽量减少不必要的 DOM 操作修改，减少对一些 style 信息的请求。
+* 避免逐个修改节点样式，尽量一次性修改。
+* 将需要多次修改的 DOM 设置为 display:none；后修改，然后再显示（因为隐藏元素不在渲染树里面，所以修改隐藏元素不会触发回流和重绘）。
+* 避免多次读取元素的某些属性。
+* 将复杂的节点元素设置脱离文档流，降低回流成本。
