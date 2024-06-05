@@ -23,7 +23,6 @@
 
 ## 新技术
 
-* [README](docs/新技术/README.md)
 * [OAuth2与微信登陆](docs/新技术/OAuth2与微信登陆.md)
 * [微前端](docs/新技术/微前端.md)
 * [移动端适配](docs/新技术/移动端适配.md)
@@ -31,15 +30,13 @@
 
 ## dev-ops
 
-* [README](docs/dev-ops/README.md)
+* [ssh](docs/dev-ops/ssh.md)
+* [linux](docs/dev-ops/linux.md)
 * [ansible](docs/dev-ops/ansible.md)
 * [bash](docs/dev-ops/bash.md)
 * [docker](docs/dev-ops/docker.md)
 * [gitlab-ci](docs/dev-ops/gitlab-ci.md)
-* [gitlab-ci踩坑](docs/dev-ops/gitlab-ci踩坑.md)
-* [linux总结](docs/dev-ops/linux总结.md)
 * [nginx](docs/dev-ops/nginx.md)
-* [ssh](docs/dev-ops/ssh.md)
 
 ## JS
 
@@ -66,26 +63,19 @@
 
 * [a-life-of-a-pixe浏览器渲染](docs/浏览器/a-life-of-a-pixe浏览器渲染.md)
 * [浏览器架构](docs/浏览器/浏览器架构.md)
-* [layoutNG](docs/浏览器/layoutNG.md)
 
 ## Vue
 
-* [Vuejs设计与实现](docs/Vue/Vuejs设计与实现.md)
-* [computed依赖收集](docs/Vue/computed依赖收集.md)
+* [vue2响应式原理](docs/Vue/vue2响应式原理.md)
 * [keep-alive](docs/Vue/keep-alive.md)
 * [key值](docs/Vue/key值.md)
-* [vue3](docs/Vue/vue3.md)
-* [vue原理](docs/Vue/vue原理.md)
-* [vue双向绑定](docs/Vue/vue双向绑定.md)
+* [vue3新特效](docs/Vue/vue3新特效.md)
+* [Vuejs设计与实现](docs/Vue/Vuejs设计与实现.md)
 * [vue命名方式](docs/Vue/vue命名方式.md)
-* [vue组件双向绑定](docs/Vue/vue组件双向绑定.md)
-* [其他](docs/Vue/其他.md)
 
 ## 前端基础
 
 * [CSS](docs/前端基础/CSS.md)
-* [less&amp;postcss](docs/前端基础/less&postcss.md)
-* [浏览器基础](docs/前端基础/浏览器基础.md)
 
 ## 计算机基础
 
@@ -93,20 +83,18 @@
 
 ## 算法
 
-* [README](docs/算法/README.md)
-* [栈](docs/算法/栈.md)
-* [排列](docs/算法/排列.md)
-* [数学](docs/算法/数学.md)
-* [数组](docs/算法/数组.md)
-* [背包](docs/算法/背包.md)
-* [链表](docs/算法/链表.md)
-* [剑指offer](docs/算法/剑指offer.md)
-* [二叉树](docs/算法/二叉树.md)
-* [字符串](docs/算法/字符串.md)
-* [买卖股票](docs/算法/买卖股票.md)
-* [动态规划](docs/算法/动态规划.md)
-* [十大排序](docs/算法/十大排序.md)
-* [排序相关](docs/算法/排序相关.md)
-* [其他构造类](docs/算法/其他构造类.md)
-* [子串子序列系列](docs/算法/子串子序列系列.md)
-* [最小公倍数和最大公约数](docs/算法/最小公倍数和最大公约数.md)
+* [栈](算法/栈.md)
+* [回溯](算法/回溯.md)
+* [数学](算法/数学.md)
+* [数组](算法/数组.md)
+* [背包](算法/背包.md)
+* [链表](算法/链表.md)
+* [二叉树](算法/二叉树.md)
+* [双指针](算法/双指针.md)
+* [字符串](算法/字符串.md)
+* [买卖股票](算法/买卖股票.md)
+* [动态规划](算法/动态规划.md)
+* [十大排序](算法/十大排序.md)
+* [排序相关](算法/排序相关.md)
+* [其他构造类](算法/其他构造类.md)
+* [子串子序列系列](算法/子串子序列系列.md)
