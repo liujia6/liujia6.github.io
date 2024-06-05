@@ -17,10 +17,10 @@ Source map 就是一个信息文件，里面储存着位置信息。也就是说
 ### 类别
 
 - eval： 使用 eval 包裹模块代码,利用字符串可缓存从而提效
-- source-map·： 产生`.map`文件
+- source-map·： 产生 `.map`文件
 - cheap： 不包含列信息（关于列信息的解释下面会有详细介绍)也不包含 loader 的 sourcemap
 - module： 包含 loader 的 sourcemap（比如 jsx to js ，babel 的 sourcemap）,对于经由 babel 之类工具转义的代码，可以定位到转换后的代码
-- inline： 将`.map`作为 DataURI 嵌入，不单独生成`.map`文件（这个配置项比较少见）,减少文件数
+- inline： 将 `.map`作为 DataURI 嵌入，不单独生成 `.map`文件（这个配置项比较少见）,减少文件数
 
 ### 配置项最佳实践
 
@@ -37,7 +37,7 @@ Source map 就是一个信息文件，里面储存着位置信息。也就是说
 - 所以我们不应该直接提供 sourceMap 给浏览器。但我们又需要 sourceMap 来定位我们的错误信息，
 - 一方面 webpack 会生成 sourcemap 文件以提供给错误收集工具比如 sentry，另一方面又不会为 bundle 添加引用注释，以避免浏览器使用。
 
-这时我们可以设置`devtool: hidden-source-map`
+这时我们可以设置 `devtool: hidden-source-map`
 
 ### 参考
 
@@ -58,7 +58,6 @@ Source map 就是一个信息文件，里面储存着位置信息。也就是说
 1. HotModuleReplaceMentPlugin 插件实现了什么？
 
    - HotModuleReplacementPlugin 为我们提供了一系列关于 HMR 的 API 而其中 最关键的部分则是 hot.accept
-
    - 在 HMR 已开启的情况下，我们可以通过访问全局的 module 对象下的 hot 成员它提供了一个 accept 方法，这个方法用来注册当某个模块更新以后需要如何处理，它接受两个参数 一个是需要监听模块的 path(相对路径)，第二个参数就是当模块更新以后如何处理 其实也就是一个回调函数
 
      ```js
@@ -68,7 +67,6 @@ Source map 就是一个信息文件，里面储存着位置信息。也就是说
        console.log("老板好，child 模块更新啦～");
      });
      ```
-
 2. 为什么能够保留应用的状态？
 
    - webpack 在检测到更新的模块时，会将新模块交给对应的 loader 处理。css 可以实现热更新的原因是因为 style-loader 支持了，js 部分入侵性比较强，但是也有对应的 loader 来处理。我没记错的话，vue-loader 也是实现了热更新，react 里面有对应的 loader
@@ -138,9 +136,8 @@ head.appendChild(script);
 
 ## [treeShaking 原理](https://segmentfault.com/a/1190000022194321)
 
-- 传统的编译语言，编译器就可以醉哦到删除 Dead Code，但是 JS 是动态语言，编译器无法做到，我们需要借助打包工具实现消除 dead Code
+- 传统的编译语言，编译器就可以到删除 Dead Code，但是 JS 是动态语言，编译器无法做到，我们需要借助打包工具实现消除 dead Code
 - 借助 ESM 的静态结构分析，找到没有引入的模块打上标记，在压缩阶段利用 uglify-js 这样的压缩工具删除无用代码
-
 
 ## 参考资料
 
