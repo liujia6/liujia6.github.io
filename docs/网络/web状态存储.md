@@ -1,4 +1,6 @@
 
+# web状态存储
+
 ## cookie 和 localstorage 区别
 
 ```

@@ -1,4 +1,4 @@
-## Babel
+# Babel
 
 [BABEL 中文官网](https://www.babeljs.cn/docs/)
 

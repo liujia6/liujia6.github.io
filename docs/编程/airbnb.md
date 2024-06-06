@@ -1,4 +1,4 @@
-# AirBNB
+# Airbnb
 
 1. 不要使用 JavaScript 的 getters/setters，因为他们会产生副作用，并且难以测试、维护和理解。相反的，你可以用 getVal() 和 setVal('hello') 去创造你自己的访问器函数。
 2. 大写变量处在 export 的最高级(例如：EXPORTED_OBJECT.key) 并且他包含的所有子属性都是不可变的。（译者注：即导出的变量是全大写的，但他的属性不用大写）

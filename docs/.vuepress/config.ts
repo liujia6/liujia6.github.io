@@ -1,6 +1,11 @@
 import { viteBundler } from '@vuepress/bundler-vite'
 import { defineUserConfig } from 'vuepress';
 import { defaultTheme } from '@vuepress/theme-default';
+import { backToTopPlugin } from '@vuepress/plugin-back-to-top'
+import { catalogPlugin } from '@vuepress/plugin-catalog'
+import { docsearchPlugin } from '@vuepress/plugin-docsearch';
+
+
 import sidebar from './sidebar';
 
 export default defineUserConfig({
@@ -26,4 +31,15 @@ export default defineUserConfig({
     smoothScroll: true,
   }),
   bundler: viteBundler(),
+  plugins: [backToTopPlugin(), catalogPlugin({
+    // 你的选项
+  }), docsearchPlugin()],
+  extendsPage: (page) => {
+    // 在 routeMeta 中设置目录信息
+    page.routeMeta = {
+      // 目录标题
+      title: page.title,
+      // ... 其他信息
+    }
+  },
 })

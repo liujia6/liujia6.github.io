@@ -1,6 +1,6 @@
 module.exports = [
   {
-    title: 'JS',
+    text: 'JS',
     children: [
       'JS/基础',
       'JS/异步',
@@ -13,7 +13,7 @@ module.exports = [
     ],
   },
   {
-    title: 'Dev Ops',
+    text: 'Dev Ops',
     children: [
       'dev-ops/ssh',
       'dev-ops/linux',
@@ -24,19 +24,19 @@ module.exports = [
     ],
   },
   {
-    title: 'Vue',
+    text: 'Vue',
     children: [
-      'Vue/vue2响应式原理',
-      'Vue/vue3新特性',
-      'Vue/key值',
-      'Vue/vue命名方式',
-      'Vue/vue使用总结',
+      'Vue/Vue2响应式原理',
+      'Vue/Vue3新特性',
+      'Vue/Vue命名方式',
+      'Vue/Vue使用总结',
       'Vue/Vuejs设计与实现',
       'Vue/keep-alive',
+      'Vue/key值',
     ],
   },
   {
-    title: '工程化',
+    text: '工程化',
     children: [
       '工程化/git',
       '工程化/package.json',
@@ -48,7 +48,7 @@ module.exports = [
     ],
   },
   {
-    title: '算法',
+    text: '算法',
     children: [
       '算法/十大排序',
       '算法/排序相关',
@@ -66,12 +66,12 @@ module.exports = [
     ],
   },
   {
-    title: '网络',
+    text: '网络',
     children: ['网络/HTTP', '网络/HTTP权威指南', '网络/网络基础', '网络/grpc'],
   },
-  { title: '计算机基础', children: ['计算机基础/web安全'] },
+  { text: '计算机基础', children: ['计算机基础/web安全'] },
   {
-    title: '编程',
+    text: '编程',
     children: [
       '编程/重构',
       '编程/架构整洁之道',
@@ -79,11 +79,11 @@ module.exports = [
       '编程/设计模式',
       '编程/函数式编程',
       '编程/plantuml',
-      '编程/airbnb',
+      '编程/Airbnb',
     ],
   },
   {
-    title: '其他',
+    text: '其他',
     children: [
       '新技术/微前端',
       '新技术/移动端适配',
@@ -92,9 +92,9 @@ module.exports = [
     ],
   },
   {
-    title:'浏览器',
+    text:'浏览器',
     children:[
-      '浏览器/README',
+      '浏览器/浏览器基础',
       '浏览器/浏览器架构',
       '浏览器/a-life-of-a-pixel浏览器渲染',
     ]

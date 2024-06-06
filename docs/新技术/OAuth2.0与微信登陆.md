@@ -1,4 +1,4 @@
-# OAuth2.0 与小程序登陆
+# OAuth2.0与微信登陆
 
 - [OAuth](https://www.ruanyifeng.com/blog/2014/05/oauth_2_0.html)2.0 是一种授权机制（Authorization），主要授权颁发令牌（token）
 

@@ -3,8 +3,10 @@ home: true
 heroText: 游离 の Blog
 tagline: go go go !
 heroImage: ./sun.jpg
-actionText: 开始 →
-actionLink: /算法/
+actions:
+  - text: 开始
+    link: /工程化/git
+    type: primary
 features:
   - title: 算法题
     details: LeetCode刷题

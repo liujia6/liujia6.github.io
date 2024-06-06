@@ -1,4 +1,4 @@
-## [typescript](https://juejin.im/post/5d0259f2518825405d15ae62#heading-17)
+# [typescript](https://juejin.im/post/5d0259f2518825405d15ae62#heading-17)
 
 ## ts 使用
 

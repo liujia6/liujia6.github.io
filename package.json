@@ -11,7 +11,8 @@
   },
   "devDependencies": {
     "@vuepress/bundler-vite": "^2.0.0-rc.13",
-    "@vuepress/plugin-back-to-top": "^1.8.0",
+    "@vuepress/plugin-back-to-top": "^2.0.0-rc.34",
+    "@vuepress/plugin-catalog": "^2.0.0-rc.34",
     "@vuepress/plugin-pwa": "^1.8.0",
     "@vuepress/theme-default": "^2.0.0-rc.35",
     "express": "^4.17.1",
@@ -19,5 +20,8 @@
     "vue": "^3.4.27",
     "vuepress": "^2.0.0-rc.13",
     "vuepress-plugin-mermaidjs": "^1.8.1"
+  },
+  "dependencies": {
+    "@vuepress/plugin-docsearch": "^2.0.0-rc.34"
   }
 }
