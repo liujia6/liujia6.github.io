@@ -12,7 +12,7 @@
 ## 工程化
 
 * [README](docs/工程化/README.md)
-* [airbnb](docs/工程化/airbnb.md)
+* [airbnb](docs/工程化/Airbnb.md)
 * [babel](docs/工程化/babel.md)
 * [git](docs/工程化/git.md)
 * [package.json](docs/工程化/package.json.md)

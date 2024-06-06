@@ -1,29 +1,35 @@
 # Vue 响应式原理
 
-首先试想一下以下代码中点击\$('#text')元素会发生什么呢？会触发 test 方法吗
+首先试想一下以下代码中点击\$('#value')元素会发生什么呢？会触发 test 方法吗
 
 ```vue
 <template>
-
   <div>
-
-    <div id="text" @click="age+='s'"> text: {{ text }} </div>
-
+    <div id="value" @click="age += 's'">text: {{ value }}</div>
     <span> age: {{ age }} </span>
-
   </div>
-
 </template>
 
 <script>
- export default { data() { return { name: '12', age: '12', }; }, computed: { text(){
-this.test() return this.name; }, }, methods: { test() { console.log('computed text
-again!'); console.log(this.age); } } };
+export default {
+  data() {
+    return { name: '12', age: '12' };
+  },
+  computed: {
+    value() {
+      this.test();
+      return this.name;
+    },
+  },
+  methods: {
+    test() {
+      console.log('computed text again!');
+      console.log(this.age);
+    },
+  },
+};
 </script>
 
-<style>
-
-</style>
 ```
 
 答案是会触发。这是什么原因呢，为什么会触发 test 方法呢，是 computed 的依赖收集收集还会收集到 test 函数里面去？
@@ -758,7 +764,7 @@ Vue.prototype.$nextTick = function (fn: Function) {
 
 最后缕一下整个流程：原理图如下
 
-![](https://cdn.nlark.com/yuque/0/2024/png/2198140/1717413493425-b77c0111-e4f8-41a8-b184-bb51ce8537b3.png)
+![](https://ustbhuangyi.github.io/vue-analysis/assets/reactive.png)
 
 [learnVue/docs/Vue.js 异步更新 DOM 策略及 nextTick.MarkDown at master · answershuto/learnVue](https://github.com/answershuto/learnVue/blob/master/docs/Vue.js%E5%BC%82%E6%AD%A5%E6%9B%B4%E6%96%B0DOM%E7%AD%96%E7%95%A5%E5%8F%8AnextTick.MarkDown)
 
