@@ -36,6 +36,7 @@
 
   - transfer-encoding：chunked 表示回应将由数量未定的数据块组成，取代 content-length
   - 数据之前，16 进制数值表示块长度，最后大小为 0 的块表明本次传输完成
+
 - 新的方法例如 put、patch、head、options、delete
 - host 头域：将请求发往同一台服务器上的不同网站
 
@@ -66,19 +67,29 @@
 - [理解 HTTP 协议](https://www.cnblogs.com/wxisme/p/6212797.html)
 - [深入理解 http2.0 协议，看这篇就够了！ - 知乎](https://zhuanlan.zhihu.com/p/89471776)
 
-# [HTTPS](https://github.com/CavsZhouyou/Front-End-Interview-Notebook/blob/master/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C.md#https-%E5%8D%8F%E8%AE%AE)
+## [图解 HTTP 总结](https://segmentfault.com/a/1190000014572024)
+- [传输编码与内容编码](https://blog.csdn.net/swt369/article/details/77847896)
+- 20x
+  - 206 partial-content
+- 30x重定向
+  - 301\302\303在标准上都是不允许将请求方法修改的
+  - 然而大多数浏览器在实现上都将301\302\303改为了GET
+  - 307用于表示不允许修改原有请求方式的临时重定向
+
+
+## [HTTPS](https://github.com/CavsZhouyou/Front-End-Interview-Notebook/blob/master/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C.md#https-%E5%8D%8F%E8%AE%AE)
 
 HTTPS 指的是超文本传输安全协议，基于 HTTP 协议之上，新增了 TLS/SSL 来对数据加密。
 
 使用 TLS/ SSL 协议，所有的信息都是加密的，第三方没有办法窃听。并且它提供了一种校验机制，信息一旦被篡改，通信的双方会立 刻发现。它还配备了身份证书，防止身份被冒充的情况出现。
 
-#### HTTP 存在的问题
+### HTTP 存在的问题
 
 1. HTTP 报文使用明文方式发送，可能被第三方窃听。
 1. HTTP 报文可能被第三方截取后修改通信内容，接收方没有办法发现报文内容的修改。
 1. HTTP 还存在认证的问题，第三方可以冒充他人参与通信。
 
-## 区别
+### 区别
 
 - HTTPS 是 HTTP 协议的安全版本，HTTP 协议的数据传输是明文的，是不安全的，HTTPS 使用了 SSL/TLS 协议进行了加密处理，相对更安全
 - HTTP 和 HTTPS 使用连接方式不同，默认端口也不一样，HTTP 是 80，HTTPS 是 443
@@ -97,7 +108,7 @@ HTTPS 指的是超文本传输安全协议，基于 HTTP 协议之上，新增�
 
 - 为了解决这样的问题，我们可以使用数字证书的方式，首先我们使用一种 Hash 算法来对我们的公钥和其他信息进行加密生成 一个信息摘要，然后让有公信力的认证中心（简称 CA ）用它的私钥对消息摘要加密，形成签名。最后将原始的信息和签名合 在一起，称为数字证书。当接收方收到数字证书的时候，先根据原始信息使用同样的 Hash 算法生成一个摘要，然后使用公证 处的公钥来对数字证书中的摘要进行解密，最后将解密的摘要和我们生成的摘要进行对比，就能发现我们得到的信息是否被更改 了。这个方法最要的是认证中心的可靠性，一般浏览器里会内置一些顶层的认证中心的证书，相当于我们自动信任了他们，只有 这样我们才能保证数据的安全。
 
-## 握手过程说明
+### 握手过程说明
 
 - 利用了证书的**数字签名**（私钥加密，公钥解密）进行了身份验证，以及**数字摘要**（常见例如哈希算法）进行完整性校验
 - 使用证书的**非对称加密**（公钥加密、私钥解密），安全的协商出对话秘钥的算法
@@ -128,14 +139,14 @@ HTTPS 指的是超文本传输安全协议，基于 HTTP 协议之上，新增�
 
 - [Front-End-Interview-Notebook/计算机网络/计算机网络.md at master · CavsZhouyou/Front-End-Interview-Notebook](https://github.com/CavsZhouyou/Front-End-Interview-Notebook/blob/master/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C.md#https-%E5%8D%8F%E8%AE%AE)
 - [面试官：为什么说 HTTPS 比 HTTP 安全? HTTPS 是如何保证安全的？ | web 前端面试 - 面试官系列](https://vue3js.cn/interview/http/HTTPS.html#%E4%B8%80%E3%80%81%E5%AE%89%E5%85%A8%E7%89%B9%E6%80%A7)
+- [详解 HTTP2.0 及 HTTPS 协议 - 掘金](https://juejin.cn/post/7034668672262242318)
 
-
-# DNS查询过程
+## DNS 查询过程
 
 域名缓存
 
 1. 浏览器缓存
-2. 操作系统缓存，hosts文件
+2. 操作系统缓存，hosts 文件
 
 查询方式
 
@@ -158,22 +169,23 @@ HTTPS 指的是超文本传输安全协议，基于 HTTP 协议之上，新增�
 
 通过缓存代理和负载均衡服务器，加速了网站静态内容的访问速度以及访问压力，避免了一台服务器被攻击整个服务崩溃的问题
 
-DNS查询->cname的CDN专用服务器->负载均衡服务器->就近的缓存服务器（没找到内容回源站查找）
+DNS 查询->cname 的 CDN 专用服务器->负载均衡服务器->就近的缓存服务器（没找到内容回源站查找）
 
-1. 服务器查询DNS域名
-2. DNS解析权会交给域名对应的的CNAME服务器（CDN专用DNS解析服务器）
-3. CNAME服务器会返回用户CDN的全局负载均衡设备IP地址并发起请求
-3. CDN全局负载均衡设备根据用户IP地址，以及用户请求的内容URL，选择一台用户所属区域的缓存服务器地址
-4. 如果服务器中没有内容的话，会回溯到源站请求内容
+1. 服务器查询 DNS 域名
+2. DNS 解析权会交给域名对应的的 CNAME 服务器（CDN 专用 DNS 解析服务器）
+3. CNAME 服务器会返回用户 CDN 的全局负载均衡设备 IP 地址并发起请求
+4. CDN 全局负载均衡设备根据用户 IP 地址，以及用户请求的内容 URL，选择一台用户所属区域的缓存服务器地址
+5. 如果服务器中没有内容的话，会回溯到源站请求内容
 
 ## 强缓存
-[HTTP协议 | 前端面试与进阶指南](https://front-end-interview-shenfeng1945.netlify.app/guide/http.html#http%E7%9A%84%E7%BC%93%E5%AD%98%E7%9A%84%E8%BF%87%E7%A8%8B%E6%98%AF%E6%80%8E%E6%A0%B7%E7%9A%84%EF%BC%9F)
+
+[HTTP 协议 | 前端面试与进阶指南](https://front-end-interview-shenfeng1945.netlify.app/guide/http.html#http%E7%9A%84%E7%BC%93%E5%AD%98%E7%9A%84%E8%BF%87%E7%A8%8B%E6%98%AF%E6%80%8E%E6%A0%B7%E7%9A%84%EF%BC%9F)
 
 - 强缓存指定过期时间
-    - Expires：过期时间
-    - cache-control：max-age=3600，该值优先
+  - Expires：过期时间
+  - cache-control：max-age=3600，该值优先
   - 场景
     - 用于部分明确什么时候更新的数据
-    - 对于不会再更新的数据，或者实时性要求不强的数据，可以设置一个超长的时间，http1.1规定不能超过1年以上
-- vary首部，指定缓存单位
-  - vary用于指定除URI外使用哪个请求首部来确定唯一的数据，内容协商
+    - 对于不会再更新的数据，或者实时性要求不强的数据，可以设置一个超长的时间，http1.1 规定不能超过 1 年以上
+- vary 首部，指定缓存单位
+  - vary 用于指定除 URI 外使用哪个请求首部来确定唯一的数据，内容协商

@@ -764,7 +764,7 @@ Vue.prototype.$nextTick = function (fn: Function) {
 
 最后缕一下整个流程：原理图如下
 
-![](https://ustbhuangyi.github.io/vue-analysis/assets/reactive.png)
+![alt text](image.png)
 
 [learnVue/docs/Vue.js 异步更新 DOM 策略及 nextTick.MarkDown at master · answershuto/learnVue](https://github.com/answershuto/learnVue/blob/master/docs/Vue.js%E5%BC%82%E6%AD%A5%E6%9B%B4%E6%96%B0DOM%E7%AD%96%E7%95%A5%E5%8F%8AnextTick.MarkDown)
 

@@ -154,7 +154,7 @@ div {
 ##### 矩形区域
 
 对于一个块级(block-level)元素，会计算它内容区域所占据的矩形坐标与尺寸。建立在盒模型的基础上
-<img src="https://i.loli.net/2021/01/12/zjdfBl4V9Xc5omS.png" alt="image-20210112131848338" style="zoom: 33%; display: inline-block;" />
+`<img src="https://i.loli.net/2021/01/12/zjdfBl4V9Xc5omS.png" alt="image-20210112131848338" style="zoom: 33%; display: inline-block;" />`
 
 ##### **流动方向**
 
@@ -236,7 +236,9 @@ PaintLayer 这棵树主要用来实现[层叠上下文](https://developer.mozill
 - NormalPaintLayer
 
   - 根元素（HTML）
-  - 有明确的定位属性（relative、fixed、sticky、absolute）
+  - position 值为 absolute（绝对定位）或 relative（相对定位）且 z-index 值不为 auto 的元
+  - position 值为 fixed（固定定位）或 sticky（粘滞定位）的元素（沾滞定位适配所有移动设备上的浏览器，但老的桌面浏览器不支持）；
+  - flex (flex)/grid (grid) 容器的子元素，且 z-index 值不为 auto
   - 透明的（opacity 小于 1）
   - 有 CSS 滤镜（fliter）
   - 有 CSS mask 属性
@@ -296,7 +298,9 @@ PaintLayer 这棵树主要用来实现[层叠上下文](https://developer.mozill
   - ...等
 - 后代元素影响
 - 重叠
-- 两个 absolute 定位的 div 在屏幕上交叠了，根据 `z-index` 的关系，其中一个 div 就会”盖在“了另外一个上边。
+  - 两个 absolute 定位的 div 在屏幕上交叠了，根据 `z-index` 的关系，其中一个 div 就会”盖在“了另外一个上边。
+
+3D transform、will-change 设置为 opacity、transform 等 以及 包含 opacity、transform 的 CSS 过渡和动画
 
 ### update-layer以及paint操作图
 
