@@ -1,1 +1,0 @@
-import{_ as t,r as o,c as a,d as n,o as s}from"./app-BrW2q7b4.js";const c={};function l(r,_){const e=o("Catalog");return s(),a("div",null,[n(e)])}const p=t(c,[["render",l],["__file","index.html.vue"]]),d=JSON.parse('{"path":"/dev-ops/","title":"Dev Ops","lang":"en-US","frontmatter":{"title":"Dev Ops"},"headers":[],"git":{},"filePathRelative":null}');export{p as comp,d as data};
