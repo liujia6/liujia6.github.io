@@ -1,21 +1,33 @@
-# vue3新特性
+## 总结
 
-## [teleport 组件](https://juejin.cn/post/6940454764421316644)
+- 响应式原理不一样
+	- defineProperty 和 proxy
+	- 编译和 Diff 性能优化
+- composition-api 和 option-api
+- 新的功能
+	- v-model
+	- teleport
+	- suspense
+- 底层架构使用 ts 重构，模块分包，支持 treeShaking
+
+## vue3 新特性
+
+### [teleport 组件](https://juejin.cn/post/6940454764421316644)
 
 如果用过 `React` 的同学，[可能对于]() `Portals` 比较熟悉，其实这两个是一个概念。[详见](https://links.jianshu.com/go?to=https%3A%2F%2Fzh-hans.reactjs.org%2Fdocs%2Fportals.html)。在 `Vue2`，如果想要实现类似的功能，需要通过第三方库 [portal-vue](https://links.jianshu.com/go?to=https%3A%2F%2Fgithub.com%2FLinusBorg%2Fportal-vue) 去实现，感兴趣可以了解一下
 
-> Portal 提供了一种将子节点渲染到存在于父组件以外的 DOM 节点的优秀的方案。
+>Portal 提供了一种将子节点渲染到存在于父组件以外的 DOM 节点的优秀的方案。
 >
 > ```js
 > ReactDOM.createPortal(child, container);
 > ```
 >
-> 第一个参数（`child`）是任何[可渲染的 React 子元素](https://zh-hans.reactjs.org/docs/react-component.html#render)，例如一个元素，字符串或 fragment。第二个参数（`container`）是一个 DOM 元素。
+>第一个参数（`child`）是任何 [可渲染的 React 子元素](https://zh-hans.reactjs.org/docs/react-component.html#render)，例如一个元素，字符串或 fragment。第二个参数（`container`）是一个 DOM 元素。
 
-## 使用场景
+### 使用场景
 
 1. 有时组件模板的一部分逻辑上属于该组件，而从技术角度来看，最好将模板的这一部分移动到 DOM 中 Vue app 之外的其他位置。
-2. 一个 portal 的典型用例是当父组件有 `overflow: hidden` 或 `z-index` 样式时，但你需要子组件能够在视觉上“跳出”其容器。例如，对话框、悬浮卡以及提示框：
+2. 一个 portal 的典型用例是当父组件有 `overflow: hidden` 或 `z-index` 样式时，但你需要子组件能够在视觉上 " 跳出 " 其容器。例如，对话框、悬浮卡以及提示框：
 
 例如 modal
 
@@ -38,9 +50,9 @@
 </teleport>
 ```
 
-### Teleport 的使用
+#### Teleport 的使用
 
-我们希望 Dialog 渲染的 dom 和顶层组件是兄弟节点关系, 在 `index.html`文件中定义一个供挂载的元素:
+我们希望 Dialog 渲染的 dom 和顶层组件是兄弟节点关系, 在 `index.html` 文件中定义一个供挂载的元素:
 
 ```html
 <body>
@@ -49,7 +61,7 @@
 </body>
 ```
 
-定义一个 `Dialog`组件 `Dialog.vue`, 留意 `to` 属性， 与上面的 `id`选择器一致：
+定义一个 `Dialog` 组件 `Dialog.vue`, 留意 `to` 属性， 与上面的 `id` 选择器一致：
 
 ```vue
 <template>
@@ -73,7 +85,7 @@
 </template>
 ```
 
-最后在一个子组件 `Header.vue`中使用 `Dialog`组件, 这里主要演示 Teleport 的使用，不相关的代码就省略了。`header`组件
+最后在一个子组件 `Header.vue` 中使用 `Dialog` 组件, 这里主要演示 Teleport 的使用，不相关的代码就省略了。`header` 组件
 
 ```
 <div class="header">
@@ -86,24 +98,24 @@
 
 Dom 渲染效果如下
 
- ![img](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/712e61d275cb4b7da5252bb9cd6d2afa~tplv-k3u1fbpfcp-watermark.awebp)
+	![img](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/712e61d275cb4b7da5252bb9cd6d2afa~tplv-k3u1fbpfcp-watermark.awebp)
 
 图片. png 可以看到，我们使用 `teleport` 组件，通过 `to` 属性，指定该组件渲染的位置与 `<div id="app"></div>` 同级，也就是在 `body` 下，但是 `Dialog` 的状态 `dialogVisible` 又是完全由内部 Vue 组件控制.
 
-## [插槽](https://v3.cn.vuejs.org/guide/migration/slots-unification.html)
+### [插槽](https://v3.cn.vuejs.org/guide/migration/slots-unification.html)
 
-### vue2
+#### vue2
 
-1. 组件中用 `<slot>backup（编写默认值）</slot>`使用时直接将插槽内容放入模板中
+1. 组件中用 `<slot>backup（编写默认值）</slot>` 使用时直接将插槽内容放入模板中
 3. 具名插槽：让组件中可以使用多个不同的插槽。
-   - 通过给 slot 定义 name 属性，在使用时通过 template 的 v-slot 指定对应 slot 的名称
-     - 组件中 `<slot name="header"></slot>`
-     - 使用时 `<template v-slot:header>这里是header插槽内容</template>`
-4. 作用域插槽：因为父级模板里的所有内容都是在父级作用域中编译的；子模板里的所有内容都是在子作用域中编译的，使用作用域插槽来在 slot 使用的父组件中访问 slot 定义子组件内部的一些可用数据。
-   - 通过给子 slot 绑定一个组件内元素，在父 template 上通过 v-slot:(defalut)="slotProps",然后就可以在父元素里面通过 slotProps 元素来调用在子 slot 绑定的元素了，也可以用 v-slot:(defalut)="{property}",这样是利用解构赋值直接取出来了想要用的数据，不需要再调用了，更加方便
-     - 组件中：`<slot :users="user"><slot>`， slot 组件上绑定的属性，称为插槽 props，即父传子
-     - 使用中：`<template name="default" v-slot:default="slotProps">{{slotProps.users.lastName}}</template>`
-   - 插槽结构
+		- 通过给 slot 定义 name 属性，在使用时通过 template 的 v-slot 指定对应 slot 的名称
+		- 组件中 `<slot name="header"></slot>`
+		- 使用时 `<template v-slot:header>这里是header插槽内容</template>`
+1. 作用域插槽：因为父级模板里的所有内容都是在父级作用域中编译的；子模板里的所有内容都是在子作用域中编译的，使用作用域插槽来在 slot 使用的父组件中访问 slot 定义子组件内部的一些可用数据。
+	- 通过给子 slot 绑定一个组件内元素，在父 template 上通过 v-slot:(default)="slotProps",然后就可以在父元素里面通过 slotProps 元素来调用在子 slot 绑定的元素了，也可以用 v-slot:(default)="{property}",这样是利用解构赋值直接取出来了想要用的数据，不需要再调用了，更加方便
+			- 组件中：`<slot :users="user"><slot>`， slot 组件上绑定的属性，称为插槽 props，即父传子
+			- 使用中：`<template name="default" v-slot:default="slotProps">{{slotProps.users.lastName}}</template>`
+	- 插槽结构
 
 ```html
 <current-user v-slot="{ user }">
@@ -121,18 +133,18 @@ Dom 渲染效果如下
 
 - 旧语法 slot
 - slot 特性的具名插槽
-  - 在使用时
+		- 在使用时
 
 ```vue
 <template slot="header"><div>backup</div></template>
 ```
 
 - slot-scope 特性的作用域插槽
-  - slot-scope 可接受传递给插槽的 prop
-  - `<template slot="default" slot-scope="sotProps">{{slotProp.msg}}</template>`
+		- slot-scope 可接受传递给插槽的 prop
+		- `<template slot="default" slot-scope="sotProps">{{slotProp.msg}}</template>`
 - \$slots 和 slots-scope：
-  - [\$slots](https://www.jianshu.com/p/7b0d437db9f6)是一个包含了当前组件使用 slot 实例的对象，键名是 slot 的 name，默认是 default ,可以使用 createElement('div',this.\$slots.slotName)来将 slotVNode 直接转换为对应 dom 节点
-  - \$scopedSlots{ [name: string]: props => Array `<VNode>` | undefined }， 作用域插槽函数现在保证返回一个 VNode 数组，可以向函数中传递 dom 属性对象参数，会合并。
+		- [\$slots](https://www.jianshu.com/p/7b0d437db9f6) 是一个包含了当前组件使用 slot 实例的对象，键名是 slot 的 name，默认是 default ,可以使用 createElement('div',this.\$slots.slotName) 来将 slotVNode 直接转换为对应 dom 节点
+		- \$scopedSlots{ [name: string]: props => Array `<VNode>` | undefined }， 作用域插槽函数现在保证返回一个 VNode 数组，可以向函数中传递 dom 属性对象参数，会合并。
 
 ```js
 props: ['message'],
@@ -182,7 +194,7 @@ export default {
 };
 ```
 
-### vue3
+#### vue3
 
 1. 在 3.x 中，将所有 `this.$scopedSlots` 替换为 `this.$slots`。
 2. 将所有 `this.$slots.mySlot` 替换为 `this.$slots.mySlot()`。
@@ -192,16 +204,16 @@ export default {
 - [mini-vue](https://juejin.cn/post/7070809037398343717)
 - [vue-promised](https://github.com/posva/vue-promised)
 
-## diff算法
+### diff 算法
 
-### **Vue2**
+#### **Vue2**
 
-* 双端 Diff 算法 : Vue2 通过新旧 VNode 的首尾指针进行递归比较，尝试复用已有 DOM 元素。
-* 同级比较 : 仅比较同一层级内的节点，不跨层级比较。
-* 节点复用 : 通过sameVnode函数判断两个节点是否相同，相同则尝试复用。
+- 双端 Diff 算法 : Vue2 通过新旧 VNode 的首尾指针进行递归比较，尝试复用已有 DOM 元素。
+- 同级比较 : 仅比较同一层级内的节点，不跨层级比较。
+- 节点复用 : 通过 sameVnode 函数判断两个节点是否相同，相同则尝试复用。
 
-### **Vue3**
+#### **Vue3**
 
-* 静态提升 : 对于静态节点，Vue3 在编译时会进行提升，减少运行时的比较次数。
-* 构造block节点，用于收集动态子代机诶单，忽略dom层级的diff比较
-* 采用快速diff算法，先处理新旧两组子节点中相同的前置节点和后置节点，处理完成后，如果无法通过新增或者卸载节点，则根据节点的索引关系，构造出一个最长递增子序列，最长递增子序列的节点为不需要移动的节点
+- 静态提升 : 对于静态节点，Vue3 在编译时会进行提升，减少运行时的比较次数。
+- 构造 block 节点，用于收集动态子代机诶单，忽略 dom 层级的 diff 比较
+- 采用快速 diff 算法，先处理新旧两组子节点中相同的前置节点和后置节点，处理完成后，如果无法通过新增或者卸载节点，则根据节点的索引关系，构造出一个最长递增子序列，最长递增子序列的节点为不需要移动的节点

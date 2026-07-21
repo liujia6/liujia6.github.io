@@ -170,7 +170,7 @@ Last login: Mon Nov 26 09:36:58 2018 from server1
 Last login: Mon Nov 26 09:37:28 2018 from server1
 ```
 
--ssh -A server2 #这里 -A 不可省略，表示开启认证代理连接转发功能
+-ssh -A server2  -A 不可省略，表示开启认证代理连接转发功能
 
 ## 远程执行命令
 

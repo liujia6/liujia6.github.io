@@ -4,3 +4,9 @@
 */.DS_Store
 /docs/.vuepress/.temp
 /docs/.vuepress/.cache
+.**/
+# 但 保留 .github 文件夹（不忽略）
+!.github/
+!.github/**
+!.vscode/**
+        

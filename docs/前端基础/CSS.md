@@ -3,9 +3,10 @@
 大部分元素，页面上显示的结果，取决于元素内容，称为**非可替换元素**
 
 少部分元素，页面上显示的结果，取决于元素属性，成为**可替换元素**
+
 例如 img video audio
 
-## position 属性的五个值：
+## position 属性的五个值
 
 ```
 static
@@ -44,12 +45,12 @@ display: -webkit-box;
 
 - 当一个元素指定多个 class 时，class 的优先级与指定顺序无关，而是和 class 的定义顺序有关。后声明的优先级高。
 - 优先级
-  1. 内联样式 权值为 1000
-  2. ID 选择器 权值为 0100
-  3. 类、伪类、属性选择器 权值为 0010
-  4. 标签、伪元素选择器 权值为 0001
-  5. 通配符、子类选择器、兄弟选择器，如\*, >, +，权值为 0000
-  6. 继承的样式没有权值
+	1. 内联样式 权值为 1000
+	2. ID 选择器 权值为 0100
+	3. 类、伪类、属性选择器 权值为 0010
+	4. 标签、伪元素选择器 权值为 0001
+	5. 通配符、子类选择器、兄弟选择器，如\*, >, +，权值为 0000
+	6. 继承的样式没有权值
 
 ## link 和 import 引入 css 的区别
 
@@ -59,19 +60,23 @@ display: -webkit-box;
 ## src 和 href 的区别
 
 href：
+
 href 是 Hypertext Reference 的缩写，表示超文本引用。用来建立当前元素和文档之间的链接。如 link a 并行下载该文档，并且不会停止对当前文档的处理
+
 src：
+
 src 是 source 的缩写，src 指向的内容会嵌入到文档当前标签所在位置
+
 如 img、script、iframe 当浏览器解析到该元素时，会暂停浏览器的渲染，直到该资源加载完毕。
 
 ## 浮动
 
 - 带来的问题
-  1. 浮动元素脱离文档流，父元素塌陷，会覆盖在后面紧随的元素之上
+		1. 浮动元素脱离文档流，父元素塌陷，会覆盖在后面紧随的元素之上
 - 清除浮动的方式
-  1. 最后一个浮动元素后添加空 div 标签并且添加 clear：both
-  2. 包含浮动元素的父标签添加样式 overflow：hidden (利用bfc)
-  3. 使用伪类再去除
+		1. 最后一个浮动元素后添加空 div 标签并且添加 clear：both
+		2. 包含浮动元素的父标签添加样式 overflow：hidden (利用 bfc)
+		3. 使用伪类再去除
 
 ## 圣杯布局（全部浮动、container 留 padding、再通过 margin、position 调整位置、记得清除浮动）
 
@@ -199,12 +204,12 @@ grid-area:footer ; background:blue}
 ## [自适应三栏布局](https://blog.csdn.net/weixin_44071019/article/details/85951685#1flex_3)
 
 1. flex(左右的 flex：0 0 100px、中间 flex:1、可以单独设置高度也可以不设置就是等高的)
-2. float(左右盒子设置固定宽度并浮动，中间盒子设置 100%宽度，需要注意，如果设置浮动，需要中间盒子和右边盒子调位，否则右边盒子会掉落)
+2. float(左右盒子设置固定宽度并浮动，中间盒子设置 100% 宽度，需要注意，如果设置浮动，需要中间盒子和右边盒子调位，否则右边盒子会掉落)
 3. inline-block
 4. position(父级相对定位，左右分别绝对定位,center 会自然流动到他们上面，然后使用 margin 属性，留出左右元素的宽度，既可以使中间元素自适应屏幕宽度。)
 5. gird(display: grid;（等高）
-   grid-template-columns: 200px auto 200px;)
-6. table 布局、父元素 display：table；子元素 display:table-cell;注意父元素 width：100%；子元素没有设置宽度的自动撑开（等高的）（容易发生重流，整个 table 都要跟着变动，开销大）
+			grid-template-columns: 200px auto 200px;)
+6. table 布局、父元素 display：table；子元素 display:table-cell; 注意父元素 width：100%；子元素没有设置宽度的自动撑开（等高的）（容易发生重流，整个 table 都要跟着变动，开销大）
 7. 圣杯布局、双飞翼布局（浮动加上 margin、padding、定位）
 
 ## 垂直居中
@@ -214,28 +219,30 @@ grid-area:footer ; background:blue}
 3. position:absolute; + left + top
 4. 父元素设置
 
-   display:grid;
-   align-content:center;
-   justify-content:center;
+	display:grid;
+
+	align-content:center;
+
+	justify-content:center;
 
 ## [等高布局](https://segmentfault.com/a/1190000019365216#articleHeader4)
 
-1. 父元素设置 overflow：hidden 抵消（在最高点被裁减）；全部浮动；利用很大的 padding-bottom 和 margin-bottom：为-padding-bottom
+1. 父元素设置 overflow：hidden 抵消（在最高点被裁减）；全部浮动；利用很大的 padding-bottom 和 margin-bottom：为 -padding-bottom
 2. 绝对定位设置 top：0；bottom：0；
 3. flex 布局
 4. table 布局
 5. grid 布局
-   display: grid;grid-template-columns: 1fr 1fr 1fr; width:100%;
+			display: grid;grid-template-columns: 1fr 1fr 1fr; width:100%;
 
 ## 块级元素与内联元素的区别
 
 - 块级元素：
-  1. div、p、ul、li、ol、h1-h6、table、form、hr、dl、header、footer、aside...
-  2. 占据一行、垂直排列
+		1. div、p、ul、li、ol、h1-h6、table、form、hr、dl、header、footer、aside...
+		2. 占据一行、垂直排列
 - 内联元素:
-  1. img、a、span、input、label、strong、em
-  2. 水平排列
-  3. 不能设置宽高
+		1. img、a、span、input、label、strong、em
+		2. 水平排列
+		3. 不能设置宽高
 
 ## [可继承的属性](https://www.cnblogs.com/zhangnan35/p/8624608.html)
 
@@ -264,28 +271,25 @@ grid-area:footer ; background:blue}
 - [BFC](https://github.com/sisterAn/blog/issues/118)
 - [BFC](https://www.sysuke.com/fe/css/BFC.html)
 - 特点
-
-  1. BFC 区域与外部不相关
-  2. 可以包含浮动元素
-  3. 内部元素从上往下排列
+	1. BFC 区域与外部不相关（**独立渲染隔离块**）
+	2. 可以包含浮动元素
+	3. 内部元素从上往下排列
 - 触发条件
-
-  1. 根元素
-  2. (浮动元素)float:none 以外
-  3. （内容超出不可见或滚动）overflow:visible 以外 （常用来生成 BFC）
-  4. display：inline-block；table-cell、table-caption
-  5. position 的值为 absolute 或 fixed
-  6. display：flow-root（专门用于生成BFC）
+	1. 根元素
+	2. (浮动元素) float:none 以外
+	3. （内容超出不可见或滚动）overflow:visible 以外 （常用来生成 BFC）
+	4. display：inline-block；table-cell、table-caption
+	5. position 的值为 absolute 或 fixed
+	6. display：flow-root（专门用于生成 BFC）
 - 作用
-
-  1. 防止上下边距重叠 （利用 BFC 隔离上下间的 margin）
-  2. 清除浮动防止元素塌陷
-  3. 两栏布局，防止文字环绕 （利用 BFC 可以包含浮动元素）
+	1. 防止上下边距重叠 （利用 BFC 隔离上下间的 margin）
+	2. 清除浮动防止元素塌陷
+	3. 两栏布局，防止文字环绕 （利用 BFC 可以包含浮动元素）
 
 ## [水平垂直居中](https://segmentfault.com/a/1190000016389031?utm_source=tag-newest)
 
 1. 父元素相对定位，子元素绝对定位 margin：auto；top-left-bottom-right 为 0
-2. 父元素相对定位，子元素绝对定位设置 left、top：50%，再用 transfrom：translate（-50%，-50%）或者-margin
+2. 父元素相对定位，子元素绝对定位设置 left、top：50%，再用 transfrom：translate（-50%，-50%）或者 -margin
 3. flex
 4. grid
 
@@ -296,9 +300,9 @@ grid-area:footer ; background:blue}
    子:display:inline-block;
 ```
 
-8. 单行文本水平垂直居中：text-align:center；line-height:父高;
-   多行文本也可以，不过由于子元素会继承父元素的 line-height，还需要修改子元素的行高
-9. 父：text-align：center；子：vertical-align:middle;在父元素上添加伪元素来设置 height:100%
+8. 单行文本水平垂直居中：text-align:center；line-height: 父高;
+			多行文本也可以，不过由于子元素会继承父元素的 line-height，还需要修改子元素的行高
+9. 父：text-align：center；子：vertical-align:middle; 在父元素上添加伪元素来设置 height:100%
 
 ```
 .d{
@@ -322,8 +326,9 @@ grid-area:footer ; background:blue}
 }
 ```
 
-vertical-align：定义 `行内`元素的 `基线`相对于该元素所在行的基线的垂直对齐
-在 `表单元格table-cell`中，该元素设置单元格框中的单元格内容的对齐方式
+vertical-align：定义 `行内` 元素的 `基线` 相对于该元素所在行的基线的垂直对齐
+
+在 `表单元格table-cell` 中，该元素设置单元格框中的单元格内容的对齐方式
 
 总结：
 
@@ -334,21 +339,24 @@ vertical-align：定义 `行内`元素的 `基线`相对于该元素所在行的
 
 ## [line-height](https://juejin.im/post/5bf805fde51d453a68008e32)
 
-line-height:两行文字基线之间的距离
+line-height: 两行文字基线之间的距离
 
 - 内联元素的高度是由行高决定的
 - line-height 的百分比和数值都是基于当前元素的 font-size 来计算，不同在于继承元素的计算方式
 
-**normal**
+normal
+
 取决于用户代理。桌面浏览器（包括火狐）使用大约 1.2 的默认值，具体随元素的 font-family 而定。不同浏览器的默认行高可能存在差异。
 
-**数值**：
-根据父元素的 font-size 值计算 line-height 的值，子元素直接继承 line-height 的**设置数值**，根据自身的 font-size 再次计算 line-height 的值。这是设置行高并避免由于继承导致意外结果的首选方法。
+数值：
 
-**百分比值：**
-根据父元素的 font-size 值计算 line-height 的值，子元素继承**计算后**的 line-height 值。
+根据父元素的 font-size 值计算 line-height 的值，子元素直接继承 line-height 的设置数值，根据自身的 font-size 再次计算 line-height 的值。这是设置行高并避免由于继承导致意外结果的首选方法。
 
-**em**:表示行高为当前字体大小的 2.6 倍
+百分比值：
+
+根据父元素的 font-size 值计算 line-height 的值，子元素继承计算后的 line-height 值。
+
+em: 表示行高为当前字体大小的 2.6 倍
 
 ## height 和 width 的百分比差异
 
@@ -363,22 +371,22 @@ height 对百分比也是支持的，但是其和 width 还是有一个明显的
 父级元素的高度为 auto 时，我们设置子元素的高度为 100%，浏览器只能得到 undefined，算不出。
 
 在\<body\>之中的元素的父元素并不仅仅只是\<body\>，还包括了\<html\>。
+
 所以我们要同时设置这两者的 height，只设置其中一个是不行的
 
-- 正常流下，如果块级元素的 `width`是个固定值，`margin`是 `auto`，则 `margin`会撑满剩下的空间；如果 `margin`是固定值，`width`是 `auto`，则 `width`会撑满剩下的空间。这就是流体布局的根本所在。
-- **外在盒子和内在盒子**
+- 正常流下，如果块级元素的 `width` 是个固定值，`margin` 是 `auto`，则 `margin` 会撑满剩下的空间；如果 `margin` 是固定值，`width` 是 `auto`，则 `width` 会撑满剩下的空间。这就是流体布局的根本所在。
+- 外在盒子和内在盒子
+	外在盒子是决定元素排列方式的盒子，即决定盒子具有块级特性还是内联特性的盒子。外在盒子负责结构布局。
 
-  外在盒子是决定元素排列方式的盒子，即决定盒子具有块级特性还是内联特性的盒子。外在盒子负责结构布局。
+	内在盒子是决定元素内部一些属性是否生效的盒子。内在盒子负责内容显示。
 
-  内在盒子是决定元素内部一些属性是否生效的盒子。内在盒子负责内容显示。
-
-  如 `display: inline-table;` 外在盒子就是 `inline`，内在盒子就是 `table`。外在盒子决定了元素要像内联元素一样并排在一排显示，内在盒子则决定了元素可以设置宽高、垂直方向的 margin 等属性。如下图
+	如 `display: inline-table;` 外在盒子就是 `inline`，内在盒子就是 `table`。外在盒子决定了元素要像内联元素一样并排在一排显示，内在盒子则决定了元素可以设置宽高、垂直方向的 margin 等属性。如下图
 
 ![img](https://user-gold-cdn.xitu.io/2019/6/28/16b9eb290f144367?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
 
 右侧的 table 和左侧的文字在一行排列（外在盒子 inline 的表现特征），同时有拥有自定义宽度 111px（内在盒子 table 可以设置宽高）。
 
-- ```js
+```js
   // 三种定位机制使用了4个属性来描述定位元素各边相对于其包含块的偏移。这4个属性被称为偏移属性
   top/right/bottom/left = <length> | <percentage> | auto（默认） | inherit
   /*
@@ -399,45 +407,67 @@ height 对百分比也是支持的，但是其和 width 还是有一个明显的
 
 ## margin、padding
 
-无论是垂直或水平方向，均是相对于**父元素的宽度**，正常文档流中和设置浮动的情况下，相对于父元素 content-box 的宽度；绝对定位时，相对于包含块 padding-box 的宽度。
+无论是垂直或水平方向，均是相对于父元素的宽度，正常文档流中和设置浮动的情况下，相对于父元素 content-box 的宽度；绝对定位时，相对于包含块 padding-box 的宽度。
 
 ## 定位元素的 left/right/bottom/top 百分比值
 
-top 的百分比值是按离其最近的有定位属性的祖先元素的（内容高+padding）值来计算的css 选择器
+top 的百分比值是按离其最近的有定位属性的祖先元素的（内容高 +padding）值来计算的 css 选择器
 
 这些都是以它的父元素，如果只知道父元素，可以先随便选择一个它的子元素来选择
-特殊--p:nth-child(2) 父元素匹配的第 n 个子元素
+
+特殊 --p:nth-child(2) 父元素匹配的第 n 个子元素
+
 p:nth-of-type(2) 第 n 个为 p 的元素
+
 p:nth-last-child(2) 倒数第 n 个
+
 p:nth-last-of-type(2) 倒数第 n 个为 p 的元素
+
 p:nth-last-child(odd) //奇
+
 p:nth-last-child(even) //偶
+
 p:nth-of-type(3n+0) //索引是 3 的倍数的 p 元素
 
 p:last-of-type 父元素的最后一个 p
+
 p:first-of-type 父元素的第一个 p
+
 p:last-child 最后一个 p
+
 p:first-child 第一个 p
 
 p:first-child i //匹配所有作为第一个子元素的 `<p>` 元素中的所有 `<i>` 元素
+
 p:first-of-type 选择的每个 p 元素是其父元素的第一个 p 元素
+
 p > i:first-child//匹配所有 `<p>` 元素中的第一个 `<i>` 元素
+
 总结：有 of-type 的就是其父元素的第 n 个匹配
+
 没有的就是纯粹的满足匹配的第 n 个
+
 attribute 属性中包含 value [title~=flower]
+
 attribute 属性以 value 开头 [lang|=en] 性中必须是完整且唯一的单词，或者以 - 分隔开 `<p lang="en">` `<p lang="en-us">`
+
 [attribute^=value] 属性的前几个字母是 value 就可以
+
 .attribute 属性以 value 结尾: [attribute$=value]
 
 在 CSS 中伪类一直用 : 表示，如 :hover, :active 等
+
 伪元素在 CSS1 中已存在，当时语法是用 : 表示，如 :before 和 :after
+
 后来在 CSS3 中修订，伪元素用 :: 表示，如 ::before 和 ::after，以此区分伪元素和伪类
+
 由于低版本 IE 对双冒号不兼容，开发者为了兼容性各浏览器，继续使使用 :after 这种老语法表示伪元素
+
 综上所述：::before 是 CSS3 中写伪元素的新语法； :after 是 CSS1 中存在的、兼容 IE 的老语法
 
 ## 可继承
 
-可以继承的属性很少，只有**颜色，文字，字体间距行高对齐方式，和列表的样式**可以继承。
+可以继承的属性很少，只有颜色，文字，字体间距行高对齐方式，和列表的样式可以继承。
 
 - 所有元素可继承：visibility 和 cursor。
 - 内联元素可继承：letter-spacing、word-spacing、white-space、line-height、color、font、font-family、font-size、font-style、font-variant、font-weight、text-decoration、text-transform、direction。
@@ -447,6 +477,7 @@ attribute 属性以 value 开头 [lang|=en] 性中必须是完整且唯一的单
 ## css3
 
 transform 属性向元素应用 2D 或 3D 转换。该属性允许我们对元素进行旋转、缩放、移动或倾斜。
+
 主要取值有：translate、scale、rotate、skew
 
 对应移动，注意 translateZ 是空间里外移动，x 是横轴，y 是竖向
@@ -478,7 +509,7 @@ transform:\scale(0.85,0.90)\ translate(0px,-30px)\ skew(-9deg,0deg)\Animation:
 word-wrap(单词换行)：normal(只允许在断点处换行)|break-world(如果单词过长，截断强制换行);
 ```
 
-* word-break(单词换行)：normal(浏览器默认的换行规则，一般是不允许长单词内部换行) | break-all（允许在单词内换行) | keep-all(只能在半角空格或连字符处换行)
+- word-break(单词换行)：normal(浏览器默认的换行规则，一般是不允许长单词内部换行) | break-all（允许在单词内换行) | keep-all(只能在半角空格或连字符处换行)
 
 [perspective](https://css-tricks.com/how-css-perspective-works/)
 
@@ -497,44 +528,42 @@ word-wrap(单词换行)：normal(只允许在断点处换行)|break-world(如果
 1. block 元素可以包含 block 元素和 inline 元素；但 inline 元素只能包含 inline 元素。要注意的是这个是个大概的说法，每个特定的元素能包含的元素也是特定的，所以具体到个别元素上，这条规律是不适用的。比如 P 元素，只能包含 inline 元素，而不能包含 block 元素。
 2. 一般来说，可以通过 display:inline 和 display:block 的设置，改变元素的布局级别。
 
-### **block，inline 和 inline-block 细节对比**
+### block，inline 和 inline-block 细节对比
 
 - display:block
-
-  1. block 元素会独占一行，多个 block 元素会各自新起一行。默认情况下，block 元素宽度自动填满其父元素宽度。
-  2. block 元素可以设置 width,height 属性。块级元素即使设置了宽度,仍然是独占一行。
-  3. block 元素可以设置 margin 和 padding 属性。
+	1. block 元素会独占一行，多个 block 元素会各自新起一行。默认情况下，block 元素宽度自动填满其父元素宽度。
+	2. block 元素可以设置 width,height 属性。块级元素即使设置了宽度,仍然是独占一行。
+	3. block 元素可以设置 margin 和 padding 属性。
 - display:inline
-
-  1. inline 元素不会独占一行，多个相邻的行内元素会排列在同一行里，直到一行排列不下，才会新换一行，其宽度随元素的内容而变化。
-  2. inline 元素设置 width,height 属性无效。
-  3. inline 元素的 margin 和 padding 属性，水平方向的 padding-left, padding-right, margin-left, margin-right 都产生边距效果；但竖直方向的 padding-top, padding-bottom, margin-top, margin-bottom 不会产生边距效果。
+	1. inline 元素不会独占一行，多个相邻的行内元素会排列在同一行里，直到一行排列不下，才会新换一行，其宽度随元素的内容而变化。
+	2. inline 元素设置 width,height 属性无效。
+	3. inline 元素的 margin 和 padding 属性，水平方向的 padding-left, padding-right, margin-left, margin-right 都产生边距效果；但竖直方向的 padding-top, padding-bottom, margin-top, margin-bottom 不会产生边距效果。
 - display:inline-block
+	1. 简单来说就是将对象呈现为 inline 对象，但是对象的内容作为 block 对象呈现。之后的内联对象会被排列在同一行内。比如我们可以给一个 link（a 元素）inline-block 属性值，使其既具有 block 的宽度高度特性又具有 inline 的同行特性。
 
-  1. 简单来说就是将对象呈现为 inline 对象，但是对象的内容作为 block 对象呈现。之后的内联对象会被排列在同一行内。比如我们可以给一个 link（a 元素）inline-block 属性值，使其既具有 block 的宽度高度特性又具有 inline 的同行特性。
+例如：
 
-  例如：
+inline-block 将会使元素成为一个 inline 元素（如后跟内联元素，将不会换行），但本身却仍然支持 block 元素的属性。
 
-  inline-block 将会使元素成为一个 inline 元素（如后跟内联元素，将不会换行），但本身却仍然支持 block 元素的属性。
+``<div>A</div><span>B</span>``
 
-  ``<div>A</div><span>B</span>``
+此时 div 为 block 元素，span 为 inline 元素，显示顺序为 A->换行 ->B。
 
-  此时 div 为 block 元素，span 为 inline 元素，显示顺序为 A->换行->B。
+对 block 元素使用 inline-block 属性。
 
-  对 block 元素使用 inline-block 属性。
-  `<div style="display:inline-block;margintop:10px">A</div><span>B</span> `
+`<div style="display:inline-block;margintop:10px">A</div><span>B</span> `
 
-  此时 div 为 inline 元素，但仍然支持 margin 的垂直属性 top，显示顺序为 A->同行->B(整体下降 10px)。
+此时 div 为 inline 元素，但仍然支持 margin 的垂直属性 top，显示顺序为 A->同行 ->B(整体下降 10px)。
 
-  对 inline 元素使用 inline-block 属性。
+对 inline 元素使用 inline-block 属性。
 
 ``<div>A</div><span style="display:inline-block;margin-top:10px">B</span><span>C</span>``
 
-此时 div 为 block 元素，B 仍然为 inline 元素，但开始支持 margin 的垂直属性 top，C 为 inline 元素。显示顺序为 A->换行->B->同行->C(B,C 整体下降 10px)。
+此时 div 为 block 元素，B 仍然为 inline 元素，但开始支持 margin 的垂直属性 top，C 为 inline 元素。显示顺序为 A->换行 ->B->同行 ->C(B,C 整体下降 10px)。
 
 虽然 inline-block 有着 block 与 inline 结合的好处的，在某些布局上可以贡献些力量，但是同时它也存在一些问题。
 
-### **水平间隙问题**
+### 水平间隙问题
 
 我们创建一个导航列表，并将其列表 item 设置为 inline-block，主要代码如下：
 
@@ -559,11 +588,11 @@ word-wrap(单词换行)：normal(只允许在断点处换行)|break-world(如果
 
 同样对于所有的行内元素（inline，inline-block），换行都会产生空白符的间隙。
 
-### **如何消除空白符**
+### 如何消除空白符
 
 从上面我们了解到空白符，是浏览器正常的表现行为。但是对于某些场景来说，并不美观，而且间隙大小非可控，所以我们往往需要去掉这个空白间隙。一般来说我们有两种方法来去掉这个换行引起间隙：代码不换行和设置 font-size。
 
-**代码不换行**
+代码不换行
 
 我们了解到，由于换行空格导致产生换行符，因此我们可以将上述例子中的列表 item 写成一行，这样空白符便消失，间隙就不复存在了。其代码如下：
 
@@ -585,7 +614,7 @@ word-wrap(单词换行)：normal(只允许在断点处换行)|break-world(如果
 
 ![img](https://pic2.zhimg.com/80/v2-b067648c7f051cf9a9846b98c025c259_720w.jpg?ynotemdtimestamp=1622903086798)
 
-#### **设置 Font-Size**
+#### 设置 Font-Size
 
 首先要理解空白符归根结底是个字符，因此，我们可以通过设置 font-size 属性来控制其产生的间隙的大小。我们知道如果将 font-size 设置为 0，文字字符是没法显示的，那么同样这个空白字也没了，间隙也就没了。
 
@@ -610,9 +639,9 @@ word-wrap(单词换行)：normal(只允许在断点处换行)|break-world(如果
 
 使用该方法时需要特别注意其子元素一定要重置 font-size，不然很容易掉进坑里（文字显示不出来）。
 
-#### **垂直间隙问题**
+#### 垂直间隙问题
 
-由于 inline-block 垂直对齐使用的是 `vertical-align` 属性，而该属性默认的对齐方式为 `baseline`，而基线的位置为小写英文字母 `x`的下端沿。该线离底线（text-bottom）还是有点距离的。
+由于 inline-block 垂直对齐使用的是 `vertical-align` 属性，而该属性默认的对齐方式为 `baseline`，而基线的位置为小写英文字母 `x` 的下端沿。该线离底线（text-bottom）还是有点距离的。
 
 下面以实例论证，如下：
 
@@ -632,7 +661,7 @@ word-wrap(单词换行)：normal(只允许在断点处换行)|break-world(如果
 
 ![img](https://pic2.zhimg.com/80/v2-a1c244be55e89a2d8f794667be1ef5c5_720w.jpg?ynotemdtimestamp=1622903086798)
 
-按道理来说，div 的高度应该是图片撑开的高度，所以不可能看到如图所示的大概 3px （不同的字体大小，这个灰色间隙会不一样）的背景色。所以为了解决这个问题，我们可以设置 img 的 `vertical-align` 的值为 `middle`，`text-top`，`text-bottom`都可以（前提是父元素 `line-height` 计算的高度要小于图片的高度）。
+按道理来说，div 的高度应该是图片撑开的高度，所以不可能看到如图所示的大概 3px （不同的字体大小，这个灰色间隙会不一样）的背景色。所以为了解决这个问题，我们可以设置 img 的 `vertical-align` 的值为 `middle`，`text-top`，`text-bottom` 都可以（前提是父元素 `line-height` 计算的高度要小于图片的高度）。
 
 所以一般为了避免这个垂直的间隙，在设置 inline-block 的时候，还需要顺手带个 `vertical-align: middle;`
 
@@ -663,40 +692,39 @@ word-wrap(单词换行)：normal(只允许在断点处换行)|break-world(如果
 - justify-content：flex-start/flex-end/center/space-between/space-around
 - align-items：flex-start/flex-end/center/baseline/stretch
 - align-content：flex-start/flex-end/center/space-between/space-around
-- flex-grow：设置子元素的放大比例，默认值为0，即子元素不放大
-- flex-shrink：设置子元素的缩小比例，默认值为1，即子元素可缩小
-- flex-basis：设置子元素在分配多余空间之前的默认大小，默认值为auto，即子元素的默认大小由内容决定
-- order：设置子元素的排列顺序，默认值为0，即按照文档流的顺序排列
-- `flex:1` 和 `flex:auto` 的区别，可以归结于 `flex-basis:0`和 `flex-basis:auto`的
-  - 当设置为0时（绝对弹性元素），此时相当于告诉 `flex-grow`和 `flex-shrink`在伸缩的时候不需要考虑我的尺寸
-  - 当设置为 `auto`时（相对弹性元素），此时则需要在伸缩时将元素尺寸纳入考虑
+- flex-grow：设置子元素的放大比例，默认值为 0，即子元素不放大
+- flex-shrink：设置子元素的缩小比例，默认值为 1，即子元素可缩小
+- flex-basis：设置子元素在分配多余空间之前的默认大小，默认值为 auto，即子元素的默认大小由内容决定
+- order：设置子元素的排列顺序，默认值为 0，即按照文档流的顺序排列
+- `flex:1` 和 `flex:auto` 的区别，可以归结于 `flex-basis:0` 和 `flex-basis:auto` 的
+	- 当设置为 0 时（绝对弹性元素），此时相当于告诉 `flex-grow` 和 `flex-shrink` 在伸缩的时候不需要考虑我的尺寸
+	- 当设置为 `auto` 时（相对弹性元素），此时则需要在伸缩时将元素尺寸纳入考虑
 
 ## 层叠上下文
 
-1. 层叠上下文是HTML元素层级的一个子集，可以理解为浏览器在渲染时z轴方向，有多个平面，每个平面就是一个层叠上下文
-
-   1. 每个层叠上下文可以包含多个元素，元素之间也有其相应的层叠顺序。
-   2. 在比较元素的层级顺序时，首先要比较其所属的层叠上下文的顺序
-      1. 如果不在一个层叠上下文，则其先后顺序就是其**层叠上下文的顺序**
-      2. 如果在一个层叠上下文中，则其先后顺序由浏览器默认的**元素层叠顺序**决定
+1. 层叠上下文是 HTML 元素层级的一个子集，可以理解为浏览器在渲染时 z 轴方向，有多个平面，每个平面就是一个层叠上下文
+	1. 每个层叠上下文可以包含多个元素，元素之间也有其相应的层叠顺序。
+	2. 在比较元素的层级顺序时，首先要比较其所属的层叠上下文的顺序
+		1. 如果不在一个层叠上下文，则其先后顺序就是其**层叠上下文的顺序**
+		2. 如果在一个层叠上下文中，则其先后顺序由浏览器默认的**元素层叠顺序**决定
 2. 如何创建层叠上下文
-
-   1. 文档根元素HTML
-   2. [`position`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/position) 值为 `absolute`（绝对定位）或 `relative`（相对定位）且 [`z-index`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/z-index) 值不为 `auto` 的元素；
-   3. [`position`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/position) 值为 `fixed`（固定定位）或 `sticky`（粘滞定位）的元素
-   4. flex ([`flex`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/flex)) 容器的子元素，且 [`z-index`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/z-index) 值不为 `auto`；
-   5. grid ([`grid`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/grid)) 容器的子元素，且 [`z-index`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/z-index) 值不为 `auto`；
-   6. CSS3中的新属性也可以产生层叠上下文。具体参考 [mdn](https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_positioned_layout/Understanding_z-index/Stacking_context)
+	1. 文档根元素 HTML
+	2. [`position`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/position) 值为 `absolute`（绝对定位）或 `relative`（相对定位）且 [`z-index`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/z-index) 值不为 `auto` 的元素；
+	3. [`position`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/position) 值为 `fixed`（固定定位）或 `sticky`（粘滞定位）的元素
+	4. flex ([`flex`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/flex)) 容器的子元素，且 [`z-index`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/z-index) 值不为 `auto`；
+	5. grid ([`grid`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/grid)) 容器的子元素，且 [`z-index`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/z-index) 值不为 `auto`；
+	6. CSS3 中的新属性也可以产生层叠上下文。具体参考 [mdn](https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_positioned_layout/Understanding_z-index/Stacking_context)
 3. z-index
-
-   1. 该属性影响定位元素在同一个层叠上下文中的层叠顺序，非定位元素默认为auto
-   2. 数值越大，则元素越在z轴上方
-4. 浏览器默认元素层叠顺序
-   ![img](https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2018/8/30/1658910c5cb364b6~tplv-t2oaga2asx-jj-mark:3024:0:0:0:q75.png)
+	1. 该属性影响定位元素在同一个层叠上下文中的层叠顺序，非定位元素默认为 auto
+	2. 数值越大，则元素越在 z 轴上方
+1. 浏览器默认元素层叠顺序
+			![img](https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2018/8/30/1658910c5cb364b6~tplv-t2oaga2asx-jj-mark:3024:0:0:0:q75.png)
 
 ## 相关文档
 
-- [ 两栏布局、三栏布局](https://i-want-offer.github.io/FE-Essay/CSS/%E4%B8%A4%E6%A0%8F%E5%B8%83%E5%B1%80.html)
+- [两栏布局、三栏布局](https://i-want-offer.github.io/FE-Essay/CSS/%E4%B8%A4%E6%A0%8F%E5%B8%83%E5%B1%80.html)
 - [面试官：元素水平垂直居中的方法有哪些？如果元素不定宽高呢？ | web前端面试 - 面试官系列](https://vue3js.cn/interview/css/center.html#%E4%B8%80%E3%80%81%E8%83%8C%E6%99%AF)
 
-相关文档
+### em 单位
+
+**`em` 单位在用于 `font-size` 时表示“父元素的字体大小”**（而在用于其他属性时则表示“自身的字体大小”）

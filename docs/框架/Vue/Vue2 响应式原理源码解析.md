@@ -1,6 +1,6 @@
-# Vue 响应式原理
+## Vue2 响应式原理
 
-首先试想一下以下代码中点击\$('#value')元素会发生什么呢？会触发 test 方法吗
+首先试想一下以下代码中点击\$('#value') 元素会发生什么呢？会触发 test 方法吗
 
 ```vue
 <template>
@@ -42,7 +42,7 @@ export default {
 
 为了解答这个问题，我们需要了解 computed 是何如何收集依赖的，为什么 computed 里面调用的函数里面涉及到的 data 也能够收集到？带着疑问我们看下 computed 是如果收集依赖的
 
-在以下的从 vue3 种 watcher 响应式原理解析理解完成之后不难理解以上代码点击\$('#id')元素会发生了，由于 text 的 getter 函数中执行了 test 函数，此时访问了 age 属性，age 的 dep 会收集 text 的 ComputedWatcher，那么自然在 age 改变时就会触发 computed 重新计算。
+在以下的从 vue3 种 watcher 响应式原理解析理解完成之后不难理解以上代码点击\$('#id') 元素会发生了，由于 text 的 getter 函数中执行了 test 函数，此时访问了 age 属性，age 的 dep 会收集 text 的 ComputedWatcher，那么自然在 age 改变时就会触发 computed 重新计算。
 
 watcher 解析
 
@@ -97,7 +97,7 @@ export function popTarget () {
 }
 ```
 
-## 依赖收集
+### 依赖收集
 
 data 中的数据会循环并递归执行 defineReactive，使得每个 data 上的对象都是响应式的
 
@@ -160,14 +160,14 @@ new Watcher(vm, updateComponent, noop, {
 }, true /* isRenderWatcher */)
 ```
 
-## render watcher（watcher 通知页面渲染）
+### render watcher（watcher 通知页面渲染）
 
 - 以上实例化了一个 renderWatcher
-  - 首先进入 watcher 的构造函数
-  - 到 `<span class="ne-text">this.value = this.lazy ? undefined : this.get()</span>` 执行 this.get() 方法
-  - 进入 get 函数，首先会执行：pushTarget(this)，把 Dep.target 赋值为当前的 renderWatcher 并压栈（为了恢复用)
-  - 接着执行了：`<span class="ne-text">value = this.getter.call(vm, vm)</span>`this.getter 对应就是 updateComponent 函数，这实际上就是在执行：`<span class="ne-text">vm._update(vm._render(), hydrating)</span>`,它会先执行 vm.\_render() 方法，因为之前分析过这个方法会生成 渲染 VNode，并且在这个过程中会对 vm 上的数据访问，这个时候就触发了 data 数据对象的 getter。
-  - 然后将每个 data 对象的 dep 都加入这个 renderWatcher，在数据更新的时候即 setter 中调用 renderWatcher 的 update 方法，重新渲染
+	- 首先进入 watcher 的构造函数
+	- 到 `<span class="ne-text">this.value = this.lazy ? undefined : this.get()</span>` 执行 this.get() 方法
+	- 进入 get 函数，首先会执行：pushTarget(this)，把 Dep.target 赋值为当前的 renderWatcher 并压栈（为了恢复用)
+	- 接着执行了：`<span class="ne-text">value = this.getter.call(vm, vm)</span>`this.getter 对应就是 updateComponent 函数，这实际上就是在执行：`<span class="ne-text">vm._update(vm._render(), hydrating)</span>`,它会先执行 vm.\_render() 方法，因为之前分析过这个方法会生成 渲染 VNode，并且在这个过程中会对 vm 上的数据访问，这个时候就触发了 data 数据对象的 getter。
+	- 然后将每个 data 对象的 dep 都加入这个 renderWatcher，在数据更新的时候即 setter 中调用 renderWatcher 的 update 方法，重新渲染
 
 ```javascript
 export default class Watcher {
@@ -305,7 +305,7 @@ export default class Watcher {
 }
 ```
 
-## computed watcher （computed 属性实现）
+### computed watcher （computed 属性实现）
 
 - 首先找到 initComputed 函数
 
@@ -394,7 +394,7 @@ constructor (
 ```
 
 - 然后当 mount 的时候 render 函数执行到该 computed 属性，会触发该计算属性的 getter，会执行 createComputedGetter 函数，然后会执行 watcher.depend()，
-- 主要是执行了 `<span class="ne-text">watcher.depend</span>`方法，这个时候的 Dep.target 是 render watcher，执行该方法会使得 render watcher 订阅这个 computed watcher 的变化。
+- 主要是执行了 `<span class="ne-text">watcher.depend</span>` 方法，这个时候的 Dep.target 是 render watcher，执行该方法会使得 render watcher 订阅这个 computed watcher 的变化。
 
 ```plain
 // 让当前正在收集依赖的watcher添加自己
@@ -424,7 +424,7 @@ Watcher.addDep (dep: Dep) {
   }
 ```
 
-- 然后执行 `<span class="ne-text">watcher.evaluate</span>`方法
+- 然后执行 `<span class="ne-text">watcher.evaluate</span>` 方法
 - evaluate 的逻辑非常简单，判断 this.dirty，如果为 true 则通过 this.get() 求值，然后把 this.dirty 设置为 false。在求值过程中，会执行 value = this.getter.call(vm, vm)，这实际上就是执行了计算属性定义的 getter 函数
 
 ```plain
@@ -492,7 +492,7 @@ Watcher.prototype.update = function update () {
 };
 ```
 
-## user watcher（watch 属性实现）
+### user watcher（watch 属性实现）
 
 ```plain
 
@@ -578,7 +578,7 @@ function parsePath (path) {
 }
 ```
 
-- parsePath 方法最终返回一个闭包方法，此时 Watcher 类中的 this.getter 就是一个函数了，再执行 this.get()方法时会将 this.vm 传入到闭包内，补全 Watcher 其他的逻辑：
+- parsePath 方法最终返回一个闭包方法，此时 Watcher 类中的 this.getter 就是一个函数了，再执行 this.get() 方法时会将 this.vm 传入到闭包内，补全 Watcher 其他的逻辑：
 
 ```plain
 class Watcher {c
@@ -600,7 +600,7 @@ class Watcher {c
 }
 ```
 
-## 派发更新
+### 派发更新
 
 - 以上 3 中数据无论是 renderwatcher 收集的 data 对象属性变化，还是 computed 收集的依赖属性变化还是 watch 的单个属性变化，都会调用变化的属性或值的 dep 的 watcher 数组执行 updata 方法
 
@@ -672,19 +672,21 @@ export function queueWatcher (watcher: Watcher) {
 }
 ```
 
-## 队列排序
+### 队列排序
 
 queue.sort((a, b) => a.id - b.id) 对队列做了从小到大的排序，这么做主要有以下要确保以下几点：
 
 组件的更新由父到子；因为父组件的创建过程是先于子的，所以 watcher 的创建也是先父后子，执行顺序也应该保持先父后子。
+
 用户的自定义 watcher 要优先于渲染 watcher 执行；因为用户自定义 watcher 是在渲染 watcher 之前创建的。
+
 如果一个组件在父组件的 watcher 执行期间被销毁，那么它对应的 watcher 执行都可以被跳过，所以父组件的 watcher 应该先执行。
 
-## nextTick
+### nextTick
 
 在 Vue 中，可以通过 this.\$nextTick 方法来确保在 DOM 更新完成后执行回调函数和获取更新后的 DOM。例如，如果你在数据变化后立即尝试获取 DOM 元素的内容，可能会发现获取的还是旧的内容。而在 nextTick 方法内部获取的将是更新后的内容
 
-### 异步更新 DOM 的原因
+#### 异步更新 DOM 的原因
 
 异步更新 DOM 是为了优化性能和提升用户体验。在 Vue 中，数据变化触发更新后，并不会立即反映在 DOM 上，而是将更新操作添加到一个异步队列中。这样做有几个好处：
 
@@ -693,23 +695,20 @@ queue.sort((a, b) => a.id - b.id) 对队列做了从小到大的排序，这么�
 3. 防止过度渲染 ：在某些情况下，组件的数据可能会在同一事件循环中发生多次变化。如果每次变化都立即触发 DOM 更新，可能会导致不必要的重复渲染。
 4. 提升用户体验 ：异步更新可以确保 Vue 在适当的时机执行 DOM 更新，从而减少阻塞主线程的情况，保证用户界面的响应性。
 
-### 如何使用异步更新 DOM
+#### 如何使用异步更新 DOM
 
 确保函数执行过程中对数据任意的修改，触发变化执行 nextTick 的时候强制走 microTimerFunc。比如对于一些 DOM 交互事件，如 v-on 绑定的事件回调函数的处理，会强制走 macrotask。
 
 - Vue 的 nextTick 之所以优先使用微任务实现?
-
-  - 主要是因为微任务相比宏任务在执行效率上更高。在 JavaScript 的事件循环中，微任务（例如 Promise 的.then 和 MutationObserver）会在当前执行栈清空后进行，而不会等待其他宏任务（例如 setTimeout、setInterval）的执行。这意味着微任务可以更早地被执行，从而减少了等待时间，提高了应用的响应速度。
-    - event loop
-
-      - 执行一个宏任务
-      - 清空所有微任务
-      - 由浏览器判断是否需要 ui render
-    - 由于 vue 的更新是异步的，我们要获取更新后的 dom，其实是只要保证回调函数在更新后尽快执行就可以了
-
-      - 根据浏览器的渲染机制，渲染线程是在微任务执行完成之后运行的。渲染线程没运行，怎么拿到 Dom 呢？
-      - 因为，渲染线程只是把 Dom 树渲染成 UI 而已，Vue 更新 Dom 之后，在 Dom 树里，新的 Dom 节点已经存在了，js 线程就已经可以拿到新的 Dom 了。除非开发者读取 Dom 的计算属性，触发了强制重流渲染线程才会打断 js 线程。
-- 在 Vue 的实现中，它会优先检测当前浏览器是否支持原生 Promise，如果支持，则使用 Promise 的.then 方法来实现 nextTick。如果不支持 Promise，则会检测是否支持 MutationObserver，如果支持，则使用 MutationObserver。如果上述两种都不支持，才会退回到使用 setTimeout 来实现nextTick。
+	- 主要是因为微任务相比宏任务在执行效率上更高。在 JavaScript 的事件循环中，微任务（例如 Promise 的.then 和 MutationObserver）会在当前执行栈清空后进行，而不会等待其他宏任务（例如 setTimeout、setInterval）的执行。这意味着微任务可以更早地被执行，从而减少了等待时间，提高了应用的响应速度。
+		- event loop
+			- 执行一个宏任务
+			- 清空所有微任务
+			- 由浏览器判断是否需要 ui render
+		- 由于 vue 的更新是异步的，我们要获取更新后的 dom，其实是只要保证回调函数在更新后尽快执行就可以了
+			- 根据浏览器的渲染机制，渲染线程是在微任务执行完成之后运行的。渲染线程没运行，怎么拿到 Dom 呢？
+			- 因为，渲染线程只是把 Dom 树渲染成 UI 而已，Vue 更新 Dom 之后，在 Dom 树里，新的 Dom 节点已经存在了，js 线程就已经可以拿到新的 Dom 了。除非开发者读取 Dom 的计算属性，触发了强制重流渲染线程才会打断 js 线程。
+- 在 Vue 的实现中，它会优先检测当前浏览器是否支持原生 Promise，如果支持，则使用 Promise 的.then 方法来实现 nextTick。如果不支持 Promise，则会检测是否支持 MutationObserver，如果支持，则使用 MutationObserver。如果上述两种都不支持，才会退回到使用 setTimeout 来实现 nextTick。
 
 ```plain
 /*
@@ -749,7 +748,7 @@ export function nextTick (cb?: Function, ctx?: Object) {
 ```
 
 - timerFunc 的实现比较简单，执行的目的是在 microtask 或者 task 中推入一个 function，在当前栈执行完毕（也许还会有一些排在前面的需要执行的任务）以后执行 nextTick 传入的 function
-  JS 的 event loop 执行时会区分 task 和 microtask，会执行一个宏任务再执行完所有的微任务，所以微任务的优先级总比宏任务高，所以此处用微任务模拟执行回调
+		JS 的 event loop 执行时会区分 task 和 microtask，会执行一个宏任务再执行完所有的微任务，所以微任务的优先级总比宏任务高，所以此处用微任务模拟执行回调
 - \$nextTick 也是内部用了 nextTick 方法，用微任务模拟执行回调
 
 ```plain
@@ -760,15 +759,15 @@ Vue.prototype.$nextTick = function (fn: Function) {
 
 注意： dom 更新和 next 函数的调用都是通过 nextTick 执行，都是在同一次微任务队列中清空执行，所以修改的先后顺序是重要的，如果在更新 data 之前调用 nextTick 则拿不到更新后的 dom
 
-## 原理图
+### 原理图
 
 最后缕一下整个流程：原理图如下
 
-![alt text](image.png)
+![alt text](docs/框架/Vue/image.png)
 
 [learnVue/docs/Vue.js 异步更新 DOM 策略及 nextTick.MarkDown at master · answershuto/learnVue](https://github.com/answershuto/learnVue/blob/master/docs/Vue.js%E5%BC%82%E6%AD%A5%E6%9B%B4%E6%96%B0DOM%E7%AD%96%E7%95%A5%E5%8F%8AnextTick.MarkDown)
 
-## 总结
+### 总结
 
 vue 中 computed、data、watch 属性以及组件级别的 render 更新都是利用了自有的 Vue 中 Watcher 构造函数实现的功能，只是根据各自不同的特性修改了 watcher 的功能。利用 object.defineProperty 以及发布订阅模式实现属性的依赖收集和触发更新
 
@@ -780,7 +779,7 @@ vue 中 computed、data、watch 属性以及组件级别的 render 更新都是�
 
 触发更新后，vue 采用异步更新以及根据虚拟 dom 都 diff 算出差异更新，提高更新的效率。
 
-## vue 最小功能实现
+### vue 最小功能实现
 
 ```
 <!DOCTYPE html>
